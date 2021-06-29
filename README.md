@@ -1,3 +1,30 @@
+# PawPals Pet Adpotion Website
+
+## To install packages
+
+* Run "npm i" in the root folder
+* Run "cd client && npm i"
+* Run "cd .."
+
+## To run
+* Run "npm start" in root folder. 
+* This will use the command in the package.json to start the server in the root folder and start the client also.
+
+## To view
+* Front end: A page should open automatically. If not, use this address: http://localhost:3000/
+* Back end: See demo route here: http://localhost:3001/connectToServer
+
+## Built With
+* [Express](https://expressjs.com/) - Web framework for Node.js
+* [Firebase]() - Database and User Authentication
+* [Heroku](https://www.heroku.com/home) - Deployment
+* [Node](http://jquery.com/) - Executes JavaScript server-side
+* [React](https://reactjs.org/) - Creates UI components
+
+## More info here
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
