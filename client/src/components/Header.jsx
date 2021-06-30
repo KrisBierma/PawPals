@@ -1,39 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Typography, Button, Toolbar, Link } from "@material-ui/core";
+import React from "react";
+import { Navbar, Nav, NavDropdown, NavItem } from "react-bootstrap";
+import "../styles/Header.css"
 
 // TODO: add conditionals for if logged in, highlight selected tab, add login functionality
-
-const useStyles = makeStyles(() => ({
-    header: {
-      backgroundColor: "#400CCC",
-      paddingRight: "79px",
-      paddingLeft: "118px",
-      "@media (max-width: 900px)": {
-        paddingLeft: 0,
-      },
-    },
-    logo: {
-      fontFamily: "Work Sans, sans-serif",
-      fontWeight: 600,
-      color: "#FFFEFE",
-      textAlign: "left",
-    },
-    menuButton: {
-      fontFamily: "Open Sans, sans-serif",
-      fontWeight: 700,
-      size: "18px",
-      marginLeft: "38px",
-    },
-    toolbar: {
-      display: "flex",
-      justifyContent: "space-between",
-    },
-    drawerContainer: {
-      padding: "20px 30px",
-    },
-  }));
+// TODO: pull user name from database
+// TODO: add modal popup functionality to login button
 
 const headersData = [
     {
@@ -55,22 +26,39 @@ const headersData = [
 ];
 
 export default function Header(props) {
-    const { header, logo, menuButton, toolbar, drawerContainer } = useStyles(); 
-
     // Currently our only display; creates full navbar
     const displayDesktop = () => {
         return (
-          <Toolbar className={toolbar}>
-            {pawPalsLogo}
-            <div>{getMenuButtons()}</div>
-          </Toolbar>
+            <Navbar sticky="top" bg="light" expand="lg">
+                {pawPalsLogo}
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="mr-auto">
+                        {getMenuButtons()}
+                    </Nav>
+                    <Nav >
+                        {displayLogIn()}
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
         );
     };
 
     const pawPalsLogo = (
-        <Typography variant="h6" component="h1" className={logo}>
-          PawPals
-        </Typography>
+        <Navbar.Brand href="#">PawPals</Navbar.Brand>
+    );
+
+    const login = (
+        <Nav className="ml-auto">
+            <NavItem href="#">Login</NavItem>
+        </Nav>
+    );
+
+    const settingDropDown = (
+        <NavDropdown title="Hello Alexis" id="navbarScrollingDropdown">
+            <NavDropdown.Item>Settings</NavDropdown.Item>
+            <NavDropdown.Item>Logout</NavDropdown.Item>
+        </NavDropdown>
     );
 
     // Create the Home, Browse, Favorite, and News/PR nav links
@@ -80,26 +68,25 @@ export default function Header(props) {
             if (!props.isLoggedIn && label === 'Favorites'){ return <></>; }
             else {
                 return (
-                    <Button
-                    {...{
-                        key: label,
-                        color: "inherit",
-                        to: href,
-                        className: menuButton,
-                    }}
-                    >
-                    {label}
-                    </Button>
+                    <Nav.Link href={href}>{label}</Nav.Link>
                 );
             }
         });
     };
+
+    // decide whether we display sign in or the person's name (if they are signed in)
+    const displayLogIn = () => {
+        if (props.isLoggedIn){
+            return settingDropDown;
+        }
+        else {
+            return login;
+        }
+    }
     
     return (
         <header>
-            <AppBar className={header}>
                 {displayDesktop()}
-            </AppBar>
         </header>
     );
 }
