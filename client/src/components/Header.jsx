@@ -1,8 +1,10 @@
 import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, NavItem } from "react-bootstrap";
 import "../styles/Header.css"
 
 // TODO: add conditionals for if logged in, highlight selected tab, add login functionality
+// TODO: pull user name from database
+// TODO: add modal popup functionality to login button
 
 const headersData = [
     {
@@ -27,12 +29,15 @@ export default function Header(props) {
     // Currently our only display; creates full navbar
     const displayDesktop = () => {
         return (
-            <Navbar bg="light" expand="lg">
+            <Navbar sticky="top" bg="light" expand="lg">
                 {pawPalsLogo}
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
+                <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                         {getMenuButtons()}
+                    </Nav>
+                    <Nav >
+                        {displayLogIn()}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -41,6 +46,19 @@ export default function Header(props) {
 
     const pawPalsLogo = (
         <Navbar.Brand href="#">PawPals</Navbar.Brand>
+    );
+
+    const login = (
+        <Nav className="ml-auto">
+            <NavItem href="#">Login</NavItem>
+        </Nav>
+    );
+
+    const settingDropDown = (
+        <NavDropdown title="Hello Alexis" id="navbarScrollingDropdown">
+            <NavDropdown.Item>Settings</NavDropdown.Item>
+            <NavDropdown.Item>Logout</NavDropdown.Item>
+        </NavDropdown>
     );
 
     // Create the Home, Browse, Favorite, and News/PR nav links
@@ -55,6 +73,16 @@ export default function Header(props) {
             }
         });
     };
+
+    // decide whether we display sign in or the person's name (if they are signed in)
+    const displayLogIn = () => {
+        if (props.isLoggedIn){
+            return settingDropDown;
+        }
+        else {
+            return login;
+        }
+    }
     
     return (
         <header>
