@@ -28,7 +28,7 @@ class App extends Component {
   render() {
     const isLoggedIn = this.state.isLoggedIn;
     return (
-      <div className="App" style={{paddingTop:"100px"}}>
+      <div className="App">
           <Root />
       </div>
     );
