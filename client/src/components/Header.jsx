@@ -26,6 +26,17 @@ const headersData = [
     },
 ];
 
+const loginFields = [
+    {
+        name: "Username",
+        type: "input",
+    },
+    {
+        name: "Password",
+        type: "input",
+    }
+]
+
 // handles the login button click
 const handleLogin = (setLoginModalOpen) => {
     setLoginModalOpen(true);
@@ -66,6 +77,9 @@ export default function Header(props) {
             <BasicModal 
                 show={loginModalOpen}
                 handleClose={() => handleLoginClose(setLoginModalOpen)}
+                title={'Member Login'}
+                saveTitle={'Login'}
+                fields={loginFields}
             />
             <Nav className="ml-auto">
                 <Button variant="primary" onClick={() => handleLogin(setLoginModalOpen)}>Login</Button>
