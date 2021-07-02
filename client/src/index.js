@@ -7,6 +7,9 @@ import reportWebVitals from './reportWebVitals';
 // Importing the Bootstrap CSS
 import './styles/bootstrap.min.css';
 
+// Importing Bootsrap JQuery
+import './bootstrap.js';
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

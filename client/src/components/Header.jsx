@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, NavDropdown, NavItem } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, NavItem, Button } from "react-bootstrap";
 import "../styles/Header.css"
 
 // TODO: add conditionals for if logged in, highlight selected tab, add login functionality
@@ -50,7 +50,7 @@ export default function Header(props) {
 
     const login = (
         <Nav className="ml-auto">
-            <NavItem href="#">Login</NavItem>
+            <Button variant="primary" onClick={}>Login</Button>
         </Nav>
     );
 
