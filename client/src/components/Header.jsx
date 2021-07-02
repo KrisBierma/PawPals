@@ -50,7 +50,7 @@ export default function Header(props) {
 
     const login = (
         <Nav className="ml-auto">
-            <Button variant="primary" onClick={}>Login</Button>
+            <Button variant="primary" >Login</Button>
         </Nav>
     );
 
@@ -82,6 +82,10 @@ export default function Header(props) {
         else {
             return login;
         }
+    }
+
+    const handleLogin = () => {
+        return;
     }
     
     return (
