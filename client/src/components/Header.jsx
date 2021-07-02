@@ -1,6 +1,7 @@
-import React from "react";
-import { Navbar, Nav, NavDropdown, NavItem, Button } from "react-bootstrap";
-import "../styles/Header.css"
+import React, { useState } from "react";
+import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
+import "../styles/Header.css";
+import { BasicModal } from "../components/Common";
 
 // TODO: add conditionals for if logged in, highlight selected tab, add login functionality
 // TODO: pull user name from database
@@ -25,7 +26,19 @@ const headersData = [
     },
 ];
 
+// handles the login button click
+const handleLogin = (setLoginModalOpen) => {
+    setLoginModalOpen(true);
+}
+
+// handles modal close; passed to common modal component
+const handleLoginClose = (setLoginModalOpen) => {
+    setLoginModalOpen(false);
+}
+
 export default function Header(props) {
+    const [loginModalOpen, setLoginModalOpen] = useState(false); 
+
     // Currently our only display; creates full navbar
     const displayDesktop = () => {
         return (
@@ -49,9 +62,15 @@ export default function Header(props) {
     );
 
     const login = (
-        <Nav className="ml-auto">
-            <Button variant="primary" >Login</Button>
-        </Nav>
+        <>
+            <BasicModal 
+                show={loginModalOpen}
+                handleClose={() => handleLoginClose(setLoginModalOpen)}
+            />
+            <Nav className="ml-auto">
+                <Button variant="primary" onClick={() => handleLogin(setLoginModalOpen)}>Login</Button>
+            </Nav>
+        </>
     );
 
     const settingDropDown = (
@@ -82,10 +101,6 @@ export default function Header(props) {
         else {
             return login;
         }
-    }
-
-    const handleLogin = () => {
-        return;
     }
     
     return (
