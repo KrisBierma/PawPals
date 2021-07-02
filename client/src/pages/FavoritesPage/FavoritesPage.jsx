@@ -3,5 +3,5 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 
 export default function FavoritesPage() {
-    return "Favorites Page";
+    return "Hello I am the FAVORITES Page";
 }
