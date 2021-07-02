@@ -7,7 +7,7 @@ import LandingPage from '../LandingPage/LandingPage'
 export default function Root() {
     return (
         <>
-            <Header isLoggedIn={true}/>
+            <Header isLoggedIn={false}/>
             <LandingPage/>
         </>
     );
