@@ -16,10 +16,10 @@ export default function Root() {
             <Route>
             <Header isLoggedIn={false}/>         
 
-            <Route path="/" exact strict render={LandingPage}/>
-            <Route path="/browse" render={BrowsePage}/>
-            <Route path="/favorites" render={FavoritesPage}/>
-            <Route path="/news" render={NewsPage}/>
+            <Route path="/" exact strict component={LandingPage}/>
+            <Route path="/browse" component={BrowsePage}/>
+            <Route path="/favorites" component={FavoritesPage}/>
+            <Route path="/news" component={NewsPage}/>
             </Route>
         </Router>
         </>
