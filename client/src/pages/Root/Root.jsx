@@ -14,7 +14,7 @@ export default function Root() {
         <>
         <Router>
             <Route>
-            <Header isLoggedIn={true}/>         
+            <Header isLoggedIn={false}/>         
 
             <Route path="/" exact strict render={LandingPage}/>
             <Route path="/browse" render={BrowsePage}/>
