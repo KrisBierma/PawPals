@@ -4,7 +4,7 @@ const port = process.env.PORT || 3001;
 const path = require("path");
 // const routes = require("./routes");
 
-app.use(express.static(path.join(__dirname, '/client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 // app.use(routes);
 
 // create a GET route
@@ -14,7 +14,7 @@ app.get('/connectToServer', (req, res) => {
 
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', function(request, response) {
-  response.sendFile(path.resolve(__dirname, '/client/build', 'index.html'));
+  response.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
 });
 
 // start server
