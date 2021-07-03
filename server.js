@@ -4,7 +4,7 @@ const port = process.env.PORT || 3001;
 const path = require("path");
 // const routes = require("./routes");
 
-app.use(express.static(path.join(__dirname, '/client/build')));
+app.use(express.static(path.join(__dirname, 'build')));
 // app.use(routes);
 
 // create a GET route
