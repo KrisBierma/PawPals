@@ -19,6 +19,5 @@ app.get('*', function(request, response) {
 
 // start server
 app.listen(port, function() {
-  console.log("__dirname", __dirname);
   console.log("Server listening on port ", port);
 });
