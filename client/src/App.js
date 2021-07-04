@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Root from './pages/Root/Root'
-import LandingPage from './pages/LandingPage/LandingPage'
-import BrowsePage from './pages/BrowsePage/BrowsePage'
-import FavoritesPage from './pages/FavoritesPage/FavoritesPage'
-import NewsPage from './pages/NewsPage/NewsPage'
+import { Header } from './components'
+import { LandingPage, BrowsePage, FavoritesPage, NewsPage } from './pages'
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 
 // Todo: determine if we are logged in or not, pass as props to Skeleton
@@ -35,7 +32,7 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <Root />
+          <Header isLoggedIn={false}/>
           <Switch>
             <Route exact path="/" component={LandingPage}/>         
             <Route exact path="/browse" component={BrowsePage}/>

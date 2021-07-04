@@ -20,5 +20,7 @@ export default function ItemsWithControl({
                     </InputGroup>
                 </>
                 );
+            default: 
+                // do nothing
         }
   }
