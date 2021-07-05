@@ -1,23 +1,21 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 
-// this is for demo purposes only to show db data; feel free to catch however
 export default function LandingPage() {
 const [animals, setAnimals] = useState(false);
   useEffect(() => {
     getAnimals();
   }, []);
   function getAnimals() {
-    fetch('http://localhost:3001/getanimals')
+    axios.get('/api/getanimals')
       .then(response => {
-          console.log(response);
-        return response.text();
+          console.log(response.data);
+          setAnimals(response.data[0].aname);
       })
-      .then(data => {
-        setAnimals(data);
-      });
   }    
   return (
       <div>
+        <p>Check out dev tools to see array of animals. Only the first animal's name will show here.</p>
           {animals ? animals : 'No animals yet'}
       </div>
   )
