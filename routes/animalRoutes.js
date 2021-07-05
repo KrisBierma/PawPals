@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const animalModel = require('../controllers/animalsController');
 
-router.get('/getanimals', (req, results) => {
+router.get('/api/getAnimals', (req, results) => {
 // app.get('/getanimals', (req, results) => {
   animalModel.getAnimals()
     .then(res => {

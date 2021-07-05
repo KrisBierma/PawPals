@@ -33,7 +33,6 @@ const getAnimals = () => {
       };
       console.log("RES:",res.rows[0]);
       if(res != undefined) {
-        console.log("in getanimals resolve");
         // to-do: handle this here or in component?
       }
       resolve(res.rows);
