@@ -12,7 +12,8 @@ export default function BasicModal({
   body = '',
   closeTitle = '',
   saveTitle = '',
-  fields = []
+  fields = [],
+  tabs = <></>,
   }) {
     return (
       <Modal 
@@ -21,6 +22,7 @@ export default function BasicModal({
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
+        {tabs && tabs}
         {/* Conditionally renders the title on Modal if title is passed */}
         {title && <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter">{title}</Modal.Title>
