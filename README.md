@@ -3,7 +3,6 @@
 ## To install packages
 
 * Run "npm i" in the root folder
-* Run "cd client && npm i"
 * Run "cd .."
 
 ## To run
