@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import "../styles/Header.css";
-import LoginSignUp from "./LoginSignUp"
+import { LoginSignUp } from "../components"
 
 // TODO: add conditionals for if logged in, highlight selected tab, add login functionality
 // TODO: pull user name from database

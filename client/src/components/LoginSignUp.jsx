@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BasicModal } from "../components/Common";
-import LoginTabs from "./LoginTabs"
+import { LoginTabs } from "../components"
 import { Nav, Button } from "react-bootstrap";
 
 const loginFields = [
