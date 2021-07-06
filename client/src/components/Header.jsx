@@ -5,7 +5,6 @@ import { LoginSignUp } from "../components"
 
 // TODO: add conditionals for if logged in, highlight selected tab, add login functionality
 // TODO: pull user name from database
-// TODO: add modal popup functionality to login button
 
 const headersData = [
     {

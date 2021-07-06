@@ -58,6 +58,7 @@ export default function LoginSignUp() {
     const [saveTitle, setSaveTitle] = useState('Login');
     const [fields, setFieldsTitle] = useState([]);
 
+    // will perform the following actions on render when modalType variable changes
     useEffect(() => {
         setTitle(data[modalType]?.title);
         setSaveTitle(data[modalType]?.saveTitle);
