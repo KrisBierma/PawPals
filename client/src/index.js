@@ -6,12 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-// // Importing the Bootstrap CSS
-// import './styles/bootstrap.min.css';
-
-// // Importing Bootsrap JQuery
-// import './bootstrap.js';
-
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
