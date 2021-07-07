@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PetProfileSmallCard } from "../components"
+import { GridLayout } from "../components/Common"
 import axios from 'axios';
 
 export default function BrowsePage() {
@@ -18,6 +18,6 @@ export default function BrowsePage() {
     }
 
     return (
-        <PetProfileSmallCard animal={animals[0]} />
+        <GridLayout cardData={animals} />
     )
 }

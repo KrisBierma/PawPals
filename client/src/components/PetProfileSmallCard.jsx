@@ -22,10 +22,15 @@ export default function PetProfileSmallCard({
     }
 
     function isFavorited() {
-        return (heartFull ? <i onClick={heartClick} class="bi bi-heart-fill"></i> : <i onClick={heartClick} class="bi bi-heart"></i>)
+        return (heartFull ? <i onClick={heartClick} className="bi bi-heart-fill"></i> : <i onClick={heartClick} className="bi bi-heart"></i>)
     }
 
     return (
-        <BasicCard title={animal?.aname} body={animal?.availabilityid} icon={isFavorited()} />
+        <BasicCard 
+            title={animal?.aname} 
+            body={animal?.availabilityid} 
+            icon={isFavorited()} 
+            image={'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/31120615/French-Bulldog-standing-in-profile-outdoors-in-the-fall.jpg'} 
+        />
     )
 }
