@@ -63,9 +63,7 @@ export default function Header(props) {
     const getMenuButtons = () => {
         return headersData.map(({ label, href }) => {
             // if we are not logged in do not render Favorites
-            // except that Kris needs this to check if favs is working :-)
-            if(props.isLoggedIn && label === 'Favorites') { return <></>; }
-            // if (!props.isLoggedIn && label === 'Favorites'){ return <></>; }
+            if (!props.isLoggedIn && label === 'Favorites'){ return <></>; }
             else {
                 return (
                     <Nav.Link href={href}>{label}</Nav.Link>
