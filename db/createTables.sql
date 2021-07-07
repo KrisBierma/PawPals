@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS types CASCADE;
 DROP TABLE IF EXISTS breeds CASCADE;
-DROP TABLE IF EXISTS availablities CASCADE;
+DROP TABLE IF EXISTS availabilities CASCADE;
 DROP TABLE IF EXISTS dispositions CASCADE;
 DROP TABLE IF EXISTS userRoles CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
@@ -25,9 +25,9 @@ CREATE TABLE IF NOT EXISTS breeds(
   CONSTRAINT aTypeFK FOREIGN KEY(aTypeID) REFERENCES types(id)
 );
 
-CREATE TABLE IF NOT EXISTS availablities(
+CREATE TABLE IF NOT EXISTS availabilities(
   id INT GENERATED ALWAYS AS IDENTITY,
-  availablity varchar(256) not null,
+  availability varchar(256) not null,
   primary key (id)
 );
 
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS animals(
   aDescription VARCHAR,
   breedID INT not null,
   aTypeID INT not null,
-  availablityID INT not null,
+  availabilityID INT not null,
   updatedByID INT not null,
   dateAdded TIMESTAMP not null,
   dateAdopted TIMESTAMP,
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS animals(
   primary key (id),
   CONSTRAINT breedFK FOREIGN KEY(breedID) REFERENCES breeds(id),
   CONSTRAINT aTypeFK FOREIGN KEY(aTypeID) REFERENCES types(id),
-  CONSTRAINT availablityFK FOREIGN KEY(availablityID) REFERENCES availablities(id),
+  CONSTRAINT availabilityFK FOREIGN KEY(availabilityID) REFERENCES availabilities(id),
   CONSTRAINT updatedByFK FOREIGN KEY(updatedByID) REFERENCES users(id)
 );
 
