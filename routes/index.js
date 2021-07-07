@@ -1,11 +1,13 @@
 const path = require("path");
 const router = require("express").Router();
-// const apiRoutes = require("./api");
-const routes = require('./animalRoutes');
+
+const animalRoutes = require('./animalRoutes');
+const userRoutes = require('./usersRoutes');
 
 // API Routes
 // router.use("/api", apiRoutes);
-router.use(routes);
+router.use('/api', animalRoutes);
+router.use('/api', userRoutes);
 
 // If no API routes are hit, send the React app 
 // to-do: move all routes here or leave some in server??
