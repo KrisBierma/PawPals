@@ -4,12 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-
-// // Importing the Bootstrap CSS
-// import './styles/bootstrap.min.css';
-
-// // Importing Bootsrap JQuery
-// import './bootstrap.js';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 ReactDOM.render(
   <React.StrictMode>
