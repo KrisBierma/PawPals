@@ -22,7 +22,7 @@ Insert into breeds (breed, aTypeID) values
 ('Siamese', 2),
 ('Mixed', 2);
 
-INSERT INTO availablities(availablity) VALUES
+INSERT INTO availabilities(availability) VALUES
 ('Available'), ('Pending'), ('Not available'), ('Adopted');
 
 INSERT INTO dispositions(disposition) VALUES
