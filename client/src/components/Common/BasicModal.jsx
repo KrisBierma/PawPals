@@ -8,10 +8,13 @@ import "../../styles/BasicModal.css"
 export default function BasicModal({
   show = false, // bool value to handle whether modal is open or closed
   handleClose = () => {}, //function that will trigger when modal is closed. 
+  handleSave = () => {}, //function that trigers when modal "submit" is pressed
   title = '',
   body = '',
   closeTitle = '',
   saveTitle = '',
+  otherButton = '',
+  otherButtonCallback = () => {}, //function that triggers when other button is pressed
   fields = [],
   tabs = <></>,
   }) {
@@ -41,10 +44,13 @@ export default function BasicModal({
           })}
         </div>
         <Modal.Footer>
+        {otherButton && <Button variant="danger" onClick={otherButtonCallback}>
+            {otherButton}
+          </Button>}
           {closeTitle && <Button variant="secondary" onClick={handleClose}>
             {closeTitle}
           </Button>}
-          {saveTitle && <Button variant="primary" onClick={handleClose}>
+          {saveTitle && <Button variant="primary" onClick={handleSave}>
             {saveTitle}
           </Button>}
         </Modal.Footer>

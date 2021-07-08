@@ -41,7 +41,7 @@ const data = {
     }
 }
 
-// handles the login button click
+// handles the login button click (opens modal)
 const handleLogin = (setLoginModalOpen) => {
     setLoginModalOpen(true);
 }
@@ -51,11 +51,25 @@ const handleLoginClose = (setLoginModalOpen) => {
     setLoginModalOpen(false);
 }
 
+// handles when login is completed
+const handleSave = (setLoginModalOpen, modalType) => {
+    setLoginModalOpen(false);
+    if (modalType === 'login'){
+        console.log('handleLoginSave');
+        // keep track of the fact that we are logged in...get userId from API
+    } else if (modalType === 'signup'){
+        console.log('handleSignupSave');
+        // send new account creation info to API; get userID in response and keep track of the fact that we are logged in
+    } else {
+        console.log('something wrong happened');
+    }
+}
+
 export default function LoginSignUp() {
     const [loginModalOpen, setLoginModalOpen] = useState(false);
     const [modalType, setModalType] = useState('login');
-    const [title, setTitle] = useState('Member Login');
-    const [saveTitle, setSaveTitle] = useState('Login');
+    const [title, setTitle] = useState('');
+    const [saveTitle, setSaveTitle] = useState('');
     const [fields, setFieldsTitle] = useState([]);
 
     // will perform the following actions on render when modalType variable changes
@@ -70,6 +84,7 @@ export default function LoginSignUp() {
             <BasicModal 
                 show={loginModalOpen}
                 handleClose={() => handleLoginClose(setLoginModalOpen)}
+                handleSave={() => handleSave(setLoginModalOpen, modalType)}
                 title={title}
                 saveTitle={saveTitle}
                 fields={fields}
