@@ -75,6 +75,7 @@ CREATE TABLE IF NOT EXISTS animals(
   dateAdded TIMESTAMP not null,
   dateAdopted TIMESTAMP,
   dateUpdated TIMESTAMP NOT NULL,
+  imageURL VARCHAR,
   primary key (id),
   CONSTRAINT breedFK FOREIGN KEY(breedID) REFERENCES breeds(id),
   CONSTRAINT aTypeFK FOREIGN KEY(aTypeID) REFERENCES types(id),
