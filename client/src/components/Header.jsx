@@ -6,22 +6,27 @@ import { LoginSignUp, SettingModal } from "../components"
 // TODO: add conditionals for if logged in, highlight selected tab, add login functionality
 // TODO: pull user name from database
 
+// added key to get rid of error msgs
 const headersData = [
     {
       label: "Home",
       href: "/",
+      key: "home"
     },
     {
       label: "Browse",
       href: "/browse",
+      key: "browse"
     },
     {
       label: "Favorites",
       href: "/favorites",
+      key: "favs"
     },
     {
       label: "News/PR",
       href: "/news",
+      key: "news"
     },
 ];
 
@@ -61,12 +66,12 @@ export default function Header(props) {
 
     // Create the Home, Browse, Favorite, and News/PR nav links
     const getMenuButtons = () => {
-        return headersData.map(({ label, href }) => {
+        return headersData.map(({ label, href, key }) => {
             // if we are not logged in do not render Favorites
             if (!props.isLoggedIn && label === 'Favorites'){ return <></>; }
             else {
                 return (
-                    <Nav.Link href={href}>{label}</Nav.Link>
+                    <Nav.Link href={href} key={key}>{label}</Nav.Link>
                 );
             }
         });
