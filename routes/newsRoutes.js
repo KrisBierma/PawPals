@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const newsModel = require('../controllers/newsController');
 
+// to-do: test all post and deletes from front end
 router.post('/addNewsAnimal/:itemTypeID/:animalID', (req, results) => {
   newsModel.addNewsAnimal([req.params.itemTypeID, req.params.animalID])
     .then(res => {
@@ -42,7 +43,7 @@ router.delete('/deleteNews/:id', (req, results) => {
 });
 
 router.get('/getNews', (req, results) => {
-  newsModel.getNews([])
+  newsModel.getNews()
     .then(res => {
       results.status(200).send(res)
     })

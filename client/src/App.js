@@ -32,7 +32,7 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <Header isLoggedIn={true}/>
+          <Header isLoggedIn={false}/>
           <Switch>
             <Route exact path="/" component={LandingPage}/>         
             <Route exact path="/browse" component={BrowsePage}/>
