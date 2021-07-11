@@ -5,7 +5,9 @@ import { InputGroup, FormControl } from "react-bootstrap";
 export default function ItemsWithControl({
     type,
     name = '',
-    label = ''
+    label = '',
+    handleChange,
+    value = ''
   }) {
         switch (type) {
             case 'input': 
@@ -15,7 +17,9 @@ export default function ItemsWithControl({
                     <InputGroup className="mb-3">
                         <FormControl
                             placeholder={name}
+                            onChange={handleChange}
                             aria-label={name}
+                            value={value}
                         />
                     </InputGroup>
                 </>

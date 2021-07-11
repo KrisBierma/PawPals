@@ -1,6 +1,9 @@
 const animalsQ = {
+  addAnimal: 'INSERT INTO animals (aName, gender, aDescription, breedID, aTypeID, availabilityID, updatedByID, dateAdded, dateUpdated, imageURL) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);',
   getAll : 'SELECT * FROM animals;',
-  getAllWiFav: 'select fav.userid as favUserID, an.id as animalID, an.aname, an.gender, an.adescription, an.imageURL, b.breed, t.id as typeID, t.atype, av.id as availabilityID, av.availability from animals an inner join breeds b on an.breedID = b.id inner join types t on an.atypeID = t.id inner join availabilities av on an.availabilityID = av.id left join (select * from favorites f where f.userID=$1) fav on an.id = fav.animalID;'
+  getAllWiFav: 'select fav.userid as favUserID, an.id as animalID, an.aname, an.gender, an.adescription, an.imageURL, b.breed, t.id as typeID, t.atype, av.id as availabilityID, av.availability from animals an inner join breeds b on an.breedID = b.id inner join types t on an.atypeID = t.id inner join availabilities av on an.availabilityID = av.id left join (select * from favorites f where f.userID=$1) fav on an.id = fav.animalID;',
+  getAvailabilities: 'SELECT * from availabilities;',
+  getBreeds : 'SELECT * from breeds;'
 };
 
 const newsQ = {
@@ -12,9 +15,15 @@ const newsQ = {
 };
 
 const usersQ = {
-  getFavs : 'select an.id, an.aname, an.gender, an.adescription, an.imageURL, b.breed, t.id, t.atype, av.id, av.availability from favorites f inner join animals an on f.animalID = an.id inner join breeds b on an.breedID = b.id inner join types t on an.atypeID = t.id inner join availabilities av on an.availabilityID = av.id where userID = $1',
   addFav : 'INSERT INTO favorites(animalID, userID) VALUES ($1, $2);',
-  deleteFav : 'DELETE FROM favorites WHERE animalID = $1 and userID = $2;'
+  addUser: 'INSERT INTO users (userRoleID, userName, password, email) VALUES ($1, $2, $3, $4) RETURNING id;',
+  deleteFav : 'DELETE FROM favorites WHERE animalID = $1 and userID = $2;',
+  deleteUser: 'DELETE FROM users WHERE id = $1;',
+  getAllUserNames: 'SELECT users.username FROM users;',
+  getFavs : 'select an.id, an.aname, an.gender, an.adescription, an.imageURL, b.breed, t.id, t.atype, av.id, av.availability from favorites f inner join animals an on f.animalID = an.id inner join breeds b on an.breedID = b.id inner join types t on an.atypeID = t.id inner join availabilities av on an.availabilityID = av.id where userID = $1',
+  getUser: '',
+  updateUserEmail: 'UPDATE users SET email = $1 where id = $2;',
+  updateUserPass: 'UPDATE users SET password = $1 where id = $2;'
 };
 
 

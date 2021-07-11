@@ -53,10 +53,9 @@ const deleteNews = (vars) => {
   })
 };
 
-const getNews = (vars) => {
-  console.log("in getNews, vars: ",vars);
+const getNews = () => {
   return new Promise((resolve, reject) => {
-    db.query(newsQ.getNews, vars, (error, res) => {
+    db.query(newsQ.getNews, [], (error, res) => {
       if(error) {
         reject(error.stack);
       }

@@ -46,11 +46,12 @@ CREATE TABLE IF NOT EXISTS userRoles(
 CREATE TABLE IF NOT EXISTS users(
   id INT GENERATED ALWAYS AS IDENTITY,
   userRoleID INT not null,
-  userName VARCHAR,
+  userName VARCHAR NOT NULL,
   password VARCHAR NOT NULL,
   email VARCHAR NOT NULL,
   primary key (id),
-  CONSTRAINT userRoleFK FOREIGN KEY(userRoleID) REFERENCES userRoles(id)
+  CONSTRAINT userRoleFK FOREIGN KEY(userRoleID) REFERENCES userRoles(id),
+  UNIQUE(userName),
 );
 
 CREATE TABLE IF NOT EXISTS newsItemTypes(
@@ -112,7 +113,7 @@ CREATE TABLE IF NOT EXISTS favorites(
   animalID INT not null,
   userID INT not null,
   primary key (id),
-  CONSTRAINT animalFK FOREIGN KEY(animalID) REFERENCES animals(id),
-  CONSTRAINT userFK FOREIGN KEY(userID) REFERENCES users(id) 
+  CONSTRAINT animalFK FOREIGN KEY(animalID) REFERENCES animals(id) ON DELETE CASCADE,
+  CONSTRAINT userFK FOREIGN KEY(userID) REFERENCES users(id) ON DELETE CASCADE 
 );
 

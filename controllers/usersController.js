@@ -14,6 +14,19 @@ const addFav = (ids) => {
   })
 };
 
+const addUser = (params) => {
+  console.log("in addUsers, id: ",params);
+  return new Promise((resolve, reject) => {
+    db.query(usersQ.addUser, params, (error, res) => {
+      if(error) {
+        reject(error.stack);
+      }
+      if(res != undefined) resolve(res.rows);
+      else reject('no data');
+    })
+  })
+};
+
 const deleteFav = (ids) => {
   console.log("in deletefavs, id: ",ids);
   return new Promise((resolve, reject) => {
@@ -27,10 +40,10 @@ const deleteFav = (ids) => {
   })
 };
 
-const getFavs = (id) => {
-  console.log("in getfavs, id: ",id);
+const deleteUser = (params) => {
+  console.log("in deleteUsers, id: ",params);
   return new Promise((resolve, reject) => {
-    db.query(usersQ.getFavs, id, (error, res) => {
+    db.query(usersQ.deleteUser, params, (error, res) => {
       if(error) {
         reject(error.stack);
       }
@@ -40,8 +53,70 @@ const getFavs = (id) => {
   })
 };
 
+const getAllUsernames = () => {
+  console.log("in getAllUsernames");
+  console.log(usersQ.getAllUserNames);
+  return new Promise((resolve, reject) => {
+    db.query(usersQ.getAllUserNames, [], (error, res) => {
+      if(error) {
+        reject(error.stack);
+      }
+      console.log("res: ",res);
+      if(res != undefined) resolve(res.rows);
+      else reject('no data');
+    })
+  })
+};
+
+const getFavs = (id) => {
+  console.log("in getfavs, id: ",id);
+  return new Promise((resolve, reject) => {
+    db.query(usersQ.getFavs, id, (error, res) => {
+      if(error) {
+        reject(error.stack);
+      }
+      console.log(res);
+      if(res != undefined) resolve(res.rows);
+      else reject('no data');
+    })
+  })
+};
+
+const updateUserEmail = (params) => {
+  console.log("in updateUserEmail, params: ",params);
+  return new Promise((resolve, reject) => {
+    db.query(usersQ.updateUserEmail, params, (error, res) => {
+      if(error) {
+        reject(error.stack);
+      }
+      console.log(res);
+      if(res != undefined) resolve(res.rows);
+      else reject('no data');
+    })
+  })
+};
+
+const updateUserPass = (params) => {
+  console.log("in updateUserPass, params: ",params);
+  return new Promise((resolve, reject) => {
+    db.query(usersQ.updateUserPass, params, (error, res) => {
+      if(error) {
+        reject(error.stack);
+      }
+      console.log(res);
+      if(res != undefined) resolve(res.rows);
+      else reject('no data');
+    })
+  })
+};
+
 module.exports = {
   addFav,
+  addUser,
   deleteFav,
-  getFavs
+  deleteUser,
+  getAllUsernames,
+  getFavs,
+  updateUserEmail,
+  updateUserPass
 };

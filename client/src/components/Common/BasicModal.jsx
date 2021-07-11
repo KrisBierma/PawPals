@@ -16,6 +16,10 @@ export default function BasicModal({
   otherButton = '',
   otherButtonCallback = () => {}, //function that triggers when other button is pressed
   fields = [],
+  handleChange = () => {},
+  isValidEmail = false,
+  isValidUsername = false,
+  isValidPass = false,
   tabs = <></>,
   }) {
     return (
@@ -35,10 +39,16 @@ export default function BasicModal({
         {/* Render the various inputs/dropdowns needed */}
         <div className='modalFields'>
           {fields && fields.map((x) => {
+            // console.log(x);
             return (
               <ItemsWithControl 
                 name={x.name}
                 type={x.type}
+                value={x.value}
+                // every time the user enters a character it updates the state value
+                handleChange={e => {
+                  handleChange(e.target.placeholder, e.target.value);
+                }}
               />
             );
           })}
@@ -50,7 +60,7 @@ export default function BasicModal({
           {closeTitle && <Button variant="secondary" onClick={handleClose}>
             {closeTitle}
           </Button>}
-          {saveTitle && <Button variant="primary" onClick={handleSave}>
+          {saveTitle && <Button variant="primary" disabled={(!isValidEmail || !isValidUsername || !isValidPass) && title==='Member Signup'} onClick={handleSave}>
             {saveTitle}
           </Button>}
         </Modal.Footer>

@@ -29,13 +29,13 @@ export default function PetProfileSmallCard({
     }
 
     function favorite() {
-        axios.post(`/api/favoriteAnimal/${animal.animalid}/${userID}`)
+        axios.post(`/api/addFav/${animal.animalid}/${userID}`)
         .then()
         .catch(err => console.log(err));
     }
 
     function unfavorite() {
-        axios.delete(`/api/unfavoriteAnimal/${animal.animalid}/${userID}`)
+        axios.delete(`/api/deleteFav/${animal.animalid}/${userID}`)
         .then()
         .catch(err => console.log(err));
     }
