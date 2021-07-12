@@ -40,6 +40,11 @@ export default function PetProfileSmallCard({
         .catch(err => console.log(err));
     }
 
+    const classNames = {
+        card: 'petProfileCard',
+        image: 'petProfileImage',
+    }
+
     return (
         <BasicCard 
             key={animal?.animalid}
@@ -47,6 +52,7 @@ export default function PetProfileSmallCard({
             body={animal?.availability} 
             icon={isFavorited()} 
             image={animal?.imageurl}
+            className={classNames}
             // image={'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/31120615/French-Bulldog-standing-in-profile-outdoors-in-the-fall.jpg'} 
         />
     )

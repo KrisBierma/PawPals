@@ -1,21 +1,25 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import '../../styles/PetProfile.css'
 
 export default function BasicCard({
     title = '',
     body = '',
     button = <></>,
     icon = <></>,
-    image = ''
+    image = '',
+    className = {}
 }) {
     return (
-        <Card style={{ width: '18rem' }}>
-        {image && <Card.Img variant="top" src={image} />}
+        <Card style={{ width: '18rem' }} className={className.card}>
+        {image && <div className={className.image} style={{backgroundImage: "url(" + image + ")"}}></div>}
         <Card.Body>
             {title && <Card.Title>{title}</Card.Title>}
-            {body && <Card.Text>{body}</Card.Text>}
-            {button && button}
-            {icon && icon}
+            <div className='bodyContainer'>
+                {icon && icon}
+                {body && <Card.Text className='body'>{body}</Card.Text>}
+                {button && button}
+            </div>
         </Card.Body>
         </Card>
     )
