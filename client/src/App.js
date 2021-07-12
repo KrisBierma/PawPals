@@ -10,7 +10,7 @@ import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends Component {
   state = {
-    isLoggedIn: false
+    isLoggedIn: true
   };
 
   // these two functions are just to make sure server is connected
@@ -32,7 +32,7 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <Header isLoggedIn={false}/>
+          <Header isLoggedIn={isLoggedIn}/>
           <Switch>
             <Route exact path="/" component={LandingPage}/>         
             <Route exact path="/browse" component={BrowsePage}/>

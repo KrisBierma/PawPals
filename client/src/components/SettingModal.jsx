@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BasicModal } from "../components/Common";
 import { NavDropdown } from "react-bootstrap";
+import { ConfirmDeleteModal } from "../components"
 import axios from 'axios';
 
 const settingFields = [
@@ -14,11 +15,17 @@ const settingFields = [
     }
 ]
 
-const data = {
+const settingData = {
     title: 'Settings',
     saveTitle: 'Save',
     otherButton: 'Delete Account',
     fields: settingFields
+}
+
+const deleteData = {
+    title: 'Are you sure?',
+    saveTitle: 'Yes, Delete',
+    otherButton: 'No, I made a mistake',
 }
 
 // handles the settings button click
@@ -53,43 +60,68 @@ const handleSettingsSave = (setSettingModalOpen) => {
 }
 
 // handles deleting account
-const deleteAccount = (setSettingModalOpen) => {
-    // to-do: are you sure to delete?
-    var confirm = false;
+const deleteAccount = () => {
     var userID = 12;
 
-    if(confirm) {
-        axios.delete(`/api/deleteUser/${userID}`)
-        .then(console.log("confirmed"))
-        .catch(err => console.log(err));
-    }
+    axios.delete(`/api/deleteUser/${userID}`)
+    .then(console.log("confirmed"))
+    .catch(err => console.log(err));
+}
+
+const swapToDeleteModal = (setSettingModalOpen, setDeleteModalOpen) => {
     setSettingModalOpen(false);
+    setDeleteModalOpen(true);
 }
 
 export default function LoginSignUp() {
     const [settingModalOpen, setSettingModalOpen] = useState(false);
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     // to-do: get user data (saved in sessions??) and pre-populate input
     // get new input; see LoginSignUp
     function handleChange() {
 
     }
 
+    // handles the settings button click
+    const handleDelete = (setDeleteModalOpen) => {
+        setDeleteModalOpen(true);
+        deleteAccount();
+    }
+
+    // handles modal close; passed to common modal component
+    const handleClose = (setDeleteModalOpen) => {
+        setDeleteModalOpen(false);
+        return false;
+    }
+
     return (
         <>
+            {/* Setting Modal */}
             <BasicModal 
                 show={settingModalOpen}
                 handleClose={() => handleSettingClose(setSettingModalOpen)}
-                handleSave={() => handleSettingsSave(setSettingModalOpen, data?.fields)}
-                title={data?.title}
-                saveTitle={data?.saveTitle}
-                fields={data?.fields}
-                otherButton={data?.otherButton}
-                otherButtonCallback={() => deleteAccount(setSettingModalOpen)}
+                handleSave={() => handleSettingsSave(setSettingModalOpen, settingData?.fields)}
+                title={settingData?.title}
+                saveTitle={settingData?.saveTitle}
+                fields={settingData?.fields}
+                otherButton={settingData?.otherButton}
+                otherButtonCallback={() => swapToDeleteModal(setSettingModalOpen, setDeleteModalOpen)}
             />
             
             <NavDropdown.Item onClick={() => handleSettings(setSettingModalOpen)}>
                 Settings
             </NavDropdown.Item>
+
+            {/* Confirm Delete Modal */}
+            <BasicModal 
+                show={deleteModalOpen}
+                handleClose={() => handleClose(setDeleteModalOpen)}
+                handleSave={() => handleDelete(setDeleteModalOpen)}
+                title={deleteData?.title}
+                saveTitle={deleteData?.saveTitle}
+                otherButton={deleteData?.otherButton}
+                otherButtonCallback={() => handleClose(setDeleteModalOpen)}
+            />
         </>
     );
 }
