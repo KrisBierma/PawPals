@@ -126,7 +126,6 @@ export default function LoginSignUp() {
     // handles modal close; passed to common modal component
     const handleClose = (setDeleteModalOpen) => {
         setDeleteModalOpen(false);
-        return false;
     }
 
     return (
