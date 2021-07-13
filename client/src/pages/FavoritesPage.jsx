@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { GridLayout } from "../components/Common"
 import axios from 'axios';
 
 export default function FavoritesPage() {
@@ -18,11 +19,7 @@ function getFavs() {
   return (
     <div>
       { favs ? 'My favorite animals:' : 'No favorites yet' }
-      {favs ? 
-        <ul>
-          { favs.map(animal => <li>{`${animal.aname}: ${animal.adescription}`}</li>)}
-        </ul>          
-      : <p />}
+      {favs && <GridLayout cardData={favs} />}
     </div>
   )
   // return "Hello I am the FAVORITES Page";
