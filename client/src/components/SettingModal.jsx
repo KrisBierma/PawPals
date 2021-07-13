@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BasicModal } from "../components/Common";
 import { NavDropdown } from "react-bootstrap";
-import { ConfirmDeleteModal } from "../components"
 import axios from 'axios';
+import { useSnackbar } from 'notistack';
 
 const settingFields = [
     {
@@ -35,27 +35,58 @@ const handleSettings = (setSettingModalOpen) => {
 
 // handles modal close; passed to common modal component
 const handleSettingClose = (setSettingModalOpen) => {
-    console.log('close');
     setSettingModalOpen(false);
 }
 
 // handles when new username/pw/email is saved
-const handleSettingsSave = (setSettingModalOpen) => {
+const handleSettingsSave = (setSettingModalOpen, enqueueSnackbar) => {
     setSettingModalOpen(false);
     // handle submitting new data to api
     // get user data from input
     let email = 'new email';    // get from input
     let pass = 'new pass';      // get from input
     let userID = 10;        // get from sessions?
-    if(email !== null && email !== '') {
+    if(email) {
         axios.put(`/api/updateUserEmail/${email}/${userID}`)
-        .then(console.log('show success msg'))
-        .catch(err => console.log('show error msg'));
+        .then(() => {
+            enqueueSnackbar('Email successfully updated!', { 
+                variant: 'success',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'center',
+                },
+            });
+        })
+        .catch(err => {
+            enqueueSnackbar('There was trouble updating your email!', { 
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'center',
+                },
+            });
+        });
     }
-    if(pass !== null && pass !== '') {
+    if(pass) {
         axios.put(`/api/updateUserPass/${pass}/${userID}`)
-        .then(console.log('show success msg'))
-        .catch(err => console.log('show error msg'));
+        .then(() => {
+            enqueueSnackbar('Password successfully updated!', { 
+                variant: 'success',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'center',
+                },
+            });
+        })
+        .catch(err => {
+            enqueueSnackbar('There was trouble updating your password!', { 
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'center',
+                },
+            });
+        });
     }
 }
 
@@ -76,6 +107,10 @@ const swapToDeleteModal = (setSettingModalOpen, setDeleteModalOpen) => {
 export default function LoginSignUp() {
     const [settingModalOpen, setSettingModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
+    // for using snackbar
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
     // to-do: get user data (saved in sessions??) and pre-populate input
     // get new input; see LoginSignUp
     function handleChange() {
@@ -100,7 +135,7 @@ export default function LoginSignUp() {
             <BasicModal 
                 show={settingModalOpen}
                 handleClose={() => handleSettingClose(setSettingModalOpen)}
-                handleSave={() => handleSettingsSave(setSettingModalOpen, settingData?.fields)}
+                handleSave={() => handleSettingsSave(setSettingModalOpen, enqueueSnackbar)}
                 title={settingData?.title}
                 saveTitle={settingData?.saveTitle}
                 fields={settingData?.fields}
