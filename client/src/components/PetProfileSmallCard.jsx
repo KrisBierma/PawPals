@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { BasicCard } from './Common'
+import { BasicCard } from './Common';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-
-// TODO: Update availablility id to availability string
 
 export default function PetProfileSmallCard({
     animal = {}
@@ -40,6 +39,11 @@ export default function PetProfileSmallCard({
         .catch(err => console.log(err));
     }
 
+    const onPetProfileClick = (animal) => {
+        localStorage.setItem("selectedPainting", JSON.stringify(animal)); //store complete card
+        return <Redirect to={`/pet-details/${animal.id}`} />; //For this you must have Route to handle this request
+    }
+
     const classNames = {
         card: 'petProfileCard',
         image: 'petProfileImage',
@@ -53,7 +57,7 @@ export default function PetProfileSmallCard({
             icon={isFavorited()} 
             image={animal?.imageurl}
             className={classNames}
-            // image={'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/31120615/French-Bulldog-standing-in-profile-outdoors-in-the-fall.jpg'} 
+            onCardClick={() => onPetProfileClick(animal)}
         />
     )
 }
