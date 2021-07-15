@@ -8,10 +8,11 @@ export default function BasicCard({
     button = <></>,
     icon = <></>,
     image = '',
-    className = {}
+    className = {},
+    onCardClick = () => {}
 }) {
     return (
-        <Card style={{ width: '18rem' }} className={className.card}>
+        <Card className={className.card} onClick={onCardClick}>
         {image && <div className={className.image} style={{backgroundImage: "url(" + image + ")"}}></div>}
         <Card.Body>
             {title && <Card.Title>{title}</Card.Title>}

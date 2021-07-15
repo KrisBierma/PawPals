@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { BasicCard } from './Common'
-import axios from 'axios';
-
-// TODO: Update availablility id to availability string
+import { BasicCard } from './Common';
+import { Redirect } from 'react-router-dom';
+import { isFavorited } from '../js-commons/petFavoriting';
 
 export default function PetProfileSmallCard({
     animal = {}
@@ -17,29 +16,6 @@ export default function PetProfileSmallCard({
         }
     }, [animal]);
 
-    function heartClick() {
-        // call method first bc setting state takes time
-        heartFull ? unfavorite() : favorite();
-        setHeartFull(!heartFull);
-    }
-
-    // sets the icon based on heartFull value
-    function isFavorited() {
-        return (heartFull ? <i onClick={heartClick} className="bi bi-heart-fill"></i> : <i onClick={heartClick} className="bi bi-heart"></i>)
-    }
-
-    function favorite() {
-        axios.post(`/api/addFav/${animal.animalid}/${userID}`)
-        .then()
-        .catch(err => console.log(err));
-    }
-
-    function unfavorite() {
-        axios.delete(`/api/deleteFav/${animal.animalid}/${userID}`)
-        .then()
-        .catch(err => console.log(err));
-    }
-
     const classNames = {
         card: 'petProfileCard',
         image: 'petProfileImage',
@@ -50,10 +26,9 @@ export default function PetProfileSmallCard({
             key={animal?.animalid}
             title={animal?.aname} 
             body={animal?.availability} 
-            icon={isFavorited()} 
+            icon={isFavorited(heartFull, setHeartFull, animal.animalid, userID)} 
             image={animal?.imageurl}
             className={classNames}
-            // image={'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/31120615/French-Bulldog-standing-in-profile-outdoors-in-the-fall.jpg'} 
         />
     )
 }
