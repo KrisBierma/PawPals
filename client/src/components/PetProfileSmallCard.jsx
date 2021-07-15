@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BasicCard } from './Common';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
+import { isFavorited } from '../js-commons/petFavoriting';
 
 export default function PetProfileSmallCard({
     animal = {}
@@ -16,34 +16,6 @@ export default function PetProfileSmallCard({
         }
     }, [animal]);
 
-    function heartClick() {
-        // call method first bc setting state takes time
-        heartFull ? unfavorite() : favorite();
-        setHeartFull(!heartFull);
-    }
-
-    // sets the icon based on heartFull value
-    function isFavorited() {
-        return (heartFull ? <i onClick={heartClick} className="bi bi-heart-fill"></i> : <i onClick={heartClick} className="bi bi-heart"></i>)
-    }
-
-    function favorite() {
-        axios.post(`/api/addFav/${animal.animalid}/${userID}`)
-        .then()
-        .catch(err => console.log(err));
-    }
-
-    function unfavorite() {
-        axios.delete(`/api/deleteFav/${animal.animalid}/${userID}`)
-        .then()
-        .catch(err => console.log(err));
-    }
-
-    const onPetProfileClick = (animal) => {
-        localStorage.setItem("selectedPainting", JSON.stringify(animal)); //store complete card
-        return <Redirect to={`/pet-details/${animal.id}`} />; //For this you must have Route to handle this request
-    }
-
     const classNames = {
         card: 'petProfileCard',
         image: 'petProfileImage',
@@ -54,10 +26,9 @@ export default function PetProfileSmallCard({
             key={animal?.animalid}
             title={animal?.aname} 
             body={animal?.availability} 
-            icon={isFavorited()} 
+            icon={isFavorited(heartFull, setHeartFull, animal.animalid, userID)} 
             image={animal?.imageurl}
             className={classNames}
-            onCardClick={() => onPetProfileClick(animal)}
         />
     )
 }

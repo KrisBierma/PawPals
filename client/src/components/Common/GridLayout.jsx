@@ -12,7 +12,7 @@ export default function GridLayout({
             <Row xs={2} md={4} lg={6}>
             {cardData.map((x) => {
                 return (
-                    <Link to={`/pet-profile/${x.id}`} className={"link"}>
+                    <Link to={`/pet-profile/${x.animalid}`} className={"link"}>
                         <PetProfileSmallCard animal={x} />
                     </Link>
                 );

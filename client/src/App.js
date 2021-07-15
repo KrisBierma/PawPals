@@ -38,7 +38,7 @@ class App extends Component {
             <Route exact path="/browse" component={BrowsePage}/>
             <Route exact path="/favorites" component={FavoritesPage}/>
             <Route exact path="/news" component={NewsPage}/>
-            <Route path="/pet-details/:id" component={PetDetailsPage} />
+            <Route path="/pet-profile/:id" component={PetDetailsPage} />
           </Switch>
         </Router>
       </div>
