@@ -54,14 +54,14 @@ const deleteUser = (params) => {
 };
 
 const getAllUsernames = () => {
-  console.log("in getAllUsernames");
-  console.log(usersQ.getAllUserNames);
+  // console.log("in getAllUsernames");
+  // console.log(usersQ.getAllUserNames);
   return new Promise((resolve, reject) => {
     db.query(usersQ.getAllUserNames, [], (error, res) => {
       if(error) {
         reject(error.stack);
       }
-      console.log("res: ",res);
+      // console.log("res: ",res);
       if(res != undefined) resolve(res.rows);
       else reject('no data');
     })

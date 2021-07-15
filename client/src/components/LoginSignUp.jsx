@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { BasicModal } from "../components/Common";
-import { LoginTabs } from "../components"
+import { BasicModal } from "./Common";
+import { LoginTabs } from "."
 import { Nav, Button } from "react-bootstrap";
 import axios from 'axios';
+import * as Msgs from './Common/Messages';
+// import * as Msgs from "./Common";
+// import './Common/messages.jsx';
+// import "../styles/Tab.css"
 
 const loginFields = [
     {
@@ -50,6 +54,7 @@ const data = {
 // handles the login button click (opens modal)
 const handleLogin = (setLoginModalOpen) => {
     console.log("handlelogin");
+    // console.log(Msgs.error500);
     setLoginModalOpen(true);
 }
 
@@ -72,7 +77,7 @@ export default function LoginSignUp() {
 
     function handleChange(inputName, valueIn) {
         // set form input values
-        console.log(inputName, valueIn)
+        // console.log(inputName, valueIn)
         setFields(prev => prev.map(s => {
             if(s.name === inputName) {
                 return {...s, value:valueIn}
@@ -119,6 +124,23 @@ export default function LoginSignUp() {
             console.log('handleLoginSave', username, pass);
             // keep track of the fact that we are logged in...get userId from API
             // axios to check if username/pass are correct
+            // go to authRoutes.js
+            axios.post('/auth/login', {username: username, password: pass})
+                .then(res => {
+                    console.log(res.data);
+                    if(res?.data.statuscode === 401) {
+                        // to-do: display msg to user
+                        console.log(res.data.message);
+                    }
+                    else if(res?.data.statuscode === 200) {
+                        // to-do: display msg to user
+                        console.log(res.data.message);
+                    }
+                })
+                .catch(() => {
+                    // to-do: display msg to user
+                    console.log(Msgs.error500);
+                });
         } else if (modalType === 'signup'){
             var email = fields[1].value;
             pass = fields[2].value;
@@ -127,7 +149,8 @@ export default function LoginSignUp() {
                 // only regular users sign up here
                 axios.post(`/api/addUser/1/${username}/${pass}/${email}`)
                 .then(res => {
-                    console.log("user successfully added. id: ", res.data[0].id);
+                    console.log(Msgs.successSignUp);
+                    console.log("new user id: ", res?.data[0].id);
                     newid = res.data[0].id;
 
                     // reset form and validations
@@ -151,7 +174,7 @@ export default function LoginSignUp() {
     // username must be unique
     function validateUsername(name, usernames) {
         if(usernames.some(d => d.toLowerCase() === name.toLowerCase())) {
-            console.log("username taken");
+            console.log(Msgs.invalidUsername);
             return false;
         }
         return true;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import { Header } from './components'
 import { LandingPage, BrowsePage, FavoritesPage, NewsPage } from './pages'
@@ -10,7 +10,7 @@ import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends Component {
   state = {
-    isLoggedIn: true
+    isLoggedIn: false
   };
 
   // these two functions are just to make sure server is connected

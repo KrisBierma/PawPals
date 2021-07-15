@@ -6,6 +6,10 @@ const animalsQ = {
   getBreeds : 'SELECT * from breeds;'
 };
 
+const authQ = {
+  login: 'SELECT * FROM users WHERE users.userName = $1;',
+};
+
 const newsQ = {
   addNewsAnimal : 'INSERT INTO newsItems(newsItemTypeID, animalID) VALUES ($1, $2);',
   addNewsEvent : 'INSERT INTO newsItems(newsItemTypeID, aDescription, eventDate) VALUES($1, $2, $3);',
@@ -21,11 +25,16 @@ const usersQ = {
   deleteUser: 'DELETE FROM users WHERE id = $1;',
   getAllUserNames: 'SELECT users.username FROM users;',
   getFavs : 'select an.id, f.userid as favUserID, an.aname, an.gender, an.adescription, an.imageURL, b.breed, t.id, t.atype, av.id, av.availability from favorites f inner join animals an on f.animalID = an.id inner join breeds b on an.breedID = b.id inner join types t on an.atypeID = t.id inner join availabilities av on an.availabilityID = av.id where userID = $1',
-  getUser: '',
+  // login: 'SELECT * FROM users WHERE users.userName = $1;',
   updateUserEmail: 'UPDATE users SET email = $1 where id = $2;',
   updateUserPass: 'UPDATE users SET password = $1 where id = $2;'
 };
 
 
 
-module.exports = { animalsQ, newsQ, usersQ };
+module.exports = { 
+  animalsQ, 
+  authQ,
+  newsQ, 
+  usersQ 
+};
