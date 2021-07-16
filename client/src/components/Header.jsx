@@ -28,6 +28,11 @@ const headersData = [
       href: "/news",
       key: "news"
     },
+    {
+        label: "Pet Profiles Admin",
+        href: "/admin",
+        key: "admin"
+      },
 ];
 
 export default function Header(props) {
@@ -68,7 +73,8 @@ export default function Header(props) {
     const getMenuButtons = () => {
         return headersData.map(({ label, href, key }) => {
             // if we are not logged in do not render Favorites
-            if (!props.isLoggedIn && label === 'Favorites'){ return <></>; }
+            if (key === 'favs' && !props.isLoggedIn ){ return <></>; }
+            else if (key === 'admin' && !props.isAdmin ){ return <></>; }
             else {
                 return (
                     <Nav.Link href={href} key={key}>{label}</Nav.Link>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Header } from './components'
-import { LandingPage, BrowsePage, FavoritesPage, NewsPage, PetDetailsPage } from './pages'
+import { LandingPage, BrowsePage, FavoritesPage, NewsPage, PetDetailsPage, AdminPage } from './pages'
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 
 // Todo: determine if we are logged in or not, pass as props to Skeleton
@@ -10,7 +10,8 @@ import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends Component {
   state = {
-    isLoggedIn: true
+    isLoggedIn: true,
+    isAdmin: true
   };
 
   // these two functions are just to make sure server is connected
@@ -29,15 +30,17 @@ class App extends Component {
 
   render() {
     const isLoggedIn = this.state.isLoggedIn;
+    const isAdmin = this.state.isAdmin;
     return (
       <div className="App">
         <Router>
-          <Header isLoggedIn={isLoggedIn}/>
+          <Header isLoggedIn={isLoggedIn} isAdmin={isAdmin}/>
           <Switch>
             <Route exact path="/" component={LandingPage}/>         
             <Route exact path="/browse" component={BrowsePage}/>
             <Route exact path="/favorites" component={FavoritesPage}/>
             <Route exact path="/news" component={NewsPage}/>
+            <Route exact path="/admin" component={AdminPage}/>
             <Route path="/pet-profile/:id" component={PetDetailsPage} />
           </Switch>
         </Router>
