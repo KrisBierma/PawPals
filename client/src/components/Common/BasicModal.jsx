@@ -41,6 +41,7 @@ export default function BasicModal({
           {fields && fields.map((x) => {
             return (
               <ItemsWithControl 
+                key={x.name}
                 name={x.name}
                 type={x.type}
                 value={x.value}

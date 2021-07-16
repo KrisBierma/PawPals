@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { BasicCardListGroup, BasicCard } from '../components/Common';
 import { useParams } from 'react-router-dom';
 import { isFavorited } from '../js-commons/petFavoriting'
@@ -23,7 +23,7 @@ const prepSmallDetailCard = (petDetails) => {
     let details = {};
     Object.keys(petDetails).map((key) => {
         if (petDetailKeys.includes(key)){
-            details[key] = petDetails[key];
+            return details[key] = petDetails[key];
         }
     })
     return details;

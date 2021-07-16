@@ -22,7 +22,7 @@ export default function BasicCardListGroup({
             <ListGroup variant={variant}>
                 {listItems && Object.keys(listItems).map((key) => {
                         return (
-                            <ListGroup.Item className={className?.item}>
+                            <ListGroup.Item key={key} className={className?.item}>
                                 <span className={className?.key}>
                                     {key + ': '}
                                 </span> 
