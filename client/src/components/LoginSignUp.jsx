@@ -4,9 +4,6 @@ import { LoginTabs } from "."
 import { Nav, Button } from "react-bootstrap";
 import axios from 'axios';
 import * as Msgs from './Common/Messages';
-// import * as Msgs from "./Common";
-// import './Common/messages.jsx';
-// import "../styles/Tab.css"
 
 const loginFields = [
     {
@@ -54,7 +51,6 @@ const data = {
 // handles the login button click (opens modal)
 const handleLogin = (setLoginModalOpen) => {
     console.log("handlelogin");
-    // console.log(Msgs.error500);
     setLoginModalOpen(true);
 }
 
@@ -102,6 +98,7 @@ export default function LoginSignUp() {
         }
     }
 
+    // used to validate username when signing up (username must be unique)
     function getAllUsernames() {
         axios.get('/api/getAllUsernames')
         .then(res => {
@@ -119,6 +116,7 @@ export default function LoginSignUp() {
         setLoginModalOpen(false);
         var username = fields[0].value;
         var pass;
+
         if (modalType === 'login'){
             pass = fields[1].value;
             console.log('handleLoginSave', username, pass);
@@ -141,7 +139,9 @@ export default function LoginSignUp() {
                     // to-do: display msg to user
                     console.log(Msgs.error500);
                 });
-        } else if (modalType === 'signup'){
+        } 
+        
+        else if (modalType === 'signup'){
             var email = fields[1].value;
             pass = fields[2].value;
             var newid;  // to-do: handle this with log in

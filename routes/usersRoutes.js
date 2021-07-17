@@ -9,12 +9,12 @@ router.post('/addFav/:animalid/:userid/', (req, results) => {
     .catch(error => results.status(500).json(error));
 });
 
-router.post('/addUser/:roleID/:name/:password/:email', (req, results) => {
-  var params = [req.params.roleID, req.params.name, req.params.password, req.params.email];
-  usersModel.addUser(params)
-    .then(res => results.status(200).send(res))
-    .catch(error => results.status(500).json(error));
-});
+// router.post('/addUser/:roleID/:name/:password/:email', (req, results) => {
+//   var params = [req.params.roleID, req.params.name, req.params.password, req.params.email];
+//   usersModel.addUser(params)
+//     .then(res => results.status(200).send(res))
+//     .catch(error => results.status(500).json(error));
+// });
 
 router.delete('/deleteFav/:animalid/:userid', (req, results) => {
   var params = [req.params.animalid, req.params.userid];
