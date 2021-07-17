@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import { Header } from './components'
-import { LandingPage, BrowsePage, FavoritesPage, NewsPage } from './pages'
+import { LandingPage, BrowsePage, FavoritesPage, NewsPage, PetDetailsPage } from './pages'
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 
 // Todo: determine if we are logged in or not, pass as props to Skeleton
@@ -38,6 +38,7 @@ class App extends Component {
             <Route exact path="/browse" component={BrowsePage}/>
             <Route exact path="/favorites" component={FavoritesPage}/>
             <Route exact path="/news" component={NewsPage}/>
+            <Route path="/pet-profile/:id" component={PetDetailsPage} />
           </Switch>
         </Router>
       </div>

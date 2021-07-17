@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Container, Row } from "react-bootstrap";
 import { PetProfileSmallCard } from "../../components"
+import "../../styles/PetProfileLink.css"
 
 export default function GridLayout({
     cardData = []
@@ -9,7 +11,11 @@ export default function GridLayout({
         <Container>
             <Row xs={2} md={4} lg={6}>
             {cardData.map((x) => {
-                return <PetProfileSmallCard animal={x} />;
+                return (
+                    <Link to={`/pet-profile/${x.animalid}`} className={"link"}>
+                        <PetProfileSmallCard animal={x} />
+                    </Link>
+                );
             })}
             </Row>
         </Container>
