@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BasicModal } from "../components/Common";
 import { NavDropdown } from "react-bootstrap";
 import axios from 'axios';
@@ -109,7 +109,7 @@ export default function LoginSignUp() {
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
     // for using snackbar
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
 
     // to-do: get user data (saved in sessions??) and pre-populate input
     // get new input; see LoginSignUp

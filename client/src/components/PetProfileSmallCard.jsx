@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BasicCard } from './Common';
-import { Redirect } from 'react-router-dom';
 import { isFavorited } from '../js-commons/petFavoriting';
 
 export default function PetProfileSmallCard({
