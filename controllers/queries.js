@@ -20,7 +20,7 @@ const usersQ = {
   deleteFav : 'DELETE FROM favorites WHERE animalID = $1 and userID = $2;',
   deleteUser: 'DELETE FROM users WHERE id = $1;',
   getAllUserNames: 'SELECT users.username FROM users;',
-  getFavs : 'select an.id, f.userid as favUserID, an.aname, an.gender, an.adescription, an.imageURL, b.breed, t.id, t.atype, av.id, av.availability from favorites f inner join animals an on f.animalID = an.id inner join breeds b on an.breedID = b.id inner join types t on an.atypeID = t.id inner join availabilities av on an.availabilityID = av.id where userID = $1',
+  getFavs : 'select an.id as animalID, f.userid as favUserID, an.aname, an.gender, an.adescription, an.imageURL, b.breed, t.id, t.atype, av.id, av.availability from favorites f inner join animals an on f.animalID = an.id inner join breeds b on an.breedID = b.id inner join types t on an.atypeID = t.id inner join availabilities av on an.availabilityID = av.id where userID = $1',
   getUser: '',
   updateUserEmail: 'UPDATE users SET email = $1 where id = $2;',
   updateUserPass: 'UPDATE users SET password = $1 where id = $2;'

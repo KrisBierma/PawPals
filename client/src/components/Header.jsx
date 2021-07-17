@@ -50,7 +50,7 @@ export default function Header(props) {
     };
 
     const pawPalsLogo = (
-        <Navbar.Brand href="#">PawPals</Navbar.Brand>
+        <Navbar.Brand href="/">PawPals</Navbar.Brand>
     );
 
     const login = (
