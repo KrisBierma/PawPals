@@ -3,6 +3,7 @@ import { BasicModal } from "../components/Common";
 import { NavDropdown } from "react-bootstrap";
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import * as Msgs from './Common/Messages';
 
 const settingFields = [
     {
@@ -49,7 +50,7 @@ const handleSettingsSave = (setSettingModalOpen, enqueueSnackbar) => {
     if(email) {
         axios.put(`/api/updateUserEmail/${email}/${userID}`)
         .then(() => {
-            enqueueSnackbar('Email successfully updated!', { 
+            enqueueSnackbar(Msgs.updatedEmail, { 
                 variant: 'success',
                 anchorOrigin: {
                     vertical: 'top',

@@ -1,9 +1,10 @@
 const router = require('express').Router();
-const newsModel = require('../controllers/newsController');
+const checkAuthentication = require('../config/isAuthenticated');
+const newsController = require('../controllers/newsController');
 
 // to-do: test all post and deletes from front end
-router.post('/addNewsAnimal/:itemTypeID/:animalID', (req, results) => {
-  newsModel.addNewsAnimal([req.params.itemTypeID, req.params.animalID])
+router.post('/addNewsAnimal/:itemTypeID/:animalID', checkAuthentication, (req, results) => {
+  newsController.addNewsAnimal([req.params.itemTypeID, req.params.animalID])
     .then(res => {
       results.status(200).send(res)
     })
@@ -12,8 +13,8 @@ router.post('/addNewsAnimal/:itemTypeID/:animalID', (req, results) => {
     });
 });
 
-router.post('/addNewsEvent/:itemTypeID/:aDescription/:date', (req, results) => {
-  newsModel.addNewsEvent([req.params.itemTypeID, req.params.aDescription, req.params.date])
+router.post('/addNewsEvent/:itemTypeID/:aDescription/:date', checkAuthentication, (req, results) => {
+  newsController.addNewsEvent([req.params.itemTypeID, req.params.aDescription, req.params.date])
     .then(res => {
       results.status(200).send(res)
     })
@@ -22,8 +23,8 @@ router.post('/addNewsEvent/:itemTypeID/:aDescription/:date', (req, results) => {
     });
 });
 
-router.post('/addNewsNews/:itemTypeID/:aDescription', (req, results) => {
-  newsModel.addNewsNews([req.params.itemTypeID, req.params.aDescription])
+router.post('/addNewsNews/:itemTypeID/:aDescription', checkAuthentication, (req, results) => {
+  newsController.addNewsNews([req.params.itemTypeID, req.params.aDescription])
     .then(res => {
       results.status(200).send(res)
     })
@@ -32,8 +33,8 @@ router.post('/addNewsNews/:itemTypeID/:aDescription', (req, results) => {
     });
 });
 
-router.delete('/deleteNews/:id', (req, results) => {
-  newsModel.deleteNews([req.params.id])
+router.delete('/deleteNews/:id', checkAuthentication, (req, results) => {
+  newsController.deleteNews([req.params.id])
     .then(res => {
       results.status(200).send(res)
     })
@@ -43,7 +44,7 @@ router.delete('/deleteNews/:id', (req, results) => {
 });
 
 router.get('/getNews', (req, results) => {
-  newsModel.getNews()
+  newsController.getNews()
     .then(res => {
       results.status(200).send(res)
     })

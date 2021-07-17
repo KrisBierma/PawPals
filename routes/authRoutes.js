@@ -1,19 +1,23 @@
+const checkAuthentication = require('../config/isAuthenticated');
 const passport = require('../config/passport');
 const router = require('express').Router();
 
-router.post('/login2', passport.authenticate('local-login', function(err, req, res) {
-  // If this function gets called, authentication was successful.
-  // `req.user` contains the authenticated user.
-  console.log('user authenticated');
-  // console.log(req);
-  console.log("err: ",err);
-  console.log("res: ", res);
-  if(err) {
-    res.json(err);
-  }
-  console.log("req.session: ",req.session);
-  res.json(res.session.user);
-}))
+// called from AuthContext component
+router.get('/isAuthenticated', checkAuthentication, function(req, res) {
+  console.log('in authRoutes. isAuthenticated successful')
+  // console.log('req.user: ',req.user);
+  // console.log('.req.session.passport: ', req.session.passport);
+
+  // only comes here if checkAuth = true
+  res.send(true);
+});
+
+// called from AuthContext component; for when user reloads page while logged in
+router.get('/getSession', checkAuthentication, function(req, res) {
+  // console.log("in getsession");
+  // console.log(req.user);
+  res.send(req.user);
+})
 
 // order of events:
 // 1. click btn on loginSignUp.jsx
@@ -21,18 +25,15 @@ router.post('/login2', passport.authenticate('local-login', function(err, req, r
 // 3. inside this router.post func
 // 4. passport.js strategy
 // 5. return here
-
 router.post('/login', function(req, res, next) {
   // step #3 is here
-  console.log('----------------------');
-  console.log('res.session: ',res.session); // undefined
-  console.log('req.session: ',req.session);
-  console.log('req.body: ', req.body);  // username and pass
+  // console.log('----------------------');
+  // console.log('req.session: ',req.session);
+  // console.log('req.body: ', req.body);  // username and pass
 
 
   passport.authenticate('local-login', function(err, user, info) {
-    console.log('come here no matter what');
-    // step #5 is here
+    // step #5 is here; come here no matter what
     console.log("err: ",err);
     console.log("user: ", user);
     console.log("info: ", info);
@@ -48,57 +49,26 @@ router.post('/login', function(req, res, next) {
       return res.json(info); 
     }
     
-
     req.logIn(user, function(err) {
       if (err) { 
         return next(err); 
       }
 
-      // successful login in, returning success msg
+      // successful login in, updating context
+      info.user = user;
+      info.user.password = null;
+
+      //returning success msg
       return res.json(info);
-      // return res.redirect('/users/' + user.username);
     });
   })(req, res, next);
 });
 
-
-
-router.post(
-  '/login4',
-  function (req, res, next) {
-      console.log('routes/user.js, login, req.body: ');
-      console.log(req.body);
-      // step #3
-      next()
-  },
-  passport.authenticate('local-login'),
-  (req, res) => {
-      console.log('logged in', req.user);
-      var userInfo = {
-          username: req.user.username
-      };
-      res.send(userInfo);
-  }
-)
-
-// router.post('/login', (req, res, next) => {
-//   console.log("in authRoutes");
-//   console.log(req, res, next);
-//   passport.authenticate('local-login', function(err, user, info) {
-//     console.log(`err: ${err} data: ${user} info: ${info}`);
-
-//     if (err) {
-//         res.json(err);
-//     } else {
-//         req.session.user = user;
-//         res.json(req.session.user);
-//     }
-// })(req, res, next);
-
-//   // usersModel.getUser([req.params.id])
-//   //   .then(res => results.status(200).send(res))
-//   //   .catch(error => results.status(500).json(error));
-// });
+router.get('/logout', function(req, res) {
+  // console.log("logging out");
+  req.logout();
+  res.redirect('/');
+})
 
 module.exports = router;
 

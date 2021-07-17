@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
+import { AuthContext } from '../components/AuthContext';
 import { GridLayout } from "../components/Common"
 import axios from 'axios';
 
@@ -7,20 +8,23 @@ const [favs, setFavs] = useState(false);
   useEffect(() => {
     getFavs();
   }, []);
-const [userID, setUserID] = useState(1);
+const context = useContext(AuthContext);
 
 function getFavs() {
-  axios.get(`/api/getFavs/${userID}`)
+  console.log('userID: ',context.userID);
+  console.log('favs: ',favs);
+  axios.get(`/api/getFavs/${context.userID}`)
     .then(response => {
       console.log(response.data);
       setFavs(response.data);
     })
+    .catch(err => console.log(err));
   }
+
   return (
     <div>
-      { favs ? 'My favorite animals:' : 'No favorites yet' }
+      { favs.length > 0 ? 'My favorite animals:' : 'No favorites yet' }
       {favs && <GridLayout cardData={favs} />}
     </div>
   )
-  // return "Hello I am the FAVORITES Page";
 }

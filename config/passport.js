@@ -10,9 +10,8 @@ const invalidPass = 'The password is incorrect.';
 const successSignUp = 'Login successful';
 
 function validPassword(pass1, pass2) {
-  // console.log(typeof(pass1), typeof(pass2));
-  // console.log("in valid: ", pass1, pass2);
-  if(pass1.localeCompare(pass2) === 0) return true;
+  if(pass1.localeCompare(pass2) === 0) 
+    return true;
   return false;
 }
 
@@ -30,7 +29,7 @@ passport.use('local-login', new LocalStrategy(
       };
 
       // user error - username
-      if(user?.rowCount === 0) {
+      if(user.rowCount === 0) {
         return done(null, false, { statuscode: 401, message: invalidUsername})
       }
 
@@ -58,17 +57,17 @@ passport.use('local-login', new LocalStrategy(
 // In order to help keep authentication state across HTTP requests,
 // Just consider this part boilerplate needed to make it all work
 // accesses the user obj, determines what data should be stored in session
-// the result is attached to teh sessio as req.session.passport.user = {serialised obj}
+// the result is attached to the session as req.session.passport.user = {serialised obj}
 // result also attached to req.user
 passport.serializeUser(function(user, cb) {
-  console.log("in serialize ", user, cb);
+  console.log("in serialize ", user);
   cb(null, user);
 });
 
 // invoked every req by passport.session; enables loading additional user info
 // on every req
 passport.deserializeUser(function(obj, cb) {
-  console.log("in deserialize, ", obj, cb);
+  // console.log("in deserialize, ", obj);
   cb(null, obj);
 });
 

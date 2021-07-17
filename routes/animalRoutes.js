@@ -1,16 +1,17 @@
 const router = require('express').Router();
-const animalsModel = require('../controllers/animalsController');
+const animalsController = require('../controllers/animalsController');
+const checkAuthentication = require('../config/isAuthenticated');
 
 // addAnimal: 'INSERT INTO animals (aName, gender, aDescription, breedID, aTypeID, availabilityID, updatedByID, dateAdded, dateUpdated, imageURL) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);',
 
 // to-do: test this from front end
-router.post('/addAnimal/:name/:gender/:desc/:breedID/:typeID/:avID/:updateByID/:dateAdd/:dateUpdate/:imageURL', (req, results) => {
+router.post('/addAnimal/:name/:gender/:desc/:breedID/:typeID/:avID/:updateByID/:dateAdd/:dateUpdate/:imageURL', checkAuthentication, (req, results) => {
   // app.get('/getanimals', (req, results) => {
   var params = [
     req.params.name, req.params.desc, req.params.breedID, req.params.typeID, req.params.avID, 
     req.params.updateByID, req.params.dateAdd, req.params.dateUpdate, req.params.imageURL
   ];
-  animalsModel.addAnimal(params)
+  animalsController.addAnimal(params)
     .then(res => {
       results.status(200).send(res)
     })
@@ -21,7 +22,7 @@ router.post('/addAnimal/:name/:gender/:desc/:breedID/:typeID/:avID/:updateByID/:
 
 // router.get('/getAnimals', (req, results) => {
 // // app.get('/getanimals', (req, results) => {
-//   animalsModel.getAnimals()
+//   animalsController.getAnimals()
 //     .then(res => {
 //       results.status(200).send(res)
 //     })
@@ -31,7 +32,7 @@ router.post('/addAnimal/:name/:gender/:desc/:breedID/:typeID/:avID/:updateByID/:
 // });
 
 router.get('/getAnimalsWiFavs/:id', (req, results) => {
-  animalsModel.getAnimalsWiFavs([req.params.id])
+  animalsController.getAnimalsWiFavs([req.params.id])
     .then(res => {
       results.status(200).send(res)
     })
@@ -41,7 +42,7 @@ router.get('/getAnimalsWiFavs/:id', (req, results) => {
 });
 
 router.get('/getAvailabilities/', (req, results) => {
-  animalsModel.getAvailabilities()
+  animalsController.getAvailabilities()
     .then(res => {
       results.status(200).send(res)
     })
@@ -51,7 +52,7 @@ router.get('/getAvailabilities/', (req, results) => {
 });
 
 router.get('/getBreeds/', (req, results) => {
-  animalsModel.getBreeds()
+  animalsController.getBreeds()
     .then(res => {
       results.status(200).send(res)
     })

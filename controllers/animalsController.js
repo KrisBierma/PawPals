@@ -64,7 +64,7 @@ const getBreeds = () => {
 
 module.exports = {
   addAnimal,
-  getAnimals,
+  // getAnimals,
   getAnimalsWiFavs,
   getAvailabilities,
   getBreeds

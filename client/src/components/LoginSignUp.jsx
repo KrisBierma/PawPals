@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { AuthContext } from './AuthContext';
 import { BasicModal } from "./Common";
 import { LoginTabs } from "."
 import { Nav, Button } from "react-bootstrap";
@@ -61,6 +62,7 @@ const handleLoginClose = (setLoginModalOpen) => {
 }
 
 export default function LoginSignUp() {
+    const context = useContext(AuthContext);
     const [loginModalOpen, setLoginModalOpen] = useState(false);
     const [modalType, setModalType] = useState('login');
     const [title, setTitle] = useState('');
@@ -131,8 +133,15 @@ export default function LoginSignUp() {
                         console.log(res.data.message);
                     }
                     else if(res?.data.statuscode === 200) {
-                        // to-do: display msg to user
-                        console.log(res.data.message);
+                        // to-do: display success msg to user
+                        console.log('.........\nmessage: ',res.data.message);
+                        console.log(Msgs.successSignUp);
+                        
+                        // update context
+                        context.setIsLoggedIn(true);
+                        context.setUserName(res.data.user.username);
+                        context.setUserID(res.data.user.userroleid);
+                        context.setUserRole(res.data.user.userroleid);
                     }
                 })
                 .catch(() => {
@@ -144,14 +153,14 @@ export default function LoginSignUp() {
         else if (modalType === 'signup'){
             var email = fields[1].value;
             pass = fields[2].value;
-            var newid;  // to-do: handle this with log in
+            // var newid;  // to-do: handle this with log in
             if(validateEmail(email) && validateUsername(username, usernames)) {
                 // only regular users sign up here
                 axios.post(`/api/addUser/1/${username}/${pass}/${email}`)
                 .then(res => {
                     console.log(Msgs.successSignUp);
                     console.log("new user id: ", res?.data[0].id);
-                    newid = res.data[0].id;
+                    // newid = res.data[0].id;
 
                     // reset form and validations
                     setIsValidEmail(false);
@@ -161,14 +170,12 @@ export default function LoginSignUp() {
                         return {...s, value:''}
                     }))
                 })
-                .catch(err => console.log("there was a problem signing up the user",err))
+                .catch(err => console.log(Msgs.unsuccessfulSignUp + err))
             }
             else {
-                console.log("something is wrong with one of the input fields. please fix")
+                console.log(Msgs.invalidForm);
             }
-        } else {
-            console.log('something wrong happened');
-        }
+        };
     }
 
     // username must be unique
