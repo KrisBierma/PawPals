@@ -20,7 +20,6 @@ export default function NewsPage() {
             {news ? 'yes there\'s data. check the console.' : 'No news yet'}
         </div>
     )
-    // return "This is the NEWS Page";
 }
 
 // the routes and controller are read for other news crud

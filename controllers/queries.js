@@ -6,6 +6,10 @@ const animalsQ = {
   getBreeds : 'SELECT * from breeds;'
 };
 
+const authQ = {
+  login: 'SELECT * FROM users WHERE users.userName = $1;',
+};
+
 const newsQ = {
   addNewsAnimal : 'INSERT INTO newsItems(newsItemTypeID, animalID) VALUES ($1, $2);',
   addNewsEvent : 'INSERT INTO newsItems(newsItemTypeID, aDescription, eventDate) VALUES($1, $2, $3);',
@@ -28,4 +32,9 @@ const usersQ = {
 
 
 
-module.exports = { animalsQ, newsQ, usersQ };
+module.exports = { 
+  animalsQ, 
+  authQ,
+  newsQ, 
+  usersQ 
+};

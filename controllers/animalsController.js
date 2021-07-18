@@ -10,14 +10,14 @@ const addAnimal = (params) => {
   })
 };
 
-const getAnimals = () => {
-  return new Promise((resolve, reject) => {
-    db.query(animalsQ.getAll, [], (error, res) => {
-      if(error) reject(error.stack);
-      resolve(res.rows);
-    })
-  })
-};
+// const getAnimals = () => {
+//   return new Promise((resolve, reject) => {
+//     db.query(animalsQ.getAll, [], (error, res) => {
+//       if(error) reject(error.stack);
+//       resolve(res.rows);
+//     })
+//   })
+// };
 
 const getAnimalsWiFavs = (id) => {
   return new Promise((resolve, reject) => {
@@ -64,7 +64,7 @@ const getBreeds = () => {
 
 module.exports = {
   addAnimal,
-  getAnimals,
+  // getAnimals,
   getAnimalsWiFavs,
   getAvailabilities,
   getBreeds

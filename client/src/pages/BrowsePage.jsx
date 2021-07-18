@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { AuthContext } from '../components/AuthContext';
 import { GridLayout } from "../components/Common"
 import axios from 'axios';
 
 export default function BrowsePage() {
     const [animals, setAnimals] = useState([]);
-    // to-do: set userID to null, get new id when user is logged in; for now it's set to 1
-    const [userID, setUserID] = useState(1);
     const [availabilities, setAvailabilities] = useState(1);
     const [breeds, setBreeds] = useState(1);
+    const context = useContext(AuthContext);
 
     useEffect(() => {
         getAnimals();
@@ -26,7 +26,7 @@ export default function BrowsePage() {
 // db and get data
 
     function getAnimals() {
-        axios.get(`/api/getAnimalsWiFavs/${userID}`)
+        axios.get(`/api/getAnimalsWiFavs/${context.userID}`)
         .then(response => {
             console.log(response.data);
             setAnimals(response.data);
