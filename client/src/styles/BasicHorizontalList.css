@@ -1,0 +1,26 @@
+.adminCardFields {
+    font-weight: bold;
+}
+
+.adminListItem {
+    border: none;
+    width: 50px;
+}
+
+.adminListContainer {
+    display: flex;
+    height: 100px;
+}
+
+.adminImage {
+    max-height: 100px;
+}
+
+.adminListGroup {
+    display: flex;
+    align-items: center;
+}
+
+.adminImageContainer {
+    width: 200px;
+}
