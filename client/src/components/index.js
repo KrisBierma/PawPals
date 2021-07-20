@@ -7,4 +7,3 @@ export { default as SettingModal } from './SettingModal';
 export { default as AdminCard } from './AdminCard';
 export { default as PetProfileSmallCard } from './PetProfileSmallCard';
 export { PrivateRoute } from './PrivateRoute';
-export { default as SettingModal } from './SettingModal';
