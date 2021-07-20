@@ -37,12 +37,16 @@ const dummyData = [
     },
 ]
 
+//add in api call to get editable pets (all pets or only those owned by a person...?)
+
 export default function AdminPage() {
     return (
-        dummyData.map((animal) => {
+        <div style={{marginTop: '30px'}}>
+        {dummyData.map((animal) => {
             return (
                 <AdminCard animal={animal}/>
             );
-        })
+        })}
+        </div>
     );
 }
