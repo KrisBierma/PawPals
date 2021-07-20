@@ -13,11 +13,11 @@ const itemKeys = {
 
 const availabilities = ['Available', 'Pending', 'Adopted'];
 
-const adminButton = <Button variant="primary">Edit</Button>;
+const adminButton = <Button variant="primary" className='editButton'>Edit</Button>;
 
 const animalStatus = () => {
     return (
-        <Form>
+        <Form className='statusForm'>
             <div key={`inline-radio`} className="mb-3">
                 {availabilities.map((availability, index) => {
                     return (
