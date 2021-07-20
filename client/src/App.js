@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
+import { LandingPage, BrowsePage, FavoritesPage, NewsPage, PetDetailsPage, AdminPage } from './pages'
 import { Header, AuthProvider, PrivateRoute } from './components'
-import { LandingPage, BrowsePage, FavoritesPage, NewsPage, PetDetailsPage } from './pages'
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 
 // Todo: determine if we are logged in or not, pass as props to Skeleton
@@ -21,6 +21,7 @@ class App extends Component {
               <PrivateRoute exact path="/favorites" component={FavoritesPage}/>
               <Route exact path="/news" component={NewsPage}/>
               <Route path="/pet-profile/:id" component={PetDetailsPage} />
+              <Route exact path="/admin" component={AdminPage}/>
             </Switch>
           </Router>         
         </AuthProvider>
