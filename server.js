@@ -57,10 +57,10 @@ app.get('*', function(request, response) {
   response.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
 });
 
-if (app.get("env") === "production") {
-  // Serve secure cookies, requires HTTPS
-  session.cookie.secure = true;
-}
+// if (app.get("env") === "production") {
+//   // Serve secure cookies, requires HTTPS
+//   session.cookie.secure = true;
+// }
 
 // start server
 app.listen(port, function() {
