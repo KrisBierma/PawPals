@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from './AuthContext';
 import { BasicModal } from "../components/Common";
 import { NavDropdown } from "react-bootstrap";
 import axios from 'axios';
@@ -9,10 +10,12 @@ const settingFields = [
     {
         name: "Change Password",
         type: "input",
+        value: ""
     },
     {
         name: "Change Email",
         type: "input",
+        value: ""
     }
 ]
 
@@ -91,12 +94,20 @@ const handleSettingsSave = (setSettingModalOpen, enqueueSnackbar) => {
     }
 }
 
-// handles deleting account
-const deleteAccount = () => {
-    var userID = 12;
-
+// handles deleting account (tested and works 7/19)
+// to-do: logout, redirect to home, close message tab
+const deleteAccount = (userID, enqueueSnackbar) => {
     axios.delete(`/api/deleteUser/${userID}`)
-    .then(console.log("confirmed"))
+    // .then(console.log("confirmed"))
+    .then(() => {
+        enqueueSnackbar('account deleted', { 
+            variant: 'success',
+            anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'center',
+            },
+        });
+    })    
     .catch(err => console.log(err));
 }
 
@@ -105,23 +116,31 @@ const swapToDeleteModal = (setSettingModalOpen, setDeleteModalOpen) => {
     setDeleteModalOpen(true);
 }
 
-export default function LoginSignUp() {
-    const [settingModalOpen, setSettingModalOpen] = useState(false);
+export default function SettingModal() {
+    const context = useContext(AuthContext);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [fields, setFields] = useState([]);
+    const [settingModalOpen, setSettingModalOpen] = useState(false);
 
     // for using snackbar
     const { enqueueSnackbar } = useSnackbar();
 
     // to-do: get user data (saved in sessions??) and pre-populate input
     // get new input; see LoginSignUp
-    function handleChange() {
-
+    function handleChange(inputName, valueIn) {
+        setFields(prev => prev.map(s => {
+            console.log(prev);
+            if(s.name === inputName) {
+                return {...s, value:valueIn}
+            }
+            else return s;
+        }))
     }
 
     // handles the settings button click
     const handleDelete = (setDeleteModalOpen) => {
         setDeleteModalOpen(true);
-        deleteAccount();
+        deleteAccount(context.userID, enqueueSnackbar);
     }
 
     // handles modal close; passed to common modal component
@@ -129,6 +148,10 @@ export default function LoginSignUp() {
         setDeleteModalOpen(false);
     }
 
+    useEffect(() => {
+        setFields(() => settingData.fields);
+    }, []);
+    
     return (
         <>
             {/* Setting Modal */}
@@ -137,8 +160,9 @@ export default function LoginSignUp() {
                 handleClose={() => handleSettingClose(setSettingModalOpen)}
                 handleSave={() => handleSettingsSave(setSettingModalOpen, enqueueSnackbar)}
                 title={settingData?.title}
+                handleChange={(e, v) => handleChange(e, v)}
                 saveTitle={settingData?.saveTitle}
-                fields={settingData?.fields}
+                fields={fields}
                 otherButton={settingData?.otherButton}
                 otherButtonCallback={() => swapToDeleteModal(setSettingModalOpen, setDeleteModalOpen)}
             />
@@ -153,6 +177,7 @@ export default function LoginSignUp() {
                 handleClose={() => handleClose(setDeleteModalOpen)}
                 handleSave={() => handleDelete(setDeleteModalOpen)}
                 title={deleteData?.title}
+                // handleChange={(e, v) => handleChange(e, v)}
                 saveTitle={deleteData?.saveTitle}
                 otherButton={deleteData?.otherButton}
                 otherButtonCallback={() => handleClose(setDeleteModalOpen)}

@@ -5,6 +5,7 @@ import { LoginTabs } from "."
 import { Nav, Button } from "react-bootstrap";
 import axios from 'axios';
 import * as Msgs from './Common/Messages';
+import * as Utils from './Utils';
 
 const loginFields = [
     {
@@ -75,8 +76,9 @@ export default function LoginSignUp() {
 
     function handleChange(inputName, valueIn) {
         // set form input values
-        // console.log(inputName, valueIn)
+        console.log(inputName, valueIn)
         setFields(prev => prev.map(s => {
+            console.log(prev);
             if(s.name === inputName) {
                 return {...s, value:valueIn}
             }
@@ -86,7 +88,7 @@ export default function LoginSignUp() {
         // validate
         if(modalType === 'signup') {
             if(inputName === 'Email') {
-                if(validateEmail(valueIn)) setIsValidEmail(true);
+                if(Utils.validateEmail(valueIn)) setIsValidEmail(true);
                 else setIsValidEmail(false);
             }
             else if(inputName === 'Username') {
@@ -101,6 +103,7 @@ export default function LoginSignUp() {
     }
 
     // used to validate username when signing up (username must be unique)
+    // to-do: handle this on backend
     function getAllUsernames() {
         axios.get('/api/getAllUsernames')
         .then(res => {
@@ -154,7 +157,7 @@ export default function LoginSignUp() {
             var email = fields[1].value;
             pass = fields[2].value;
             // var newid;  // to-do: handle this with log in
-            if(validateEmail(email) && validateUsername(username, usernames)) {
+            if(Utils.validateEmail(email) && validateUsername(username, usernames)) {
                 // only regular users sign up here
                 axios.post(`/api/addUser/1/${username}/${pass}/${email}`)
                 .then(res => {
@@ -187,11 +190,11 @@ export default function LoginSignUp() {
         return true;
     }
 
-    function validateEmail(email) {
-        var patt = /^\S+@\S+\.\S+$/;
-        if(email.match(patt)) return true;
-        return false;
-    }
+    // function Utils.validateEmail(email) {
+    //     var patt = /^\S+@\S+\.\S+$/;
+    //     if(email.match(patt)) return true;
+    //     return false;
+    // }
 
     // will perform the following actions on render when modalType variable changes
     useEffect(() => {
