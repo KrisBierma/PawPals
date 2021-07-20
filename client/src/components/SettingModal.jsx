@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BasicModal } from "../components/Common";
 import { NavDropdown } from "react-bootstrap";
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import * as Msgs from './Common/Messages';
 
 const settingFields = [
     {
@@ -49,7 +50,7 @@ const handleSettingsSave = (setSettingModalOpen, enqueueSnackbar) => {
     if(email) {
         axios.put(`/api/updateUserEmail/${email}/${userID}`)
         .then(() => {
-            enqueueSnackbar('Email successfully updated!', { 
+            enqueueSnackbar(Msgs.updatedEmail, { 
                 variant: 'success',
                 anchorOrigin: {
                     vertical: 'top',
@@ -109,7 +110,7 @@ export default function LoginSignUp() {
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
     // for using snackbar
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
 
     // to-do: get user data (saved in sessions??) and pre-populate input
     // get new input; see LoginSignUp

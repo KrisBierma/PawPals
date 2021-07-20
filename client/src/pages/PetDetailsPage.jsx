@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useContext, useState} from 'react';
+import { AuthContext } from '../components/AuthContext';
 import { BasicCardListGroup, BasicCard } from '../components/Common';
 import { useParams } from 'react-router-dom';
 import { isFavorited } from '../js-commons/petFavoriting'
@@ -23,7 +24,7 @@ const prepSmallDetailCard = (petDetails) => {
     let details = {};
     Object.keys(petDetails).map((key) => {
         if (petDetailKeys.includes(key)){
-            details[key] = petDetails[key];
+            return details[key] = petDetails[key];
         }
     })
     return details;
@@ -33,7 +34,7 @@ export default function PetDetailsPage() {
     let { id } = useParams(); // get animal id from url param
     const [petDetails, setPetDetails] = useState(dummyPetDetails);
     const [heartFull, setHeartFull] = useState(false);
-    const [userID, setUserID] = useState(1);
+    const context = useContext(AuthContext);
 
     // add axios get pet details request here; remove example dummy details
 
@@ -44,7 +45,10 @@ export default function PetDetailsPage() {
                 key={petDetails?.animalid}
                 title={petDetails?.aname} 
                 body={petDetails?.description} 
-                icon={isFavorited(heartFull, setHeartFull, petDetails.animalid, userID)} 
+                // icon={isFavorited(heartFull, setHeartFull, petDetails.animalid, context.userID)} 
+                icon={  context.isLoggedIn ?    // if no user is logged in, don't show an icon
+                        isFavorited(heartFull, setHeartFull, petDetails.animalid, context.userID)
+                        : null }
                 image={petDetails?.imageurl}
                 className={{card: 'petDetailCardLarge', image: 'petDetailsImage'}}
             />

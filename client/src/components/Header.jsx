@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from './AuthContext';
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import "../styles/Header.css";
 import { LoginSignUp, SettingModal } from "../components"
+import axios from 'axios';
+import * as Msgs from './Common/Messages';
 
 // TODO: add conditionals for if logged in, highlight selected tab, add login functionality
 // TODO: pull user name from database
@@ -38,6 +41,7 @@ const headersData = [
 export default function Header(props) {
     // Currently our only display; creates full navbar
     const displayDesktop = () => {
+        console.log("loggedIn: ",context.isLoggedIn);
         return (
             <Navbar sticky="top" bg="light" expand="lg">
                 {pawPalsLogo}
@@ -54,18 +58,32 @@ export default function Header(props) {
         );
     };
 
+    // gets context (global variable)
+    const context = useContext(AuthContext);
+
     const pawPalsLogo = (
-        <Navbar.Brand href="#">PawPals</Navbar.Brand>
+        <Navbar.Brand href="/">PawPals</Navbar.Brand>
     );
 
     const login = (
         <LoginSignUp />
     );
 
-    const settingDropDown = (
-        <NavDropdown title="Hello Alexis" id="navbarScrollingDropdown">
+    function  logout() {
+        console.log('logging out');
+        axios.get('/auth/logout')
+            .then(res => {
+                context.setIsLoggedIn(false);
+                context.setDataSet(false);
+                console.log(Msgs.successLogout);
+            })
+            .catch(err => console.log(err));
+    }
+
+    const settingDropDown = (name) => (
+        <NavDropdown title={`Hello ${name}`} id="navbarScrollingDropdown">
             <SettingModal />
-            <NavDropdown.Item>Logout</NavDropdown.Item>
+            <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
         </NavDropdown>
     );
 
@@ -73,8 +91,8 @@ export default function Header(props) {
     const getMenuButtons = () => {
         return headersData.map(({ label, href, key }) => {
             // if we are not logged in do not render Favorites
-            if (key === 'favs' && !props.isLoggedIn ){ return <></>; }
-            else if (key === 'admin' && !props.isAdmin ){ return <></>; }
+            if (!context.isLoggedIn && key === 'favs'){ return <></>; }
+            else if (!context.isAdmin && key === 'admin' ){ return <></>; }
             else {
                 return (
                     <Nav.Link href={href} key={key}>{label}</Nav.Link>
@@ -85,8 +103,8 @@ export default function Header(props) {
 
     // decide whether we display sign in or the person's name (if they are signed in)
     const displayLogIn = () => {
-        if (props.isLoggedIn){
-            return settingDropDown;
+        if (context.isLoggedIn){
+            return settingDropDown(context.userName);
         }
         else {
             return login;
