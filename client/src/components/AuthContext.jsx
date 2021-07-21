@@ -6,7 +6,6 @@ import axios from 'axios';
 export default function AuthProvider(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(true); //will want to change
   const [dataSet, setDataSet] = useState(false);
   const [userName, setUserName] = useState(null);
   const [userID, setUserID] = useState(null);
