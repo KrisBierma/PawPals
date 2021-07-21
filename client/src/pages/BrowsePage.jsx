@@ -26,9 +26,10 @@ export default function BrowsePage() {
 // db and get data
 
     function getAnimals() {
-        axios.get(`/api/getAnimalsWiFavs/${context.userID}`)
+        // send -1 if no user bc postgres can't handle null for an int
+        var userIdToString = context.userID === null ? -1 : context.userID;
+        axios.get(`/api/getAnimalsWiFavs/${userIdToString}`)
         .then(response => {
-            console.log(response.data);
             setAnimals(response.data);
         }).catch(err =>console.log(err));
     }
