@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import { LandingPage, BrowsePage, FavoritesPage, NewsPage, PetDetailsPage, AdminPage } from './pages'
+import { LandingPage, BrowsePage, FavoritesPage, NewsPage, PetDetailsPage, AdminPage, AddPetPage } from './pages'
 import { Header, AuthProvider, PrivateRoute } from './components'
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -21,7 +21,8 @@ class App extends Component {
               <PrivateRoute exact path="/favorites" component={FavoritesPage}/>
               <Route exact path="/news" component={NewsPage}/>
               <Route path="/pet-profile/:id" component={PetDetailsPage} />
-              <Route exact path="/admin" component={AdminPage}/>
+              <PrivateRoute exact path="/admin" component={AdminPage}/>
+              <PrivateRoute path="/admin/add-pet" component={AddPetPage} />
             </Switch>
           </Router>         
         </AuthProvider>

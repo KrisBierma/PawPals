@@ -92,7 +92,7 @@ export default function Header(props) {
         return headersData.map(({ label, href, key }) => {
             // if we are not logged in do not render Favorites
             if (!context.isLoggedIn && key === 'favs'){ return <></>; }
-            else if (!context.isAdmin && key === 'admin' ){ return <></>; }
+            else if (context.userRole !== 2 && key === 'admin' ){ return <></>; }
             else {
                 return (
                     <Nav.Link href={href} key={key}>{label}</Nav.Link>

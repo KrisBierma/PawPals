@@ -3,7 +3,9 @@ const animalsQ = {
   getAll : 'SELECT * FROM animals;',
   getAllWiFav: 'select fav.userid as favUserID, an.id as animalID, an.aname, an.gender, an.adescription, an.imageURL, b.breed, t.id as typeID, t.atype, av.id as availabilityID, av.availability from animals an inner join breeds b on an.breedID = b.id inner join types t on an.atypeID = t.id inner join availabilities av on an.availabilityID = av.id left join (select * from favorites f where f.userID=$1) fav on an.id = fav.animalID;',
   getAvailabilities: 'SELECT * from availabilities;',
-  getBreeds : 'SELECT * from breeds;'
+  getBreeds : 'SELECT * from breeds;',
+  getDispositions: 'SELECT * from dispositions;',
+  getTypes: 'SELECT * from types;'
 };
 
 const authQ = {
