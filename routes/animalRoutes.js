@@ -20,17 +20,6 @@ router.post('/addAnimal/:name/:gender/:desc/:breedID/:typeID/:avID/:updateByID/:
     });
 });
 
-// router.get('/getAnimals', (req, results) => {
-// // app.get('/getanimals', (req, results) => {
-//   animalsController.getAnimals()
-//     .then(res => {
-//       results.status(200).send(res)
-//     })
-//     .catch(error => {
-//       results.status(500).json(error)
-//     });
-// });
-
 router.get('/getAnimalsWiFavs/:id', (req, results) => {
   animalsController.getAnimalsWiFavs([req.params.id])
     .then(res => {

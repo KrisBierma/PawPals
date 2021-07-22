@@ -22,8 +22,8 @@ export default function AuthProvider(props) {
 
   useEffect(() => {
     async function isAuthenticated() {
-      console.log('in AuthContext')
-      console.log(userName, userID, userRole);
+      // console.log('in AuthContext')
+      // console.log(userName, userID, userRole);
       axios.get('/auth/isAuthenticated')
         .then(res => {
           // console.log("is loggedIn: ",res.data)
@@ -46,6 +46,7 @@ export default function AuthProvider(props) {
       // console.log("in getSession()");
       axios.get('/auth/getSession')
         .then(res => {
+          // console.log("getsession res: ",res)
           setUserName(res.data.username);
           setUserID(res.data.id);
           setUserRole(res.data.userroleid);
