@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { AuthContext } from '../components/AuthContext';
 import { BasicCardListGroup, BasicCard } from '../components/Common';
 import { useParams } from 'react-router-dom';
@@ -22,7 +22,10 @@ const petDetailKeys = ['name', 'breed', 'type', 'disposition', 'availability'];
 // only include the details in petDetailKeys variable for the small detail card
 const prepSmallDetailCard = (petDetails) => {
     let details = {};
+    console.log(petDetails);
+    console.log(petDetailKeys);
     Object.keys(petDetails).map((key) => {
+        console.log(key);
         if (petDetailKeys.includes(key)){
             return details[key] = petDetails[key];
         }
@@ -35,6 +38,13 @@ export default function PetDetailsPage() {
     const [petDetails, setPetDetails] = useState(dummyPetDetails);
     const [heartFull, setHeartFull] = useState(false);
     const context = useContext(AuthContext);
+
+    useEffect(() => {
+        function getPet() {
+
+        }
+        getPet();
+    }, []);
 
     // add axios get pet details request here; remove example dummy details
 

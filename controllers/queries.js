@@ -9,6 +9,7 @@ const animalsQ = {
 };
 
 const authQ = {
+  addUser: 'INSERT INTO users (userRoleID, userName, password, email) VALUES ($1, $2, $3, $4) RETURNING id;',
   login: 'SELECT * FROM users WHERE users.userName = $1;',
 };
 
@@ -22,7 +23,6 @@ const newsQ = {
 
 const usersQ = {
   addFav : 'INSERT INTO favorites(animalID, userID) VALUES ($1, $2);',
-  addUser: 'INSERT INTO users (userRoleID, userName, password, email) VALUES ($1, $2, $3, $4) RETURNING id;',
   deleteFav : 'DELETE FROM favorites WHERE animalID = $1 and userID = $2;',
   deleteUser: 'DELETE FROM users WHERE id = $1;',
   getAllUserNames: 'SELECT users.username FROM users;',
