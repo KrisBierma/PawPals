@@ -54,9 +54,39 @@ const getBreeds = () => {
   })  
 }
 
+const getDispositions = () => {
+  return new Promise((resolve, reject) => {
+    db.query(animalsQ.getDispositions, [], (error, res) => {
+      if(error) reject(error.stack);
+      if(res != undefined) {
+        resolve(res.rows);
+      }
+      else {
+        reject('no data')
+      };
+    })
+  })  
+}
+
+const getTypes = () => {
+  return new Promise((resolve, reject) => {
+    db.query(animalsQ.getTypes, [], (error, res) => {
+      if(error) reject(error.stack);
+      if(res != undefined) {
+        resolve(res.rows);
+      }
+      else {
+        reject('no data')
+      };
+    })
+  })  
+}
+
 module.exports = {
   addAnimal,
   getAnimalsWiFavs,
   getAvailabilities,
-  getBreeds
+  getBreeds,
+  getDispositions,
+  getTypes
 };

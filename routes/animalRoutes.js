@@ -50,5 +50,25 @@ router.get('/getBreeds/', (req, results) => {
     });
 });
 
+router.get('/getDispositions/', (req, results) => {
+  animalsController.getDispositions()
+    .then(res => {
+      results.status(200).send(res)
+    })
+    .catch(error => {
+      results.status(500).json(error)
+    });
+});
+
+router.get('/getTypes/', (req, results) => {
+  animalsController.getTypes()
+    .then(res => {
+      results.status(200).send(res)
+    })
+    .catch(error => {
+      results.status(500).json(error)
+    });
+});
+
 
 module.exports = router;

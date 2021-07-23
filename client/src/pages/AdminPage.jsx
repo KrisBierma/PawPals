@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { AdminCard } from '../components'
+import { Link } from "react-router-dom";
 import axios from 'axios';
 
 const dummyData = [
@@ -41,12 +42,19 @@ const dummyData = [
 
 export default function AdminPage() {
     return (
-        <div style={{marginTop: '30px'}}>
-        {dummyData.map((animal) => {
-            return (
-                <AdminCard animal={animal}/>
-            );
-        })}
+        <div>
+            {/* search functionality */}
+
+            {/* add new pet button */}
+            <Link to="/admin/add-pet" className="btn btn-primary">Add New Pet</Link>
+            {/* pet cards */}
+            <div style={{marginTop: '30px'}}>
+                {dummyData.map((animal) => {
+                    return (
+                        <AdminCard animal={animal} key={animal?.animalid}/>
+                    );
+                })}
+            </div>
         </div>
     );
 }
