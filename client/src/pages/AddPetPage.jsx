@@ -6,32 +6,9 @@ import { useSnackbar } from 'notistack';
 import * as Enum from '../components/Common/Enum';
 import * as Msgs from '../components/Common/Messages';
 import { AuthContext } from '../components/AuthContext';
+import { findType, findAvailability, findBreed, findDisposition }from '../js-commons/getIntegerValues'
 import axios from 'axios';
 import '../styles/AddPetPage.css'
-
-// return the type integer value based on string
-const findType = (type, typeOptions) => {
-    let index = typeOptions.findIndex(x => x.atype === type);
-    return typeOptions[index]?.id;
-};
-
-// return the availability integer value based on string
-const findAvailability = (availability, availabilityOptions) => {
-    let index = availabilityOptions.findIndex(x => x.availability === availability);
-    return availabilityOptions[index]?.id;
-}
-
-// return the breed integer value based on string
-const findBreed = (breed, breedOptions) => {
-    let index = breedOptions.findIndex(x => x.breed === breed);
-    return breedOptions[index]?.id;
-}
-
-// return the disposition integer value based on string
-const findDisposition = (disposition, dispositionOptions) => {
-    let index = dispositionOptions.findIndex(x => x.disposition === disposition);
-    return dispositionOptions[index]?.id;
-}
 
 // keep track of the currently checked dispositions
 const updateDispositions = (event, dispositionSelections, setDispositionSelections) => {

@@ -4,6 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import { useSnackbar } from 'notistack';
 import * as Enum from '../components/Common/Enum';
 import * as Msgs from '../components/Common/Messages';
+import { findAvailability } from '../js-commons/getIntegerValues'
 import "../styles/AdminCard.css"
 import axios from 'axios';
 
@@ -22,12 +23,6 @@ const cleanAnimalData = (data) => {
 
 //need to add in edit functionality
 const adminButton = <Button variant="primary" className='editButton'>Edit</Button>;
-
-// return the availability integer value based on string
-const findAvailability = (availability, availabilityOptions) => {
-    let index = availabilityOptions.findIndex(x => x.availability === availability);
-    return availabilityOptions[index]?.id;
-}
 
 export default function AdminCard({
     animal = {}
