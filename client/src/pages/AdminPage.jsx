@@ -20,7 +20,6 @@ export default function AdminPage() {
         axios.get(`/api/getAnimalsWiFavs/${userIdToString}`)
         .then(response => {
             setAnimals(response.data);
-            console.log(response.data);
         }).catch(err =>console.log(err));
     }
 

@@ -35,7 +35,6 @@ const findDisposition = (disposition, dispositionOptions) => {
 
 // keep track of the currently checked dispositions
 const updateDispositions = (event, dispositionSelections, setDispositionSelections) => {
-    console.log(event.target);
     let newArray = [...dispositionSelections, event.target.id];
     if (dispositionSelections.includes(event.target.id)) {
       newArray = newArray.filter(disposition => disposition !== event.target.id);
