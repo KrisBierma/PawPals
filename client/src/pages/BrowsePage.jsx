@@ -31,6 +31,7 @@ export default function BrowsePage() {
         axios.get(`/api/getAnimalsWiFavs/${userIdToString}`)
         .then(response => {
             setAnimals(response.data);
+            // console.log(response.data)
         }).catch(err =>console.log(err));
     }
 
@@ -38,12 +39,12 @@ export default function BrowsePage() {
     function getDropdownInfo() {
         axios.get(`/api/getAvailabilities`)
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             setAvailabilities(response.data);
         })
         axios.get(`/api/getBreeds`)
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             setBreeds(response.data);
         })
     }
@@ -51,8 +52,7 @@ export default function BrowsePage() {
     return (
         <div>
             {/* breeds dropdown  */}
-            <p>All animals are shown regarless if user is logged in or not.</p>
-            <p>If user is logged in, check favUserID to see if it's favorited. If favUserID == null, then it's not favorited.</p>
+            { animals.length === 0 ? <p>All our animals currently have homes!</p> : <p></p>}
             <GridLayout cardData={animals} />
         </div>
     )

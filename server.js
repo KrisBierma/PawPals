@@ -6,7 +6,7 @@ const path = require("path");
 const passport = require('./config/passport');
 const port = process.env.PORT || 3001;
 const routes = require("./routes");
-const results = require('dotenv').config();
+// const results = require('dotenv').config();  // to-do: using? else npm uninstall
 var session = require('express-session');
 
 // if(results.error) console.log(results.error)
@@ -45,17 +45,18 @@ app.use(passport.session());
 // api routes before all else
 app.use(routes);
 
-// create a GET route   to-do: delete this later
-app.get('/connectToServer', (req, res) => {
-  res.send({ express: 'The backend is connect to the frontend' });
-});
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+  // All remaining requests return the React app, so it can handle routing.
+  app.get('*', function(request, response) {
+    response.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
+  });  
+}
+else {
+  app.use(express.static('public'));
+}
 
-// All remaining requests return the React app, so it can handle routing.
-app.get('*', function(request, response) {
-  response.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
-});
 
 // if (app.get("env") === "production") {
 //   // Serve secure cookies, requires HTTPS
