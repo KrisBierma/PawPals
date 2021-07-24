@@ -3,9 +3,10 @@ const db = require('./postgresPool');
 
 const addAnimal = (params) => {
   return new Promise((resolve, reject) => {
-    db.query(animalsQ.getAll, params, (error, res) => {
+    db.query(animalsQ.addAnimal, params, (error, res) => {
       if(error) reject(error.stack);
-      resolve(res.rows);
+      if(res != undefined) resolve(res.rows);
+      else reject('no data');
     })
   })
 };
