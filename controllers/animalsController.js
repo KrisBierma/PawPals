@@ -3,9 +3,34 @@ const db = require('./postgresPool');
 
 const addAnimal = (params) => {
   return new Promise((resolve, reject) => {
-    db.query(animalsQ.getAll, params, (error, res) => {
+    db.query(animalsQ.addAnimal, params, (error, res) => {
       if(error) reject(error.stack);
-      resolve(res.rows);
+      if(res != undefined) resolve(res.rows);
+      else reject('no data');
+    })
+  })
+};
+
+const addDisposition = (params) => {
+  return new Promise((resolve, reject) => {
+    db.query(animalsQ.addDisposition, params, (error, res) => {
+      if(error) reject(error.stack);
+      if(res != undefined) resolve(res.rows);
+      else reject('no data');
+    })
+  })
+};
+
+const updateAvailability = (params) => {
+  console.log("in updateUserEmail, params: ",params);
+  return new Promise((resolve, reject) => {
+    db.query(animalsQ.updateAvailability, params, (error, res) => {
+      if(error) {
+        reject(error.stack);
+      }
+      console.log(res);
+      if(res != undefined) resolve(res.rows);
+      else reject('no data');
     })
   })
 };
@@ -84,6 +109,8 @@ const getTypes = () => {
 
 module.exports = {
   addAnimal,
+  addDisposition,
+  updateAvailability,
   getAnimalsWiFavs,
   getAvailabilities,
   getBreeds,
