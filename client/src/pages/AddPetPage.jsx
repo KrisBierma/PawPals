@@ -82,21 +82,31 @@ export default function AddPetPage() {
             && e.target.description.value && e.target.imageUrl.value)){
             enqueueSnackbar(Msgs.invalidForm, {variant: Enum.Variant.error});
         }else{
-            axios.post(`/api/addAnimal/${e.target.petName.value}/${e.target.gender.value === 'Male' ? 1 : 2}/${e.target.description.value}/${findBreed(e.target.breed.value, breeds)}/${findType(e.target.type.value, types)}/${findAvailability(e.target.availability.value, availabilities)}/${context.userID}/${e.target.imageUrl.value}`)
+            const params = {
+                name: e.target.petName.value,
+                gender: e.target.gender.value === 'Male' ? 1 : 2,
+                desc: e.target.description.value,
+                breedID: findBreed(e.target.breed.value, breeds),
+                typeID: findType(e.target.type.value, types),
+                avID: findAvailability(e.target.availability.value, availabilities),
+                updateByID: context.userID,
+                imageURL: e.target.imageUrl.value
+            }
+            axios.post(`/api/addAnimal/`, params)
             .then(res => {
-                if(res?.data.statuscode === 401) {
+                if(res?.status === 401) {
                     enqueueSnackbar(res.data.message, {variant: Enum.Variant.error});
                 }
-                else if(res?.data.statuscode === 200) {
+                else if(res?.status === 200) {
                     enqueueSnackbar(Msgs.successPetAdd, {variant: Enum.Variant.success});
                     // if we have dispositions we need to submit, submit with newly created animalID
                     if (dispositionSelections){
                         // get animal id from response
-                        // const animalID = ??
+                        const animalID = res?.data[0]?.id;
                         // enter in dispositions for that animal here
-                        // dispositionSelections.map(disposition => {
-                        //     axios.post(`/api/addDisposition/${animalID}/${findDisposition(disposition, dispositions)}`) 
-                        // })
+                        dispositionSelections.forEach((disposition) => {
+                            axios.post(`/api/addDisposition/${animalID}/${findDisposition(disposition, dispositions)}`) 
+                        })
                     }
                 }
             })
