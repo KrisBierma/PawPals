@@ -5,11 +5,11 @@ const checkAuthentication = require('../config/isAuthenticated');
 // addAnimal: 'INSERT INTO animals (aName, gender, aDescription, breedID, aTypeID, availabilityID, updatedByID, dateAdded, dateUpdated, imageURL) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);',
 
 // to-do: test this from front end
-router.post('/addAnimal/:name/:gender/:desc/:breedID/:typeID/:avID/:updateByID/:dateAdd/:dateUpdate/:imageURL', checkAuthentication, (req, results) => {
+router.post('/addAnimal', checkAuthentication, (req, results) => {
   // app.get('/getanimals', (req, results) => {
   var params = [
-    req.params.name, req.params.desc, req.params.breedID, req.params.typeID, req.params.avID, 
-    req.params.updateByID, req.params.dateAdd, req.params.dateUpdate, req.params.imageURL
+    req.body.name, req.body.gender, req.body.desc, req.body.breedID, req.body.typeID, req.body.avID, 
+    req.body.updateByID, req.body.imageURL
   ];
   animalsController.addAnimal(params)
     .then(res => {
@@ -22,12 +22,24 @@ router.post('/addAnimal/:name/:gender/:desc/:breedID/:typeID/:avID/:updateByID/:
 
 router.get('/getAnimal/:userid/:animalid', (req, results) => {
   animalsController.getAnimal([req.params.userid, req.params.animalid])
+router.post('/addDisposition/:animalID/:dispositionID', checkAuthentication, (req, results) => {
+  // app.get('/getanimals', (req, results) => {
+  var params = [
+    req.params.animalID, req.params.dispositionID
+  ];
+  animalsController.addDisposition(params)
     .then(res => {
       results.status(200).send(res)
     })
     .catch(error => {
       results.status(500).json(error)
     });
+});
+
+router.put('/updateAvailability/:availability/:animalID', checkAuthentication, (req, results) => {
+  animalsController.updateAvailability([req.params.availability, req.params.animalID])
+    .then(res => results.status(200).send(res))
+    .catch(error => results.status(500).json(error));
 });
 
 router.get('/getAnimalsWiFavs/:id', (req, results) => {
