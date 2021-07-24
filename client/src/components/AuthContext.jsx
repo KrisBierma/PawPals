@@ -12,7 +12,7 @@ export default function AuthProvider(props) {
   const [userRole, setUserRole] = useState(null);
   
   function reset() {
-    console.log("in authContext, resetting...", isLoggedIn);
+    // console.log("in authContext, resetting...", isLoggedIn);
     if(!isLoggedIn) {
       setUserName(null);
       setUserID(null);

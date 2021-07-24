@@ -10,8 +10,24 @@ const addAnimal = (params) => {
   })
 };
 
+const getAnimal = (params) => {
+  // console.log(params);
+  return new Promise((resolve, reject) => {
+    db.query(animalsQ.getAnimal, params, (error, res) => {
+      if(error) reject(error.stack);
+      // resolve(res.rows);
+      if(res != undefined) {
+        resolve(res.rows);
+      }
+      else {
+        reject('no data')
+      };
+    })
+  })
+};
+
 const getAnimalsWiFavs = (id) => {
-  console.log(id);
+  // console.log(id);
   return new Promise((resolve, reject) => {
     db.query(animalsQ.getAllWiFav, id, (error, res) => {
       if(error) reject(error.stack);
@@ -84,6 +100,7 @@ const getTypes = () => {
 
 module.exports = {
   addAnimal,
+  getAnimal,
   getAnimalsWiFavs,
   getAvailabilities,
   getBreeds,

@@ -11,3 +11,22 @@ export function validateUsername(name, usernames) {
   }
   return true;
 }
+
+export function isNullOrEmpty(str) {
+  return str === null || str.trim().length === 0 || str === '';
+}
+
+export function getClassName(value) {
+  // console.log(value);
+  var className = 'petDetailCardValue ';
+  switch(value) {
+      case('Adopted'):
+          return className + 'adpoted';
+      case('Available'):
+          return className + 'available';
+      case('Pending'):
+          return className + 'pending';
+      default: 
+          return className + 'unavailable';
+  }
+} 
