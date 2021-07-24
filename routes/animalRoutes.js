@@ -22,6 +22,14 @@ router.post('/addAnimal', checkAuthentication, (req, results) => {
 
 router.get('/getAnimal/:userid/:animalid', (req, results) => {
   animalsController.getAnimal([req.params.userid, req.params.animalid])
+  .then(res => {
+    results.status(200).send(res)
+  })
+  .catch(error => {
+    results.status(500).json(error)
+  });
+});  
+
 router.post('/addDisposition/:animalID/:dispositionID', checkAuthentication, (req, results) => {
   // app.get('/getanimals', (req, results) => {
   var params = [
