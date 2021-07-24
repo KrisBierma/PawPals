@@ -6,7 +6,8 @@ const animalsQ = {
   getAvailabilities: 'SELECT * from availabilities;',
   getBreeds : 'SELECT * from breeds;',
   getDispositions: 'SELECT * from dispositions;',
-  getTypes: 'SELECT * from types;'
+  getTypes: 'SELECT * from types;',
+  updateAvailability: 'UPDATE animals SET availabilityID = $1 where id = $2;'
 };
 
 const authQ = {

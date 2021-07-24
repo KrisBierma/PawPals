@@ -21,6 +21,20 @@ const addDisposition = (params) => {
   })
 };
 
+const updateAvailability = (params) => {
+  console.log("in updateUserEmail, params: ",params);
+  return new Promise((resolve, reject) => {
+    db.query(animalsQ.updateAvailability, params, (error, res) => {
+      if(error) {
+        reject(error.stack);
+      }
+      console.log(res);
+      if(res != undefined) resolve(res.rows);
+      else reject('no data');
+    })
+  })
+};
+
 const getAnimalsWiFavs = (id) => {
   console.log(id);
   return new Promise((resolve, reject) => {
@@ -96,6 +110,7 @@ const getTypes = () => {
 module.exports = {
   addAnimal,
   addDisposition,
+  updateAvailability,
   getAnimalsWiFavs,
   getAvailabilities,
   getBreeds,

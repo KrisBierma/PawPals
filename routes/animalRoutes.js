@@ -34,6 +34,12 @@ router.post('/addDisposition/:animalID/:dispositionID', checkAuthentication, (re
     });
 });
 
+router.put('/updateAvailability/:availability/:animalID', checkAuthentication, (req, results) => {
+  animalsController.updateAvailability([req.params.availability, req.params.animalID])
+    .then(res => results.status(200).send(res))
+    .catch(error => results.status(500).json(error));
+});
+
 router.get('/getAnimalsWiFavs/:id', (req, results) => {
   animalsController.getAnimalsWiFavs([req.params.id])
     .then(res => {
