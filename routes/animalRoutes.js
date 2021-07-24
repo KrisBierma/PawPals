@@ -20,6 +20,20 @@ router.post('/addAnimal/:name/:gender/:desc/:breedID/:typeID/:avID/:updateByID/:
     });
 });
 
+router.post('/addDisposition/:animalID/:dispositionID', checkAuthentication, (req, results) => {
+  // app.get('/getanimals', (req, results) => {
+  var params = [
+    req.params.animalID, req.params.dispositionID
+  ];
+  animalsController.addDisposition(params)
+    .then(res => {
+      results.status(200).send(res)
+    })
+    .catch(error => {
+      results.status(500).json(error)
+    });
+});
+
 router.get('/getAnimalsWiFavs/:id', (req, results) => {
   animalsController.getAnimalsWiFavs([req.params.id])
     .then(res => {

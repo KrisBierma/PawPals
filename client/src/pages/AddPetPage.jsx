@@ -9,20 +9,38 @@ import { AuthContext } from '../components/AuthContext';
 import axios from 'axios';
 import '../styles/AddPetPage.css'
 
-// return the proper type value based on string
+// return the type integer value based on string
 const findType = (type, typeOptions) => {
     let index = typeOptions.findIndex(x => x.atype === type);
     return typeOptions[index]?.id;
 };
 
+// return the availability integer value based on string
 const findAvailability = (availability, availabilityOptions) => {
     let index = availabilityOptions.findIndex(x => x.availability === availability);
     return availabilityOptions[index]?.id;
 }
 
+// return the breed integer value based on string
 const findBreed = (breed, breedOptions) => {
     let index = breedOptions.findIndex(x => x.breed === breed);
     return breedOptions[index]?.id;
+}
+
+// return the disposition integer value based on string
+const findDisposition = (disposition, dispositionOptions) => {
+    let index = dispositionOptions.findIndex(x => x.disposition === disposition);
+    return dispositionOptions[index]?.id;
+}
+
+// keep track of the currently checked dispositions
+const updateDispositions = (event, dispositionSelections, setDispositionSelections) => {
+    console.log(event.target);
+    let newArray = [...dispositionSelections, event.target.id];
+    if (dispositionSelections.includes(event.target.id)) {
+      newArray = newArray.filter(disposition => disposition !== event.target.id);
+    } 
+    setDispositionSelections(newArray);
 }
 
 export default function AddPetPage() {
@@ -31,6 +49,7 @@ export default function AddPetPage() {
     const [dispositions, setDispositions] = useState([]);
     const [types, setTypes] = useState([]);
     const [selectedType, setSelectedType] = useState(null);
+    const [dispositionSelections, setDispositionSelections] = useState([]);
     const { enqueueSnackbar } = useSnackbar();
 
     const context = useContext(AuthContext);
@@ -87,17 +106,6 @@ export default function AddPetPage() {
             && e.target.description.value && e.target.imageUrl.value)){
             enqueueSnackbar(Msgs.invalidForm, {variant: Enum.Variant.error});
         }else{
-            let params = {
-                name: e.target.petName.value, 
-                gender: e.target.gender.value === 'Male' ? 1 : 2, 
-                desc: e.target.description.value, 
-                breedID: findBreed(e.target.breed.value, breeds),
-                typeID: findType(e.target.type.value, types),
-                avID: findAvailability(e.target.availability.value, availabilities),
-                updateByID: context.userID,
-                imageURL: e.target.imageUrl.value,
-            };
-
             axios.post(`/api/addAnimal/${e.target.petName.value}/${e.target.gender.value === 'Male' ? 1 : 2}/${e.target.description.value}/${findBreed(e.target.breed.value, breeds)}/${findType(e.target.type.value, types)}/${findAvailability(e.target.availability.value, availabilities)}/${context.userID}/${e.target.imageUrl.value}`)
             .then(res => {
                 if(res?.data.statuscode === 401) {
@@ -105,7 +113,15 @@ export default function AddPetPage() {
                 }
                 else if(res?.data.statuscode === 200) {
                     enqueueSnackbar(Msgs.successPetAdd, {variant: Enum.Variant.success});
-                    ReactDOM.findDOMNode(this.messageForm).reset(); //reset form if successful
+                    // if we have dispositions we need to submit, submit with newly created animalID
+                    if (dispositionSelections){
+                        // get animal id from response
+                        // const animalID = ??
+                        // enter in dispositions for that animal here
+                        // dispositionSelections.map(disposition => {
+                        //     axios.post(`/api/addDisposition/${animalID}/${findDisposition(disposition, dispositions)}`) 
+                        // })
+                    }
                 }
             })
             .catch(err => {
@@ -166,11 +182,19 @@ export default function AddPetPage() {
 
                     <Form.Group as={Col} controlId="formGridDisposition">
                         <Form.Label>Disposition</Form.Label>
-                        <Form.Control as="select" name="disposition" htmlSize={3} multiple>
-                            {dispositions?.map(disposition => {
-                                return <option key={disposition?.id}>{disposition?.disposition}</option>
-                            })}
-                        </Form.Control>
+                            <div style={{textAlign:'left'}}>
+                                {dispositions?.map(disposition => {
+                                    return (<Form.Check
+                                    custom
+                                    name="disposition"
+                                    key={disposition?.id}
+                                    label={disposition?.disposition}
+                                    onChange={e => updateDispositions(e, dispositionSelections, setDispositionSelections)}
+                                    type='checkbox'
+                                    id={disposition?.disposition}
+                                />)
+                                })}
+                            </div>
                     </Form.Group>
                 </Row>
 
