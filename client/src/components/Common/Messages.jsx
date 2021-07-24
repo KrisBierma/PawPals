@@ -8,6 +8,8 @@ export const invalidUsername = 'That username is taken. Please choose a new one.
 export const unsuccessfulSignUp = 'Something went wrong on our end. You have not been signed up. Error: ';
 export const unsuccessfulNewPetAdd = 'Something went wrong on our end. Unable to add pet.';
 export const errorUpdatedAvailability = 'Something went wrong on our end. Unable to update pet adoption status.';
+export const errorAddingNewsEvent = 'Something went wrong on our end. Unable to add news event for pet.';
+export const errorAddingDisposition = 'Something went wrong on our end. Unable to add disposition selection for pet.';
 
 
 // // success messages

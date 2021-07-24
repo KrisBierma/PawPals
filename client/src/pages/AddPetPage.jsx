@@ -26,6 +26,7 @@ export default function AddPetPage() {
     const [types, setTypes] = useState([]);
     const [selectedType, setSelectedType] = useState(null);
     const [dispositionSelections, setDispositionSelections] = useState([]);
+    const [newsFeedAdd, setNewsFeedAdd] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
 
     const context = useContext(AuthContext);
@@ -99,14 +100,36 @@ export default function AddPetPage() {
                 }
                 else if(res?.status === 200) {
                     enqueueSnackbar(Msgs.successPetAdd, {variant: Enum.Variant.success});
+                    // get animal id from response
+                    const animalID = res?.data[0]?.id;
                     // if we have dispositions we need to submit, submit with newly created animalID
                     if (dispositionSelections){
-                        // get animal id from response
-                        const animalID = res?.data[0]?.id;
                         // enter in dispositions for that animal here
                         dispositionSelections.forEach((disposition) => {
-                            axios.post(`/api/addDisposition/${animalID}/${findDisposition(disposition, dispositions)}`) 
+                            axios.post(`/api/addDisposition/${animalID}/${findDisposition(disposition, dispositions)}`)
+                            .then(res => {
+                                if(res?.status === 401) {
+                                    enqueueSnackbar(res.data.message, {variant: Enum.Variant.error});
+                                }
+                            })
+                            .catch(err => {
+                                console.log(err);
+                                enqueueSnackbar(Msgs.errorAddingDisposition, {variant: Enum.Variant.error});
+                            })
                         })
+                    }
+                    // if they checked to add news feed event, add to database
+                    if (newsFeedAdd){
+                        axios.post(`/api/addNewsAnimal/1/${animalID}`)
+                        .then(res => {
+                            if(res?.status === 401) {
+                                enqueueSnackbar(res.data.message, {variant: Enum.Variant.error});
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            enqueueSnackbar(Msgs.errorAddingNewsEvent, {variant: Enum.Variant.error});
+                        }) 
                     }
                 }
             })
@@ -200,6 +223,21 @@ export default function AddPetPage() {
                             <Form.Control required type="imageURL" name="imageUrl" placeholder="Enter url for image" />
                         </Form.Group>
                     </Col>
+                </Row>
+
+                <Row className="mb-1">
+                    <Form.Group as={Col} controlId="formGridNews">
+                            <div style={{textAlign:'left'}}>
+                                <Form.Check
+                                    custom
+                                    name="newsitem"
+                                    label="Add new pet intro to news feed"
+                                    onChange={e => setNewsFeedAdd(!newsFeedAdd)}
+                                    type='checkbox'
+                                    id="news"
+                                />
+                            </div>
+                    </Form.Group>
                 </Row>
 
                 <Button variant="primary" type="submit">
