@@ -11,6 +11,16 @@ const addAnimal = (params) => {
     });
 };
 
+const updateAnimal = (params) => {
+  return new Promise((resolve, reject) => {
+    db.query(animalsQ.updateAnimal, params, (error, res) => {
+      if(error) reject(error.stack);
+      if(res != undefined) resolve(res.rows);
+      else reject('no data');
+    })
+  })
+};
+
 const addDisposition = (params) => {
     return new Promise((resolve, reject) => {
         db.query(animalsQ.addDisposition, params, (error, res) => {
@@ -21,6 +31,29 @@ const addDisposition = (params) => {
     });
 };
 
+const deleteDispositions = (params) => {
+  return new Promise((resolve, reject) => {
+    db.query(animalsQ.deleteDispositions, params, (error, res) => {
+      if(error) reject(error.stack);
+      if(res != undefined) resolve(res.rows);
+      else reject('no data');
+    })
+  })
+};
+
+const updateAvailability = (params) => {
+  console.log("in updateUserEmail, params: ",params);
+  return new Promise((resolve, reject) => {
+    db.query(animalsQ.updateAvailability, params, (error, res) => {
+      if(error) {
+        reject(error.stack);
+      }
+      console.log(res);
+      if(res != undefined) resolve(res.rows);
+      else reject('no data');
+    })
+  })
+}
 
 const getAnimal = (params) => {
     // console.log(params);
@@ -150,29 +183,19 @@ const getTypes = () => {
     });
 };
 
-const updateAvailability = (params) => {
-    // console.log("in updateUserEmail, params: ", params);
-    return new Promise((resolve, reject) => {
-        db.query(animalsQ.updateAvailability, params, (error, res) => {
-            if (error) {
-                reject(error.stack);
-            }
-            // console.log(res);
-            if (res != undefined) resolve(res.rows);
-            else reject("no data");
-        });
-    });
-};
-
 module.exports = {
-    addAnimal,
-    addDisposition,
-    getAnimal,
-    getAnimalsWiAllFilter,
-    getAnimalsWiFavs,
-    getAvailabilities,
-    getBreeds,
-    getDispositions,
-    getTypes,
-    updateAvailability,
+  addAnimal,
+  getAnimal,
+  addDisposition,
+  deleteDispositions,
+  updateAvailability,
+  getAnimal,
+  getAnimalsWiAllFilter,
+  getAnimalsWiFavs,
+  getAvailabilities,
+  getBreeds,
+  getDispositions,
+  getTypes,
+  updateAnimal,
+  getAnimalsWiAllFilter
 };

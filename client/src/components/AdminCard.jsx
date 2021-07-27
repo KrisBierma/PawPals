@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { BasicHorizontalList } from './Common';
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { useSnackbar } from 'notistack';
 import * as Enum from '../components/Common/Enum';
 import * as Msgs from '../components/Common/Messages';
-import { findAvailability } from '../js-commons/getIntegerValues'
+import { findIndex } from '../js-commons/getIntegerValues'
 import "../styles/AdminCard.css"
 import axios from 'axios';
 
@@ -17,12 +18,13 @@ const itemKeys = {
 
 // change gender integer values to string
 const cleanAnimalData = (data) => {
-    data.gender = data.gender === 1 ? 'Male' : 'Female';
+    if (data.gender === 1){
+        data.gender = "Male";
+    }else if (data.gender === 2){
+        data.gender = "Female";
+    }
     return data;
 }
-
-//need to add in edit functionality
-const adminButton = <Button variant="primary" className='editButton'>Edit</Button>;
 
 export default function AdminCard({
     animal = {}
@@ -52,9 +54,12 @@ export default function AdminCard({
         listGroup: 'adminListGroup'
     }
 
+    //edit button links to add-edit-pet page
+    const adminButton = <Link to={{pathname: "/admin/add-edit-pet", animal: animal}} className="btn btn-primary editButton">Edit Pet</Link>;
+
     //when database updates, update the radio button selected, otherwise error
     const updateStatus = (newStatus) => {
-        axios.put(`/api/updateAvailability/${findAvailability(newStatus, availabilities)}/${animal.animalid}`)
+        axios.put(`/api/updateAvailability/${findIndex(newStatus, availabilities, "availability")}/${animal.animalid}`)
             .then(() => {
                 enqueueSnackbar(Msgs.updatedAvailability, {variant: Enum.Variant.success});
                 setCurrentStatus(newStatus);

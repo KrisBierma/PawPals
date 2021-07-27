@@ -2,14 +2,27 @@ const animalsQ = {
   addAnimal: 'INSERT INTO animals (aName, gender, aDescription, breedID, aTypeID, availabilityID, updatedByID, dateAdded, dateUpdated, imageURL) VALUES ($1, $2, $3, $4, $5, $6, $7, Now(), Now(), $8) RETURNING id;',
   addDisposition: 'INSERT INTO animalDispositions (animalID, dispositionID) VALUES ($1, $2);',
   getAll : 'SELECT * FROM animals;',
-  getAllWiFav: 'select fav.userid as favUserID, an.id as animalID, an.aname, an.gender, an.adescription, an.imageURL, b.breed, t.id as typeID, t.atype, av.id as availabilityID, av.availability from animals an inner join breeds b on an.breedID = b.id inner join types t on an.atypeID = t.id inner join availabilities av on an.availabilityID = av.id left join (select * from favorites f where f.userID=$1) fav on an.id = fav.animalID',
+  getAllWiFav: `
+  WITH animdisp as (
+    select ad.animalid, array_agg(dd.disposition) as dispositions
+    from animaldispositions ad 
+    left join dispositions dd on dd.id = ad.dispositionid
+    group by 1
+    )
+    select fav.userid as favUserID, an.id as animalID, an.aname, an.gender, an.adescription, an.imageURL, b.breed, t.id as typeID, t.atype, av.id as availabilityID, av.availability, ad.dispositions
+    from animals an inner join breeds b on an.breedID = b.id 
+    inner join types t on an.atypeID = t.id inner join availabilities av on an.availabilityID = av.id 
+    left join (select * from favorites f where f.userID=$1) fav on an.id = fav.animalID
+    left join animdisp ad on ad.animalid = an.id;`,
   getAnimal: "select fav.userid as favUserID, an.id as animalID, an.aname, an.gender, an.adescription, an.imageURL, b.breed, t.id as typeID, t.atype, av.id as availabilityID, string_agg(d.disposition, ', ') as disposition, av.availability from animals an inner join breeds b on an.breedID = b.id inner join types t on an.atypeID = t.id inner join availabilities av on an.availabilityID = av.id left join (select * from favorites f where f.userID=$1) fav on an.id = fav.animalID left join (select * from animalDispositions ad where ad.animalID = $2) dis on an.id = dis.animalID left join dispositions d on dis.dispositionID = d.id where an.id = $2 group by an.id, favUserID, an.aname, an.gender, an.adescription, an.imageURL, b.breed, t.id, t.atype, av.id, av.availability;",
   getAvailabilities: 'SELECT * from availabilities;',
   getBreeds : 'SELECT * from breeds;',
   getBreedsWithID : 'SELECT * from breeds WHERE atypeid=$1;',
   getDispositions: 'SELECT * from dispositions;',
+  deleteDispositions: 'DELETE FROM animalDispositions WHERE animalID=$1',
   getTypes: 'SELECT * from types;',
-  updateAvailability: 'UPDATE animals SET availabilityID = $1 where id = $2;'
+  updateAvailability: 'UPDATE animals SET availabilityID = $1 where id = $2;',
+  updateAnimal: 'UPDATE animals SET aName = $1, gender = $2, aDescription = $3, breedID = $4, aTypeID = $5, availabilityID = $6, updatedByID = $7, dateUpdated = Now(), imageURL = $8 WHERE id = $9;',
 };
 
 const authQ = {
