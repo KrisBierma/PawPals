@@ -92,6 +92,8 @@ const getAnimalsWiAllFilter = ({ userID, atype, gender, breed }) => {
 
         query += " " + where;
 
+        console.log("query", query);
+
         db.query(query, [userID], (error, res) => {
             if (error) reject(error.stack);
             if (res != undefined) {
@@ -190,12 +192,12 @@ module.exports = {
   deleteDispositions,
   updateAvailability,
   getAnimal,
-  getAnimalsWiAllFilter,
   getAnimalsWiFavs,
   getAvailabilities,
   getBreeds,
   getDispositions,
   getTypes,
   updateAnimal,
-  getAnimalsWiAllFilter
+  getAnimalsWiAllFilter,
+  getBreedsWithID
 };
