@@ -7,7 +7,6 @@ import SearchFilter from "../components/Common/SearchFilter";
 
 export default function BrowsePage() {
     const [animals, setAnimals] = useState([]);
-    const [userID, setUserID] = useState(null);
     const [availabilities, setAvailabilities] = useState(1);
     const [breeds, setBreeds] = useState([]);
     const context = useContext(AuthContext);
@@ -25,7 +24,6 @@ export default function BrowsePage() {
 
     useEffect(() => {
         // getDropdownInfo();
-        console.log(filterOption.atype, filterOption.gender, filterOption.breed);
         // if (filterOption.atype) getBreeds(filterOption.atype);
         getAnimals(filterOption.atype, filterOption.gender, filterOption.breed);
     }, [filterOption.atype, filterOption.gender, filterOption.breed]);
@@ -65,7 +63,6 @@ const getAnimals = async (atype, gender, breed) => {
             },
         })
         .then((response) => {
-            console.log(response.data);
             setAnimals(response.data);
         })
         .catch((err) => console.log(err));
