@@ -19,7 +19,7 @@ export default function BasicCard({
             {title && <Card.Title>{title}</Card.Title>}
             <div className='bodyContainer'>
                 {icon && icon}
-                {body && <Card.Text className='body'>{body}</Card.Text>}
+                {body && <Card.Text className={className.body}>{body}</Card.Text>}
                 {button && button}
             </div>
         </Card.Body>

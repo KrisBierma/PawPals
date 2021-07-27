@@ -33,6 +33,12 @@
     padding: 0;
 }
 
+.bodyEdit {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
 .bi {
     float: right;    
     cursor: pointer;
