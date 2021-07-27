@@ -92,8 +92,6 @@ const getAnimalsWiAllFilter = ({ userID, atype, gender, breed }) => {
 
         query += " " + where;
 
-        console.log("query", query);
-
         db.query(query, [userID], (error, res) => {
             if (error) reject(error.stack);
             if (res != undefined) {
