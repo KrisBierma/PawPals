@@ -23,7 +23,7 @@ const prepSmallDetailCard = (petDetails) => {
                 if(Utils.isNullOrEmpty(petDetails[key])) 
                     return null;
                 else 
-                    return details['type'] = petDetails[key];
+                    return details['disposition'] = petDetails[key];
             }
             return details[key] = petDetails[key];
         }
