@@ -26,9 +26,9 @@ export default function LandingPage() {
 			<h4>
 				Adoption Fee
 			</h4>
-			<p className="text-justify">There are no additional fees besdies the adoption fee.</p>
+			<p className="text-justify">There are no additional fees besides the adoption fee.</p>
 			<p className="text-justify">All dogs and cats are neutered or spayed upon arrival.</p>
-			<p className="text-justify">If you need advice to help your pet get used to their new home, please do not hesitate to contact us. We have several animal behaviors specialist that will be more than happy to assist.
+			<p className="text-justify">If you need advice to help your pet get used to their new home, please do not hesitate to contact us. We have several animal behaviors specialists that will be more than happy to assist.
 			</p>
 		</div>
 
@@ -39,7 +39,7 @@ export default function LandingPage() {
 				About our animals
 			</h4>
 			<p className="text-justify">All of our animals spend several weeks getting used to being around other pets.</p>
-			<p className="text-justify">Most dogs go through a four week training course that helps me learn basic commands such as sit, stay and come.</p>
+			<p className="text-justify">Most dogs go through a four week training course that helps them learn basic commands such as sit, stay and come.</p>
 		</div>
 	</div>
 </div>
