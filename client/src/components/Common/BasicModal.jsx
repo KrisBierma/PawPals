@@ -46,6 +46,7 @@ export default function BasicModal({
                 name={x.name}
                 type={x.type}
                 value={x.value}
+                className={x.className}
                 // every time the user enters a character it updates the state value
                 handleChange={e => {
                   handleChange(e.target.placeholder, e.target.value);

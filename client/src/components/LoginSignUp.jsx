@@ -18,6 +18,7 @@ const loginFields = [
     {
         name: "Password",
         type: "input",
+        className: "pass",
         value: ""
     }
 ]

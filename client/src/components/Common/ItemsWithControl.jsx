@@ -1,5 +1,6 @@
 import React from "react";
 import { InputGroup, FormControl } from "react-bootstrap";
+import "../../styles/ItemsWithControl.css"
 
 // creates various form items (input, dropdown, etc)
 export default function ItemsWithControl({
@@ -7,7 +8,8 @@ export default function ItemsWithControl({
     name = '',
     label = '',
     handleChange,
-    value = ''
+    value = '',
+    className = '',
   }) {
         switch (type) {
             case 'input': 
@@ -16,6 +18,7 @@ export default function ItemsWithControl({
                     {label && <label>{label}</label>}
                     <InputGroup className="mb-3">
                         <FormControl
+                            className={className}
                             placeholder={name}
                             onChange={handleChange}
                             aria-label={name}

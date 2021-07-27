@@ -1,3 +1,9 @@
 .signupTab {
     flex-grow: 1
 }
+
+.tabGroup {
+    flex-direction: row;
+    font-weight: bold; 
+    text-align: center;
+} 

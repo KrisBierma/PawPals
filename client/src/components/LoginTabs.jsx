@@ -17,7 +17,7 @@ export default function LoginTabs(
             id="controlled-tab-example"
             activeKey={key}
             onSelect={(k) => onTabChange(k, setKey, props.setModalType)} //update the selected tab when new tab is selected
-            style={{flexDirection:'row'}}
+            className="tabGroup"
         >
             <Tab eventKey="login" title="Login" tabClassName={props.tabClass}>
             </Tab>
