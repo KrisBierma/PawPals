@@ -19,6 +19,7 @@ export default function PetProfileSmallCard({
     const classNames = {
         card: 'petProfileCard',
         image: 'petProfileImage',
+        body: context.isLoggedIn ? 'body' : 'bodyEdit',
     }
 
     return (
