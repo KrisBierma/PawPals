@@ -4,7 +4,7 @@ import './App.css';
 import { LandingPage, BrowsePage, FavoritesPage, NewsPage, PetDetailsPage, AdminPage, AddEditPetPage } from './pages'
 import { Header, AuthProvider, PrivateRoute } from './components'
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
-
+import Footer from "./components/Footer";
 // Todo: determine if we are logged in or not, pass as props to Skeleton
 // Todo: fix style so "page" does not render behind Header (for example Landing Page)
 // The last route is for unknown paths
@@ -16,6 +16,7 @@ class App extends Component {
         <AuthProvider>
           <Router>
             <Header />
+            <div className={"paddingBottom"}></div>
             <Switch>
               <Route exact path="/" component={LandingPage}/>         
               <Route exact path="/browse" component={BrowsePage}/>
@@ -26,6 +27,7 @@ class App extends Component {
               <Route exact path="/pet-profile/:id" component={PetDetailsPage} />
               <Route component={LandingPage} />
             </Switch>
+            <Footer />
           </Router>         
         </AuthProvider>
       </div>

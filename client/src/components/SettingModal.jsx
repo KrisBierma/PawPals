@@ -97,10 +97,12 @@ export default function SettingModal() {
         setSettingModalOpen(false);
         let pass = fields[0].value;
         let email = fields[1].value;
+        console.log(pass, email)
 
-        if(email) {
-            if(!Utils.validateUsername) {
-                enqueueSnackbar(Msgs.invalidUsername, {variant: Enum.Variant.error});
+        // email
+        if(!Utils.isNullOrEmpty(email)) {
+            if(!Utils.validateEmail(email)) {
+                enqueueSnackbar(Msgs.invalidEmail, {variant: Enum.Variant.error});
             }
             else {
                 axios.put(`/api/updateUserEmail/${email}/${context.userID}`)
@@ -113,19 +115,15 @@ export default function SettingModal() {
             }
         }
 
-        if(pass) {
-            if(!Utils.validateEmail(email)) {
-                enqueueSnackbar(Msgs.invalidEmail, {variant: Enum.Variant.error});
-            }
-            else {
-                axios.put(`/api/updateUserPass/${pass}/${context.userID}`)
-                .then(() => {
-                    enqueueSnackbar(Msgs.updatedPass, {variant: Enum.Variant.success});
-                })
-                .catch(err => {
-                    enqueueSnackbar(Msgs.errorUpdatePass, {variant: Enum.Variant.error});
-                });                
-            }
+        // password
+        if(!Utils.isNullOrEmpty(pass)) {
+            axios.put(`/api/updateUserPass/${pass}/${context.userID}`)
+            .then(() => {
+                enqueueSnackbar(Msgs.updatedPass, {variant: Enum.Variant.success});
+            })
+            .catch(err => {
+                enqueueSnackbar(Msgs.errorUpdatePass, {variant: Enum.Variant.error});
+            });                
         }
     }
 
