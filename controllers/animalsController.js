@@ -183,22 +183,9 @@ const getTypes = () => {
     });
 };
 
-const updateAvailability = (params) => {
-    // console.log("in updateUserEmail, params: ", params);
-    return new Promise((resolve, reject) => {
-        db.query(animalsQ.updateAvailability, params, (error, res) => {
-            if (error) {
-                reject(error.stack);
-            }
-            // console.log(res);
-            if (res != undefined) resolve(res.rows);
-            else reject("no data");
-        });
-    });
-};
-
 module.exports = {
   addAnimal,
+  getAnimal,
   addDisposition,
   deleteDispositions,
   updateAvailability,
@@ -209,5 +196,6 @@ module.exports = {
   getBreeds,
   getDispositions,
   getTypes,
-  updateAnimal
+  updateAnimal,
+  getAnimalsWiAllFilter
 };
