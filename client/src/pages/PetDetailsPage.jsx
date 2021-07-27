@@ -44,6 +44,7 @@ export default function PetDetailsPage() {
         function getPet() {
             axios.get(`/api/getAnimal/${userIdToString}/${id}`)
             .then(res => {
+                console.log(res.data);
                 setPetDetails(res.data[0]);
                 if(res.data[0].favuserid != null) 
                     setHeartFull(true);
@@ -58,8 +59,8 @@ export default function PetDetailsPage() {
             {/* large card with pet image and description */}
             <BasicCard 
                 key={petDetails?.animalid}
-                title={petDetails?.name} 
-                body={petDetails?.description} 
+                title={petDetails?.aname} 
+                body={petDetails?.adescription} 
                 icon={  context.isLoggedIn ?    // if no user is logged in, don't show an icon
                         isFavorited(heartFull, setHeartFull, petDetails.animalid, context.userID)
                         : null }
