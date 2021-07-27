@@ -1,10 +1,8 @@
 import React, {useContext, useState, useEffect} from 'react';
-import { AdminCard } from '../components'
+import { AdminCard } from '../components';
 import { Link } from "react-router-dom";
 import { AuthContext } from '../components/AuthContext';
 import axios from 'axios';
-
-//add in api call to get editable pets (all pets or only those owned by a person...?)
 
 export default function AdminPage() {
     const [animals, setAnimals] = useState([]);
@@ -28,7 +26,7 @@ export default function AdminPage() {
             {/* search functionality */}
 
             {/* add new pet button */}
-            <Link to="/admin/add-pet" className="btn btn-primary">Add New Pet</Link>
+            <Link to="/admin/add-edit-pet" className="btn btn-primary">Add New Pet</Link>
             {/* pet cards */}
             <div style={{marginTop: '30px'}}>
                 {animals.map((animal) => {

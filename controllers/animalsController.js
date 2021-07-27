@@ -11,9 +11,29 @@ const addAnimal = (params) => {
   })
 };
 
+const updateAnimal = (params) => {
+  return new Promise((resolve, reject) => {
+    db.query(animalsQ.updateAnimal, params, (error, res) => {
+      if(error) reject(error.stack);
+      if(res != undefined) resolve(res.rows);
+      else reject('no data');
+    })
+  })
+};
+
 const addDisposition = (params) => {
   return new Promise((resolve, reject) => {
     db.query(animalsQ.addDisposition, params, (error, res) => {
+      if(error) reject(error.stack);
+      if(res != undefined) resolve(res.rows);
+      else reject('no data');
+    })
+  })
+};
+
+const deleteDispositions = (params) => {
+  return new Promise((resolve, reject) => {
+    db.query(animalsQ.deleteDispositions, params, (error, res) => {
       if(error) reject(error.stack);
       if(res != undefined) resolve(res.rows);
       else reject('no data');
@@ -110,10 +130,12 @@ const getTypes = () => {
 module.exports = {
   addAnimal,
   addDisposition,
+  deleteDispositions,
   updateAvailability,
   getAnimalsWiFavs,
   getAvailabilities,
   getBreeds,
   getDispositions,
-  getTypes
+  getTypes,
+  updateAnimal
 };

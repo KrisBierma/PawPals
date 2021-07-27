@@ -20,12 +20,38 @@ router.post('/addAnimal', checkAuthentication, (req, results) => {
     });
 });
 
+router.post('/updateAnimal', checkAuthentication, (req, results) => {
+  var params = [
+    req.body.name, req.body.gender, req.body.desc, req.body.breedID, req.body.typeID, req.body.avID, 
+    req.body.updateByID, req.body.imageURL, req.body.animalid
+  ];
+  animalsController.updateAnimal(params)
+    .then(res => {
+      results.status(200).send(res)
+    })
+    .catch(error => {
+      results.status(500).json(error)
+    });
+});
+
 router.post('/addDisposition/:animalID/:dispositionID', checkAuthentication, (req, results) => {
-  // app.get('/getanimals', (req, results) => {
   var params = [
     req.params.animalID, req.params.dispositionID
   ];
   animalsController.addDisposition(params)
+    .then(res => {
+      results.status(200).send(res)
+    })
+    .catch(error => {
+      results.status(500).json(error)
+    });
+});
+
+router.post('/deleteDispositions/:animalID', checkAuthentication, (req, results) => {
+  var params = [
+    req.params.animalID
+  ];
+  animalsController.deleteDispositions(params)
     .then(res => {
       results.status(200).send(res)
     })
