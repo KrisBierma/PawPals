@@ -51,7 +51,9 @@ const getAnimal = (params) => {
 };
 
 const getAnimalsWiFavs = ({ userID, atype, gender, breed }) => {
+    console.log(userID);
     return new Promise((resolve, reject) => {
+        
         let query = animalsQ.getAllWiFav;
         let where = "";
         let and = [];
@@ -160,6 +162,5 @@ module.exports = {
     getBreeds,
     getDispositions,
     getTypes,
-    // getAnimals,
     getAnimalsWiAllFilter
 };

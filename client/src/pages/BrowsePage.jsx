@@ -23,6 +23,17 @@ export default function BrowsePage() {
         getDropdownInfo();
     }, []);
 
+    useEffect(() => {
+        // getDropdownInfo();
+        console.log(filterOption.atype, filterOption.gender, filterOption.breed);
+        // if (filterOption.atype) getBreeds(filterOption.atype);
+        getAnimals(filterOption.atype, filterOption.gender, filterOption.breed);
+    }, [filterOption.atype, filterOption.gender, filterOption.breed]);
+
+    useEffect(() => {
+        if (filterOption.atype) getBreeds(filterOption.atype);
+    }, [filterOption.atype]);
+
 
 // front end
 // btn click or enter the page
@@ -60,13 +71,7 @@ const getAnimals = async (atype, gender, breed) => {
         .catch((err) => console.log(err));
 };
 
-    useEffect(() => {
-        getAnimals(filterOption.atype, filterOption.gender, filterOption.breed);
-    }, [filterOption.atype, filterOption.gender, filterOption.breed]);
 
-    useEffect(() => {
-        if (filterOption.atype) getBreeds(filterOption.atype);
-    }, [filterOption.atype]);
 
     // for populating the dropdown menu; use id as key 
     function getDropdownInfo() {
