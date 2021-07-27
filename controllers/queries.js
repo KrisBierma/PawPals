@@ -13,7 +13,7 @@ const animalsQ = {
     from animals an inner join breeds b on an.breedID = b.id 
     inner join types t on an.atypeID = t.id inner join availabilities av on an.availabilityID = av.id 
     left join (select * from favorites f where f.userID=$1) fav on an.id = fav.animalID
-    left join animdisp ad on ad.animalid = an.id;`,
+    left join animdisp ad on ad.animalid = an.id`,
   getAnimal: "select fav.userid as favUserID, an.id as animalID, an.aname, an.gender, an.adescription, an.imageURL, b.breed, t.id as typeID, t.atype, av.id as availabilityID, string_agg(d.disposition, ', ') as disposition, av.availability from animals an inner join breeds b on an.breedID = b.id inner join types t on an.atypeID = t.id inner join availabilities av on an.availabilityID = av.id left join (select * from favorites f where f.userID=$1) fav on an.id = fav.animalID left join (select * from animalDispositions ad where ad.animalID = $2) dis on an.id = dis.animalID left join dispositions d on dis.dispositionID = d.id where an.id = $2 group by an.id, favUserID, an.aname, an.gender, an.adescription, an.imageURL, b.breed, t.id, t.atype, av.id, av.availability;",
   getAvailabilities: 'SELECT * from availabilities;',
   getBreeds : 'SELECT * from breeds;',

@@ -190,12 +190,12 @@ module.exports = {
   deleteDispositions,
   updateAvailability,
   getAnimal,
-  getAnimalsWiAllFilter,
   getAnimalsWiFavs,
   getAvailabilities,
   getBreeds,
   getDispositions,
   getTypes,
   updateAnimal,
-  getAnimalsWiAllFilter
+  getAnimalsWiAllFilter,
+  getBreedsWithID
 };
