@@ -21,19 +21,6 @@ const addDisposition = (params) => {
     });
 };
 
-const updateAvailability = (params) => {
-    console.log("in updateUserEmail, params: ", params);
-    return new Promise((resolve, reject) => {
-        db.query(animalsQ.updateAvailability, params, (error, res) => {
-            if (error) {
-                reject(error.stack);
-            }
-            console.log(res);
-            if (res != undefined) resolve(res.rows);
-            else reject("no data");
-        });
-    });
-};
 
 const getAnimal = (params) => {
     // console.log(params);
@@ -50,8 +37,7 @@ const getAnimal = (params) => {
     });
 };
 
-const getAnimalsWiFavs = ({ userID, atype, gender, breed }) => {
-    console.log(userID);
+const getAnimalsWiAllFilter = ({ userID, atype, gender, breed }) => {
     return new Promise((resolve, reject) => {
         
         let query = animalsQ.getAllWiFav;
@@ -75,7 +61,6 @@ const getAnimalsWiFavs = ({ userID, atype, gender, breed }) => {
 
         db.query(query, [userID], (error, res) => {
             if (error) reject(error.stack);
-            // resolve(res.rows);
             if (res != undefined) {
                 resolve(res.rows);
             } else {
@@ -85,11 +70,10 @@ const getAnimalsWiFavs = ({ userID, atype, gender, breed }) => {
     });
 };
 
-const getAnimalsWiAllFilter = (id) => {
+const getAnimalsWiFavs = (id) => {
   return new Promise((resolve, reject) => {
       db.query(animalsQ.getAllWiFav, id, (error, res) => {
           if (error) reject(error.stack);
-          // resolve(res.rows);
           if (res != undefined) {
               resolve(res.rows);
           } else {
@@ -112,9 +96,9 @@ const getAvailabilities = () => {
     });
 };
 
-const getBreeds = (atypeid) => {
+const getBreeds = () => {
   return new Promise((resolve, reject) => {
-    db.query(animalsQ.getBreeds, atypeid, (error, res) => {
+    db.query(animalsQ.getBreeds, [], (error, res) => {
       if(error) reject(error.stack);
       if(res != undefined) {
         resolve(res.rows);
@@ -125,6 +109,20 @@ const getBreeds = (atypeid) => {
     });
   });  
 }
+
+const getBreedsWithID = (atypeid) => {
+    return new Promise((resolve, reject) => {
+      db.query(animalsQ.getBreedsWithID, atypeid, (error, res) => {
+        if(error) reject(error.stack);
+        if(res != undefined) {
+          resolve(res.rows);
+        }
+        else {
+          reject('no data')
+        };
+      });
+    });  
+  }
 
 const getDispositions = () => {
     return new Promise((resolve, reject) => {
@@ -152,15 +150,29 @@ const getTypes = () => {
     });
 };
 
+const updateAvailability = (params) => {
+    // console.log("in updateUserEmail, params: ", params);
+    return new Promise((resolve, reject) => {
+        db.query(animalsQ.updateAvailability, params, (error, res) => {
+            if (error) {
+                reject(error.stack);
+            }
+            // console.log(res);
+            if (res != undefined) resolve(res.rows);
+            else reject("no data");
+        });
+    });
+};
+
 module.exports = {
     addAnimal,
-    getAnimal,
     addDisposition,
-    updateAvailability,
+    getAnimal,
+    getAnimalsWiAllFilter,
     getAnimalsWiFavs,
     getAvailabilities,
     getBreeds,
     getDispositions,
     getTypes,
-    getAnimalsWiAllFilter
+    updateAvailability,
 };

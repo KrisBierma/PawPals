@@ -43,6 +43,7 @@ export default function AddPetPage() {
 
         axios.get(`/api/getBreeds`)
         .then(response => {
+            console.log(response);
             setBreeds(response.data);
         });
 

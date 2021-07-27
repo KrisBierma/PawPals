@@ -18,8 +18,8 @@ export default function BrowsePage() {
     });
 
     useEffect(() => {
-        getAnimals();
-        getDropdownInfo();
+        // getAnimals();
+        // getDropdownInfo();
     }, []);
 
     useEffect(() => {
@@ -33,56 +33,40 @@ export default function BrowsePage() {
     }, [filterOption.atype]);
 
 
-// front end
-// btn click or enter the page
-// api call to /api/getanimals
+    // front end
+    // btn click or enter the page
+    // api call to /api/getanimals
 
 
-// back end
-// routes to look for that api 
-// controller with direction for the db
-// db and get data
-const getBreeds = async (atype) => {
-    try {
-        const response = await axios.get(`/api/getBreeds/${atype}`);
-        console.log('setBreeds', response.data);
-        setBreeds(response.data);
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-const getAnimals = async (atype, gender, breed) => {
-    axios
-        .get(`/api/getAnimalsWiFavs`, {
-            params: {
-                userID: context.userID,
-                atype,
-                gender,
-                breed,
-            },
-        })
-        .then((response) => {
-            setAnimals(response.data);
-        })
-        .catch((err) => console.log(err));
-};
-
-
-
-    // for populating the dropdown menu; use id as key 
-    function getDropdownInfo() {
-        axios.get(`/api/getAvailabilities`)
-        .then(response => {
-            // console.log(response.data);
-            setAvailabilities(response.data);
-        })
-        axios.get(`/api/getBreeds`)
-        .then(response => {
-            // console.log(response.data);
+    // back end
+    // routes to look for that api 
+    // controller with direction for the db
+    // db and get data
+    const getBreeds = async (atype) => {
+        try {
+            const response = await axios.get(`/api/getBreedsWithID/${atype}`);
+            console.log('setBreeds', response.data);
             setBreeds(response.data);
-        })
-    }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const getAnimals = async (atype, gender, breed) => {
+        axios.get(`/api/getAnimalsWiAllFilter/`, {
+                params: {
+                    userID: context.userID === null ? -1 : context.userID,
+                    atype,
+                    gender,
+                    breed,
+                },
+            })
+            .then((response) => {
+                console.log(response);
+                setAnimals(response.data);
+            })
+            .catch((err) => console.log(err));
+    };
 
     const onChangeFilter = (e) => {
         setFilterOption({ ...filterOption, [e.target.name]: e.target.value });
