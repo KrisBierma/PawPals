@@ -13,14 +13,9 @@ function validPassword(pass1, pass2) {
   return false;
 }
 
-// login step #4 is here
 passport.use('local-login', new LocalStrategy(
   function(username, password, done) {
-    // console.log(`in passport. username: ${username}. password ${password}`);
-
     db.query(authQ.login, [username], (error, user) => {
-      if(user != undefined) console.log("user.rows: ",user.rows);
-
       // db error
       if(error) {
         return done(error);
@@ -36,19 +31,8 @@ passport.use('local-login', new LocalStrategy(
       }
 
       // success
-      return done(null, user.rows[0], { statuscode: 200, message: 'Yup' });
+      return done(null, user.rows[0], { statuscode: 200, message: 'Success' });
     })
-    
-    // User.findOne({ username: username }, function (err, user) {
-    //   if (err) { return done(err); }
-    //   if (!user) {
-    //     return done(null, false, { message: 'Incorrect username.' });
-    //   }
-    //   if (!user.validPassword(password)) {
-    //     return done(null, false, { message: 'Incorrect password.' });
-    //   }
-    //   return done(null, user);
-    // });
   }
 ));
 
@@ -59,7 +43,6 @@ passport.use('local-signup', new LocalStrategy(
   function(req, username, password, done) {
     const {role, email} = req.body;
     db.query(authQ.addUser, [role, username, password, email], (error, user) => {
-      // console.log("user: ..... ",user);
       if(user === undefined) 
         return done(null, false, {statuscode: 401, message: invalidUsername});
 
@@ -75,7 +58,6 @@ passport.use('local-signup', new LocalStrategy(
       userOut.userroleid = role;
       userOut.username = username;
       userOut.email = email;
-      // console.log("userOut:  ",userOut);
 
       // success
       return done(null, userOut, { statuscode: 200, message: 'Yup' });     

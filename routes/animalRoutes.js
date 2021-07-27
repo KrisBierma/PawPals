@@ -2,11 +2,7 @@ const router = require('express').Router();
 const animalsController = require('../controllers/animalsController');
 const checkAuthentication = require('../config/isAuthenticated');
 
-// addAnimal: 'INSERT INTO animals (aName, gender, aDescription, breedID, aTypeID, availabilityID, updatedByID, dateAdded, dateUpdated, imageURL) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);',
-
-// to-do: test this from front end
 router.post('/addAnimal', checkAuthentication, (req, results) => {
-  // app.get('/getanimals', (req, results) => {
   var params = [
     req.body.name, req.body.gender, req.body.desc, req.body.breedID, req.body.typeID, req.body.avID, 
     req.body.updateByID, req.body.imageURL
@@ -66,6 +62,32 @@ router.put('/updateAvailability/:availability/:animalID', checkAuthentication, (
     .catch(error => results.status(500).json(error));
 });
 
+router.get('/getAnimal/:userid/:animalid', (req, results) => {
+  animalsController.getAnimal([req.params.userid, req.params.animalid])
+  .then(res => {
+    results.status(200).send(res)
+  })
+  .catch(error => {
+    results.status(500).json(error)
+  });
+});  
+
+router.get('/getAnimalsWiAllFilter/', (req, results) => {
+  const { userID, atype, gender, breed } = req.query;
+  animalsController.getAnimalsWiAllFilter({
+    userID,
+    atype,
+    gender,
+    breed,
+  })
+    .then(res => {
+      results.status(200).send(res);
+    })
+    .catch(error => {
+      results.status(500).json(error);
+    });
+})
+
 router.get('/getAnimalsWiFavs/:id', (req, results) => {
   animalsController.getAnimalsWiFavs([req.params.id])
     .then(res => {
@@ -86,13 +108,23 @@ router.get('/getAvailabilities/', (req, results) => {
     });
 });
 
-router.get('/getBreeds/', (req, results) => {
+router.get("/getBreeds/", (req, results) => {
   animalsController.getBreeds()
     .then(res => {
-      results.status(200).send(res)
+      results.status(200).send(res);
     })
     .catch(error => {
-      results.status(500).json(error)
+      results.status(500).json(error);
+    });
+});
+
+router.get("/getBreedsWithID/:atype", (req, results) => {
+  animalsController.getBreeds([req.params.atype])
+    .then(res => {
+      results.status(200).send(res);
+    })
+    .catch(error => {
+      results.status(500).json(error);
     });
 });
 
@@ -116,5 +148,10 @@ router.get('/getTypes/', (req, results) => {
     });
 });
 
+router.put('/updateAvailability/:availability/:animalID', checkAuthentication, (req, results) => {
+  animalsController.updateAvailability([req.params.availability, req.params.animalID])
+    .then(res => results.status(200).send(res))
+    .catch(error => results.status(500).json(error));
+});
 
 module.exports = router;
