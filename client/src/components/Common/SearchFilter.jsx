@@ -5,8 +5,8 @@ const SearchFilter = ({ onChange = () => {}, breeds = [] }) => {
     return (
         <div className="container-fluid">
             <form>
-                <div className="row mb-4">
-                    <div className="col-sm-2">
+                <div className="row mb-3">
+                    <div className="col-sm-3">
                         <select
                             className="form-control"
                             name="atype"
@@ -18,7 +18,7 @@ const SearchFilter = ({ onChange = () => {}, breeds = [] }) => {
                             <option value="3">Other</option>
                         </select>
                     </div>
-                    <div className="col-sm-2">
+                    <div className="col-sm-3">
                         <select
                             className="form-control"
                             name="gender"
@@ -29,7 +29,7 @@ const SearchFilter = ({ onChange = () => {}, breeds = [] }) => {
                             <option value="2">Female</option>
                         </select>
                     </div>
-                    <div className="col-sm-2">
+                    <div className="col-sm-3">
                         <select
                             className="form-control"
                             name="breed"

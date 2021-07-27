@@ -2,31 +2,63 @@ import React, {useContext, useState, useEffect} from 'react';
 import { AdminCard } from '../components';
 import { Link } from "react-router-dom";
 import { AuthContext } from '../components/AuthContext';
+import SearchFilter from "../components/Common/SearchFilter";
 import axios from 'axios';
 
 export default function AdminPage() {
     const [animals, setAnimals] = useState([]);
+    const [breeds, setBreeds] = useState([]);
+    const [filterOption, setFilterOption] = useState({
+        atype: "",
+        breed: "",
+        gender: "",
+    });
     const context = useContext(AuthContext);
     
     useEffect(() => {
-        getAnimals();
-    }, []);
+        getAnimals(filterOption.atype, filterOption.gender, filterOption.breed);
+    }, [filterOption.atype, filterOption.gender, filterOption.breed]);
 
-    function getAnimals() {
-        // send -1 if no user bc postgres can't handle null for an int
-        var userIdToString = context.userID === null ? -1 : context.userID;
-        axios.get(`/api/getAnimalsWiFavs/${userIdToString}`)
-        .then(response => {
-            setAnimals(response.data);
-        }).catch(err =>console.log(err));
-    }
+    useEffect(() => {
+        if (filterOption.atype) getBreeds(filterOption.atype);
+    }, [filterOption.atype]);
+
+    const getBreeds = async (atype) => {
+        try {
+            const response = await axios.get(`/api/getBreedsWithID/${atype}`);
+            setBreeds(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const getAnimals = async (atype, gender, breed) => {
+        axios.get(`/api/getAnimalsWiAllFilter/`, {
+                params: {
+                    userID: context.userID === null ? -1 : context.userID,
+                    atype,
+                    gender,
+                    breed,
+                },
+            })
+            .then((response) => {
+                setAnimals(response.data);
+            })
+            .catch((err) => console.log(err));
+    };
+
+    const onChangeFilter = (e) => {
+        setFilterOption({ ...filterOption, [e.target.name]: e.target.value });
+    };
 
     return (
         <div>
-            {/* search functionality */}
-
-            {/* add new pet button */}
-            <Link to="/admin/add-edit-pet" className="btn btn-primary">Add New Pet</Link>
+            <div style={{display:"flex", marginTop: "10px"}}>
+                {/* search functionality */}
+                <div style={{flex:1}}><SearchFilter onChange={onChangeFilter} breeds={breeds} /></div>
+                {/* add new pet button */}
+                <div style={{textAlign:"justify", flex:1}}><Link to="/admin/add-edit-pet" className="btn btn-primary">Add New Pet</Link></div>
+            </div>
             {/* pet cards */}
             <div style={{marginTop: '30px'}}>
                 {animals.map((animal) => {
