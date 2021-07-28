@@ -13,7 +13,7 @@ export default function BasicCard({
 }) {
     return (
         <Card className={className.card} onClick={onCardClick}>
-            {image && <div className={className.image} style={{backgroundImage: `url( ${image} )`}}></div>}
+            {image && <div className='pet-profile-image' style={{backgroundImage: `url( ${image} )`}}></div>}
 
         <Card.Body>
             {title && <Card.Title>{title}</Card.Title>}
