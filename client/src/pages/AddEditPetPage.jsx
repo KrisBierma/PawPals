@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useContext} from 'react';
-import ReactDOM from 'react-dom';
 import { Button, Form, Row, Col } from "react-bootstrap";
 // import { Text } from "react-native";
 import { useSnackbar } from 'notistack';
@@ -58,7 +57,6 @@ export default function AddEditPetPage(props) {
 
         axios.get(`/api/getBreeds`)
         .then(response => {
-            console.log(response);
             setBreeds(response.data);
         });
 
@@ -80,17 +78,23 @@ export default function AddEditPetPage(props) {
     // set breed dropdown based on the type selected
     const setBreedDropdown = () => {
         if (selectedType){
-            return (breeds?.map(breed => {
+            return (breeds?.filter(breed=> {
                 if (parseInt(selectedType) === breed.atypeid){
-                    return <option key={breed?.id}>{breed?.breed}</option>
+                    return true;
                 }
+                return false;
+            }).map(breed => {
+                return <option key={breed?.id}>{breed?.breed}</option>
             })
             );
         } else if (animal?.atype){
-            return (breeds?.map(breed => {
+            return (breeds?.filter(breed=> {
                 if (findIndex(animal?.atype, types, "type") === breed.atypeid){
-                    return <option key={breed?.id} selected={breed?.breed === animal?.breed}>{breed?.breed}</option>
+                    return true;
                 }
+                return false;
+            }).map(breed => {
+                return <option key={breed?.id} selected={breed?.breed === animal?.breed}>{breed?.breed}</option>
             })
             );
         } else {

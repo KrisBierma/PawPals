@@ -36,6 +36,7 @@ const signupFields = [
     {
         name: "Password",
         type: "input",
+        className: "pass",
         value: ""
     }
 ]

@@ -70,7 +70,7 @@ const getAnimal = (params) => {
     });
 };
 
-const getAnimalsWiAllFilter = ({ userID, atype, gender, breed }) => {
+const getAnimalsWiAllFilter = ({ userID, atype, gender, breed, availability }) => {
     return new Promise((resolve, reject) => {
         
         let query = animalsQ.getAllWiFav;
@@ -85,6 +85,9 @@ const getAnimalsWiAllFilter = ({ userID, atype, gender, breed }) => {
         }
         if (breed) {
             and.push(`an.breedID=${breed}`);
+        }
+        if (availability) {
+          and.push(`an.availabilityID=${availability}`);
         }
         if (and.length > 0) {
             where = `WHERE ${and.join(" AND ")}`;
@@ -189,7 +192,6 @@ module.exports = {
   addDisposition,
   deleteDispositions,
   updateAvailability,
-  getAnimal,
   getAnimalsWiFavs,
   getAvailabilities,
   getBreeds,
