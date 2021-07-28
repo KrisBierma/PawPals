@@ -12,12 +12,13 @@ export default function AdminPage() {
         atype: "",
         breed: "",
         gender: "",
+        availability: "",
     });
     const context = useContext(AuthContext);
     
     useEffect(() => {
-        getAnimals(filterOption.atype, filterOption.gender, filterOption.breed);
-    }, [filterOption.atype, filterOption.gender, filterOption.breed]);
+        getAnimals(filterOption.atype, filterOption.gender, filterOption.breed, filterOption.availability);
+    }, [filterOption.atype, filterOption.gender, filterOption.breed, filterOption.availability]);
 
     useEffect(() => {
         if (filterOption.atype) getBreeds(filterOption.atype);
@@ -32,13 +33,15 @@ export default function AdminPage() {
         }
     };
 
-    const getAnimals = async (atype, gender, breed) => {
+    const getAnimals = async (atype, gender, breed, availability) => {
+        console.log('availability', availability)
         axios.get(`/api/getAnimalsWiAllFilter/`, {
                 params: {
                     userID: context.userID === null ? -1 : context.userID,
                     atype,
                     gender,
                     breed,
+                    availability,
                 },
             })
             .then((response) => {
@@ -55,7 +58,7 @@ export default function AdminPage() {
         <div>
             <div style={{display:"flex", marginTop: "10px"}}>
                 {/* search functionality */}
-                <div style={{flex:1}}><SearchFilter onChange={onChangeFilter} breeds={breeds} /></div>
+                <div style={{flex:1}}><SearchFilter onChange={onChangeFilter} breeds={breeds} page='admin' /></div>
                 {/* add new pet button */}
                 <div style={{textAlign:"justify", flex:1}}><Link to="/admin/add-edit-pet" className="btn btn-primary">Add New Pet</Link></div>
             </div>

@@ -73,12 +73,13 @@ router.get('/getAnimal/:userid/:animalid', (req, results) => {
 });  
 
 router.get('/getAnimalsWiAllFilter/', (req, results) => {
-  const { userID, atype, gender, breed } = req.query;
+  const { userID, atype, gender, breed, availability } = req.query;
   animalsController.getAnimalsWiAllFilter({
     userID,
     atype,
     gender,
     breed,
+    availability,
   })
     .then(res => {
       results.status(200).send(res);

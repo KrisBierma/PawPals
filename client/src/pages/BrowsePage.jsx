@@ -13,11 +13,12 @@ export default function BrowsePage() {
         atype: "",
         breed: "",
         gender: "",
+        availability: "",
     });
 
     useEffect(() => {
-        getAnimals(filterOption.atype, filterOption.gender, filterOption.breed);
-    }, [filterOption.atype, filterOption.gender, filterOption.breed]);
+        getAnimals(filterOption.atype, filterOption.gender, filterOption.breed, filterOption.availability);
+    }, [filterOption.atype, filterOption.gender, filterOption.breed, filterOption.availability]);
 
     useEffect(() => {
         if (filterOption.atype) getBreeds(filterOption.atype);
@@ -42,13 +43,14 @@ export default function BrowsePage() {
         }
     };
 
-    const getAnimals = async (atype, gender, breed) => {
+    const getAnimals = async (atype, gender, breed, availability) => {
         axios.get(`/api/getAnimalsWiAllFilter/`, {
                 params: {
                     userID: context.userID === null ? -1 : context.userID,
                     atype,
                     gender,
                     breed,
+                    availability
                 },
             })
             .then((response) => {
@@ -63,7 +65,7 @@ export default function BrowsePage() {
 
     return (
         <div>
-            <SearchFilter onChange={onChangeFilter} breeds={breeds} />
+            <div style={{maxWidth:"1000px"}}><SearchFilter onChange={onChangeFilter} breeds={breeds} page='browse' /></div>
             { animals.length === 0 ? <p>All our animals currently have homes!</p> : <p></p>}
             <GridLayout cardData={animals} />
         </div>

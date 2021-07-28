@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
-const SearchFilter = ({ onChange = () => {}, breeds = [] }) => {
-    console.log(breeds);
+const SearchFilter = ({ onChange = () => {}, breeds = [], page = '' }) => {
+    const [availabilities, setAvailabilities] = useState();
+
+    // update component when "animal" data changes from parent
+    useEffect(() => {
+        // get possible availabilities from database
+        axios.get(`/api/getAvailabilities`)
+        .then(response => {
+            setAvailabilities(response.data);
+        })
+    }, []);
+
+    const cleanAvailabilities = availabilities?.map(({ id, availability }) => [id, availability]);
+
     return (
         <div className="container-fluid">
             <form>
-                <div className="row mb-3">
+                <div className="row mb-4">
                     <div className="col-sm-3">
                         <select
                             className="form-control"
@@ -39,6 +52,22 @@ const SearchFilter = ({ onChange = () => {}, breeds = [] }) => {
                             {breeds?.map((breed) => (
                                 <option key={breed.id} value={breed.id}>{breed.breed}</option>
                             ))}
+                        </select>
+                    </div>
+                    <div className="col-sm-3">
+                        <select
+                            className="form-control"
+                            name="availability"
+                            onChange={onChange}
+                        >
+                            <option value="">Select Status</option>
+                            {cleanAvailabilities?.map((availability) => {
+                                if (page === 'admin'){
+                                    return <option key={availability[0]} value={availability[0]}>{availability[1]}</option>;
+                                } else if (['browse', 'favorite'].includes(page) && ['Available', 'Pending'].includes(availability[1])){
+                                    return <option key={availability[0]} value={availability[0]}>{availability[1]}</option>;
+                                }
+                            })}
                         </select>
                     </div>
                 </div>

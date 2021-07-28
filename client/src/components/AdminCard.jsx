@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { useSnackbar } from 'notistack';
 import * as Enum from '../components/Common/Enum';
 import * as Msgs from '../components/Common/Messages';
-import { findIndex } from '../js-commons/getIntegerValues'
-import "../styles/AdminCard.css"
+import { findIndex } from '../js-commons/getIntegerValues';
+import "../styles/AdminCard.css";
 import axios from 'axios';
 
 const itemKeys = {
