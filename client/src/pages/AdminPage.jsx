@@ -34,7 +34,6 @@ export default function AdminPage() {
     };
 
     const getAnimals = async (atype, gender, breed, availability) => {
-        console.log('availability', availability)
         axios.get(`/api/getAnimalsWiAllFilter/`, {
                 params: {
                     userID: context.userID === null ? -1 : context.userID,

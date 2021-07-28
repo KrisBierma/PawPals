@@ -61,12 +61,15 @@ const SearchFilter = ({ onChange = () => {}, breeds = [], page = '' }) => {
                             onChange={onChange}
                         >
                             <option value="">Select Status</option>
-                            {cleanAvailabilities?.map((availability) => {
-                                if (page === 'admin'){
+                            {cleanAvailabilities?.filter((availability) => {
+                                    if (page === 'admin'){
+                                        return true;
+                                    } else if (['browse', 'favorite'].includes(page) && ['Available', 'Pending'].includes(availability[1])){
+                                        return true;
+                                    }
+                                    return false;
+                                }).map((availability) => {
                                     return <option key={availability[0]} value={availability[0]}>{availability[1]}</option>;
-                                } else if (['browse', 'favorite'].includes(page) && ['Available', 'Pending'].includes(availability[1])){
-                                    return <option key={availability[0]} value={availability[0]}>{availability[1]}</option>;
-                                }
                             })}
                         </select>
                     </div>
