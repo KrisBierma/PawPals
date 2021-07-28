@@ -1,7 +1,15 @@
 .petProfileCard {
     margin-right: 15px;
-    height: 400px;
+    margin-bottom: 15px;
 }
+
+.pet-profile-image{
+    padding-top: 100%;
+    line-height: 1em;
+    background-size: cover;
+    background-position: center;
+}
+
 
 .petDetailCardLarge {
     flex-grow: 2;
