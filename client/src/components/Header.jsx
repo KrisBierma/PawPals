@@ -75,7 +75,9 @@ export default function Header(props) {
     };
 
     const pawPalsLogo = (
-        <Navbar.Brand href="/">PawPals</Navbar.Brand>
+        <Navbar.Brand href="/">
+        <img src="https://pawpalsapp.s3.us-east-2.amazonaws.com/images/new_logo.JPG" alt="logo"/>
+        </Navbar.Brand>
     );
 
     const login = (
