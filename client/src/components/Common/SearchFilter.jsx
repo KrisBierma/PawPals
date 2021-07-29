@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import '../../styles/SearchFilter.css';
+
 
 const SearchFilter = ({ onChange = () => {}, breeds = [], page = '' }) => {
     const [availabilities, setAvailabilities] = useState();
@@ -16,11 +18,8 @@ const SearchFilter = ({ onChange = () => {}, breeds = [], page = '' }) => {
     const cleanAvailabilities = availabilities?.map(({ id, availability }) => [id, availability]);
 
     return (
-        <div className="container-fluid">
-            <form>
-                <div className="row mb-4">
-                    <div className="col-sm-3">
-                        <select
+         <form className='pl-sm-0 mt-3 container filter-form'>
+                         <select
                             className="form-control"
                             name="atype"
                             onChange={onChange}
@@ -30,8 +29,7 @@ const SearchFilter = ({ onChange = () => {}, breeds = [], page = '' }) => {
                             <option value="2">Cat</option>
                             <option value="3">Other</option>
                         </select>
-                    </div>
-                    <div className="col-sm-3">
+
                         <select
                             className="form-control"
                             name="gender"
@@ -41,8 +39,7 @@ const SearchFilter = ({ onChange = () => {}, breeds = [], page = '' }) => {
                             <option value="1">Male</option>
                             <option value="2">Female</option>
                         </select>
-                    </div>
-                    <div className="col-sm-3">
+
                         <select
                             className="form-control"
                             name="breed"
@@ -53,8 +50,7 @@ const SearchFilter = ({ onChange = () => {}, breeds = [], page = '' }) => {
                                 <option key={breed.id} value={breed.id}>{breed.breed}</option>
                             ))}
                         </select>
-                    </div>
-                    <div className="col-sm-3">
+
                         <select
                             className="form-control"
                             name="availability"
@@ -72,10 +68,10 @@ const SearchFilter = ({ onChange = () => {}, breeds = [], page = '' }) => {
                                     return <option key={availability[0]} value={availability[0]}>{availability[1]}</option>;
                             })}
                         </select>
-                    </div>
-                </div>
+                   
+                
             </form>
-        </div>
+        
     );
 };
 

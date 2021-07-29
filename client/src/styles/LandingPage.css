@@ -1,4 +1,34 @@
-.responsive {
-    width: 100%;
-    height: auto;
+.landing-page-main{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin: 4.5rem auto calc(4rem + 50px) auto;
+}
+.landing-page-main h4{
+  margin: 0 0 1em 0;
+}
+.landing-page-main ol{
+  margin: 0;
+  padding-left: 1rem;
+}
+.landing-page-main li{
+  padding-left: 1rem;
+}
+
+/* To be deleted */
+/* note to self */
+/* max-width:	The maximum width of the display area, such as a browser window */
+
+@media (max-width: 800px) {
+  .landing-page-main{
+    gap: 3rem;
   }
+}
+
+@media (max-width: 767px) {
+  .landing-page-main{
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    margin: 1rem 0;
+  }
+}

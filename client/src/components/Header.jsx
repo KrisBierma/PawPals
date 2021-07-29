@@ -7,6 +7,7 @@ import axios from 'axios';
 import * as Enum from './Common/Enum';
 import * as Msgs from './Common/Messages';
 import { useSnackbar } from 'notistack';
+import logo from '../assets/images/pawpals_logo.jpg';
 
 // TODO: add conditionals for if logged in, highlight selected tab, add login functionality
 
@@ -76,7 +77,7 @@ export default function Header(props) {
 
     const pawPalsLogo = (
         <Navbar.Brand href="/">
-        <img src="https://pawpalsapp.s3.us-east-2.amazonaws.com/images/new_logo.JPG" alt="logo"/>
+            <img src={logo} alt="loglo" />
         </Navbar.Brand>
     );
 
