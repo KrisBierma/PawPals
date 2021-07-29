@@ -55,7 +55,7 @@ export default function AdminPage() {
 
     return (
         <div>
-            <div style={{display:"flex", marginTop: "10px"}}>
+            <div style={{display:"flex", marginTop: "10px", alignItems: "flex-end"}}>
                 {/* search functionality */}
                 <div style={{flex:1}}><SearchFilter onChange={onChangeFilter} breeds={breeds} page='admin' /></div>
                 {/* add new pet button */}
