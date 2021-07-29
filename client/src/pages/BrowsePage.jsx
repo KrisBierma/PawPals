@@ -65,7 +65,7 @@ export default function BrowsePage() {
 
     return (
         <div>
-            <div style={{maxWidth:"1000px"}}><SearchFilter onChange={onChangeFilter} breeds={breeds} page='browse' /></div>
+            <SearchFilter onChange={onChangeFilter} breeds={breeds} page='browse' />
             { animals.length === 0 ? <p>All our animals currently have homes!</p> : <p></p>}
             <GridLayout cardData={animals} />
         </div>
