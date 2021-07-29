@@ -58,9 +58,7 @@ const SearchFilter = ({ onChange = () => {}, breeds = [], page = '' }) => {
                         >
                             <option value="">Select Status</option>
                             {cleanAvailabilities?.filter((availability) => {
-                                    if (page === 'admin'){
-                                        return true;
-                                    } else if (['browse', 'favorite'].includes(page) && ['Available', 'Pending'].includes(availability[1])){
+                                    if (['browse', 'favorite', 'admin'].includes(page)){
                                         return true;
                                     }
                                     return false;
