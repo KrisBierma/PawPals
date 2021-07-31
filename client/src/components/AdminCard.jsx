@@ -8,6 +8,7 @@ import * as Msgs from '../components/Common/Messages';
 import { findIndex } from '../js-commons/getIntegerValues';
 import "../styles/AdminCard.css";
 import axios from 'axios';
+import * as Utils from './Utils';
 
 const itemKeys = {
     animalid: 'ID',
@@ -69,6 +70,12 @@ export default function AdminCard({
             });   
     };
 
+    function getClassname(availability, currentStatus) {
+        if(availability.localeCompare(currentStatus) === 0)
+            return Utils.getClassName(Enum.AvailCaller.admin, availability);
+        return '';
+    }
+
     const animalStatus = () => {
         const cleanAvailabilities = availabilities?.map(({ id, availability }) => [id, availability]);
         return (
@@ -83,6 +90,7 @@ export default function AdminCard({
                             name='radioGroup1'
                             type='radio'
                             value={availability[1]}
+                            className={getClassname(availability[1], currentStatus)}
                             checked={currentStatus === availability[1]} //sets the selected radio button to whatever the current status is
                             id={`inline-radio-${availability[0]}`}
                             onChange={e => updateStatus(e.currentTarget.value)}

@@ -77,7 +77,7 @@ export default function Header(props) {
 
     const pawPalsLogo = (
         <Navbar.Brand href="/">
-            <img src={logo} alt="loglo" />
+            <img src={logo} alt="logo" />
         </Navbar.Brand>
     );
 

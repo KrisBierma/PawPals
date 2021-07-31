@@ -52,7 +52,7 @@ export default function PetDetailsPage() {
             .catch(err => console.log(err));
         }
         getPet();
-    }, []);
+    }, [context.userID, id]);
 
     return (
         <div className='petDetailPageContainer'>

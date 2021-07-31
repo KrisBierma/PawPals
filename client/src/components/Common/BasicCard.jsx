@@ -15,14 +15,14 @@ export default function BasicCard({
         <Card className={className.card} onClick={onCardClick}>
             {image && <div className='pet-profile-image' style={{backgroundImage: `url( ${image} )`}}></div>}
 
-        <Card.Body>
-            {title && <Card.Title>{title}</Card.Title>}
-            <div className='bodyContainer'>
-                {icon && icon}
-                {body && <Card.Text className={className.body}>{body}</Card.Text>}
-                {button && button}
-            </div>
-        </Card.Body>
+            <Card.Body>
+                {title && <Card.Title>{title}</Card.Title>}
+                <div className='bodyContainer'>
+                    {icon && icon}
+                    {body && <Card.Text className={className.body}>{body}</Card.Text>}
+                    {button && button}
+                </div>
+            </Card.Body>
         </Card>
     )
 }
