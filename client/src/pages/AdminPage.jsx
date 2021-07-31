@@ -17,8 +17,23 @@ export default function AdminPage() {
     const context = useContext(AuthContext);
     
     useEffect(() => {
+        const getAnimals = async (atype, gender, breed, availability) => {
+            axios.get(`/api/getAnimalsWiAllFilter/`, {
+                    params: {
+                        userID: context.userID === null ? -1 : context.userID,
+                        atype,
+                        gender,
+                        breed,
+                        availability,
+                    },
+                })
+                .then((response) => {
+                    setAnimals(response.data);
+                })
+                .catch((err) => console.log(err));
+        };
         getAnimals(filterOption.atype, filterOption.gender, filterOption.breed, filterOption.availability);
-    }, [filterOption.atype, filterOption.gender, filterOption.breed, filterOption.availability]);
+    }, [filterOption.atype, filterOption.gender, filterOption.breed, filterOption.availability, context.userID]);
 
     useEffect(() => {
         if (filterOption.atype) getBreeds(filterOption.atype);
@@ -31,22 +46,6 @@ export default function AdminPage() {
         } catch (error) {
             console.log(error);
         }
-    };
-
-    const getAnimals = async (atype, gender, breed, availability) => {
-        axios.get(`/api/getAnimalsWiAllFilter/`, {
-                params: {
-                    userID: context.userID === null ? -1 : context.userID,
-                    atype,
-                    gender,
-                    breed,
-                    availability,
-                },
-            })
-            .then((response) => {
-                setAnimals(response.data);
-            })
-            .catch((err) => console.log(err));
     };
 
     const onChangeFilter = (e) => {

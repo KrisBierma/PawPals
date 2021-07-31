@@ -1,3 +1,5 @@
+import * as Enum from './Common/Enum';
+
 export function validateEmail(email) {
   var patt = /^\S+@\S+\.\S+$/;
   if(email.match(patt)) return true;
@@ -16,9 +18,11 @@ export function isNullOrEmpty(str) {
   return str === null || str.trim().length === 0 || str === '';
 }
 
-export function getClassName(value) {
-  // console.log(value);
-  var className = 'petDetailCardValue ';
+export function getClassName(caller, value) {
+  var className = caller === Enum.AvailCaller.petDetail 
+    ? 'petDetailCardValue '
+    : '';
+
   switch(value) {
       case('Adopted'):
           return className + 'adpoted';

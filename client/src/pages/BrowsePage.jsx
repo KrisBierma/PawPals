@@ -3,7 +3,7 @@ import { AuthContext } from '../components/AuthContext';
 import { GridLayout } from "../components/Common"
 import axios from 'axios';
 import SearchFilter from "../components/Common/SearchFilter";
-
+import '../styles/BrowsePage.css'
 
 export default function BrowsePage() {
     const [animals, setAnimals] = useState([]);
@@ -17,23 +17,29 @@ export default function BrowsePage() {
     });
 
     useEffect(() => {
+        const getAnimals = async (atype, gender, breed, availability) => {
+            axios.get(`/api/getAnimalsWiAllFilter/`, {
+                    params: {
+                        userID: context.userID === null ? -1 : context.userID,
+                        atype,
+                        gender,
+                        breed,
+                        availability
+                    },
+                })
+                .then((response) => {
+                    setAnimals(response.data);
+                })
+                .catch((err) => console.log(err));
+        };
+
         getAnimals(filterOption.atype, filterOption.gender, filterOption.breed, filterOption.availability);
-    }, [filterOption.atype, filterOption.gender, filterOption.breed, filterOption.availability]);
+    }, [filterOption.atype, filterOption.gender, filterOption.breed, filterOption.availability, context.userID]);
 
     useEffect(() => {
         if (filterOption.atype) getBreeds(filterOption.atype);
     }, [filterOption.atype]);
 
-
-    // front end
-    // btn click or enter the page
-    // api call to /api/getanimals
-
-
-    // back end
-    // routes to look for that api 
-    // controller with direction for the db
-    // db and get data
     const getBreeds = async (atype) => {
         try {
             const response = await axios.get(`/api/getBreedsWithID/${atype}`);
@@ -43,21 +49,6 @@ export default function BrowsePage() {
         }
     };
 
-    const getAnimals = async (atype, gender, breed, availability) => {
-        axios.get(`/api/getAnimalsWiAllFilter/`, {
-                params: {
-                    userID: context.userID === null ? -1 : context.userID,
-                    atype,
-                    gender,
-                    breed,
-                    availability
-                },
-            })
-            .then((response) => {
-                setAnimals(response.data);
-            })
-            .catch((err) => console.log(err));
-    };
 
     const onChangeFilter = (e) => {
         setFilterOption({ ...filterOption, [e.target.name]: e.target.value });
@@ -66,8 +57,9 @@ export default function BrowsePage() {
     return (
         <div>
             <SearchFilter onChange={onChangeFilter} breeds={breeds} page='browse' />
-            { animals.length === 0 ? <p>All our animals currently have homes!</p> : <p></p>}
+            { animals.length === 0 ? <p className='userMsg'>Either all our animals have homes or there aren't any of the type you searched for.</p> : <p></p>}
             <GridLayout cardData={animals} />
         </div>
     )
 }
+// rgb(218, 185, 76)

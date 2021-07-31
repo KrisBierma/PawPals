@@ -2,6 +2,7 @@ import React from "react";
 import { Card, ListGroup } from "react-bootstrap";
 import "../../styles/CardListGroup.css"
 import * as Utils from '../Utils';
+import * as Enum from './Enum';
 
 export default function BasicCardListGroup({
     header = '',
@@ -9,7 +10,6 @@ export default function BasicCardListGroup({
     className = {},
     listItems = {}
 }) {
-
     return (
         <Card className={className.card}>
             {header && <Card.Header className={className?.header}>{header}</Card.Header>}
@@ -22,7 +22,7 @@ export default function BasicCardListGroup({
                                 </span> 
 
                                 <span className={key === 'availability'
-                                    ? Utils.getClassName(listItems[key])
+                                    ? Utils.getClassName(Enum.AvailCaller.petDetail, listItems[key])
                                     : className?.value    
                                 }>
                                     {listItems[key]}

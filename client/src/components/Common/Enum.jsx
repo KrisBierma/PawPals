@@ -4,3 +4,8 @@ export const Variant = {
   success: 'success', 
   warning: 'warning'
 };
+
+export const AvailCaller = {
+  admin: 'admin',
+  petDetail: 'petDetail',
+}

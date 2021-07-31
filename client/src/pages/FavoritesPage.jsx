@@ -13,17 +13,17 @@ export default function FavoritesPage() {
   const context = useContext(AuthContext);
 
   useEffect(() => {
-    getFavs();
-  }, []);
+    function getFavs() {
+      axios.get(`/api/getFavs/${context.userID}`)
+        .then(response => {
+          // console.log(response.data);
+          setFavs(response.data);
+        })
+        .catch(() => enqueueSnackbar(Msgs.error500, {variant: Enum.Variant.error}));
+    }
 
-  function getFavs() {
-    axios.get(`/api/getFavs/${context.userID}`)
-      .then(response => {
-        // console.log(response.data);
-        setFavs(response.data);
-      })
-      .catch(() => enqueueSnackbar(Msgs.error500, {variant: Enum.Variant.error}));
-  }
+    getFavs();
+  }, [context.userID, enqueueSnackbar]);
 
   return (
     <div>

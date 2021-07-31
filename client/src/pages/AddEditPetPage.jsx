@@ -46,7 +46,7 @@ export default function AddEditPetPage(props) {
                 setDispositionSelections(dispositionArray);
             }
         }
-    }, []);
+    }, [animal, types]);
 
     // for populating the dropdown menu; use id as key 
     function getDropdownInfo() {
