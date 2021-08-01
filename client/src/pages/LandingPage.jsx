@@ -11,30 +11,32 @@ export default function LandingPage() {
 
 				<div>
 					<center><h4>Adoption Process</h4></center>					
-					<ol>
-						<li>We ask that you spend at least 30 minutes with the cat or dog you want to adopt. Please plan on spending more time to fully complete the adoption process.</li>
-						<li >You must be at least 18 years of age to adopt a pet.</li>
-						<li>Fill out our adoption application and meet with an adoption counselor.</li>
-					</ol>
+					<ul>
+					    <li>Thank you for your interest in adopting a new family member.</li><br />
+						<li>After browsing through the list of available pets, please note the name of the one(s) you are interested in prior to contacting us.</li><br />
+						<li>Once you are ready to adopt, you will be given an application to fill out while we get your new pet ready to go home.</li>
+					</ul>
 				</div>
 
 
 				<div>
-					<center><h4>Requirements</h4></center>					
+					<center><h4>Requirements</h4></center>
 					<ol>
-						<li>There are no additional fees besides the adoption fee.</li>
-						<li>All dogs and cats are neutered or spayed upon arrival.</li>
-						<li>If you need advice to help your pet get used to their new home, please do not hesitate to contact us. We have several animal behaviors specialists that will be more than happy to assist.</li>
-					</ol>
+						<li>We ask that you spend at least 30 minutes with the cat or dog you want to adopt. Please plan on spending more time to fully complete the adoption process.</li><br />
+						<li >You must be at least 18 years of age to adopt a pet.</li><br />
+						<li>Prior to leaving the shelter you must meet with an adoption counselor for a short 15 minute session.</li>
+					</ol>					
 				</div>
 
 
 				<div>
 					<center><h4>About our animals</h4></center>					
-					<ol>
-						<li>All of our animals spend several weeks getting used to being around other pets.</li>
-						<li>Most dogs go through a four week training course that helps them learn basic commands such as sit, stay and come.</li>
-					</ol>
+					<ul>
+					    <li>If you need advice to help your pet get used to their new home, please do not hesitate to contact us. We have several animal behaviors specialists that will be more than happy to assist.</li><br />
+						<li>All of our animals spend several weeks getting used to being around other pets.</li><br />
+						<li>Most dogs go through a four week training course that helps them learn basic commands such as sit, stay and come.</li><br />
+						<li>All dogs and cats are neutered or spayed upon arrival.</li>
+					</ul>
 				</div>
 
 
@@ -44,15 +46,9 @@ export default function LandingPage() {
 						<p>Our animals love visits and having people drop by to spend
 							time with them helps them in getting adopted faster. Feel free
 							to stop by any time during work hours to visit us.
-						</p>
-						
+						</p>						
 					</ol>
 				</div>
-
-
-
-
-
 			</div>
 		</div>
 
