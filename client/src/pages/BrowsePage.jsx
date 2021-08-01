@@ -57,7 +57,9 @@ export default function BrowsePage() {
     return (
         <div>
             <SearchFilter onChange={onChangeFilter} breeds={breeds} page='browse' />
+            <center>
             { animals.length === 0 ? <p className='userMsg'>Either all our animals have homes or there aren't any of the type you searched for.</p> : <p></p>}
+            </center>            
             <GridLayout cardData={animals} />
         </div>
     )

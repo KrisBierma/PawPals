@@ -27,7 +27,9 @@ export default function FavoritesPage() {
 
   return (
     <div>
-      { favs.length > 0 ? 'My favorite animals:' : 'No favorites yet' }
+      <center>
+        { favs.length > 0 ? 'My favorite animals:' : 'No favorites yet' }
+      </center>      
       {favs && <GridLayout cardData={favs} />}
     </div>
   )

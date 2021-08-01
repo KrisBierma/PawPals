@@ -12,7 +12,7 @@ import Footer from "./components/Footer";
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="App d-flex flex-column min-vh-100">
         <AuthProvider>
           <Router>
             <Header />

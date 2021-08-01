@@ -12,8 +12,8 @@ export default function BasicHorizontalList({
     button = <></>
 }) {
     return (
-        <div className={className.listContainer}>
-            {image && <div className={className.imageContainer}><Image src={image} rounded className={className.image} /></div>}
+        <div className={`${className.listContainer} align-items-center gap-3`}>
+            {image && <img alt='' src={image} className="BasicHorizontalList-pet-image" />}
             <ListGroup horizontal key={keyid} className={className.listGroup}>
                 {Object.keys(itemKeys).map((key) => {
                     return (

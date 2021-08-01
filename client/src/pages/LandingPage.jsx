@@ -23,7 +23,7 @@ export default function LandingPage() {
 					<center><h4>Requirements</h4></center>
 					<ol>
 						<li>We ask that you spend at least 30 minutes with the cat or dog you want to adopt. Please plan on spending more time to fully complete the adoption process.</li><br />
-						<li >You must be at least 18 years of age to adopt a pet.</li><br />
+						<li>You must be at least 18 years of age to adopt a pet.</li><br />
 						<li>Prior to leaving the shelter you must meet with an adoption counselor for a short 15 minute session.</li>
 					</ol>					
 				</div>
@@ -33,8 +33,7 @@ export default function LandingPage() {
 					<center><h4>About our animals</h4></center>					
 					<ul>
 					    <li>If you need advice to help your pet get used to their new home, please do not hesitate to contact us. We have several animal behaviors specialists that will be more than happy to assist.</li><br />
-						<li>All of our animals spend several weeks getting used to being around other pets.</li><br />
-						<li>Most dogs go through a four week training course that helps them learn basic commands such as sit, stay and come.</li><br />
+						<li>All of our animals spend several weeks getting used to being around other pets.</li><br />						
 						<li>All dogs and cats are neutered or spayed upon arrival.</li>
 					</ul>
 				</div>
@@ -46,7 +45,10 @@ export default function LandingPage() {
 						<p>Our animals love visits and having people drop by to spend
 							time with them helps them in getting adopted faster. Feel free
 							to stop by any time during work hours to visit us.
-						</p>						
+						</p>
+						<p>Most dogs go through a four week training course that helps them learn basic commands such as sit, stay and come. 
+							Having volunteers dropping by to assist with training is a great way to help our furry friends
+							increase their chance of finding a home</p>						
 					</ol>
 				</div>
 			</div>
