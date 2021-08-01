@@ -15,6 +15,12 @@
   padding-left: 1rem;
 }
 
+.landing-page-main ul{
+  list-style-type: none;
+  margin: 0;
+  padding-left: 1rem;
+}
+
 /* To be deleted */
 /* note to self */
 /* max-width:	The maximum width of the display area, such as a browser window */
