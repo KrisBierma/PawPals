@@ -28,7 +28,12 @@ export default function AdminPage() {
     }, [filter, context]);
 
     useEffect(() => {
-        axios.get('/api/getBreedsWithID/1').then(res => setBreeds(res.data)).catch(err => console.log(err))
+        axios.get('/api/getBreedsWithID/1')
+        .then(res => setBreeds(res.data))
+        .catch(err => console.log(err))
+
+        axios.get(`/api/getAvailabilities`)
+        .then(res => setAvailabilities(res.data))
     }, []);
 
     const { animals, err } = status;
@@ -43,7 +48,7 @@ export default function AdminPage() {
             </div>
             {/* pet cards */}
             <div>            
-                {filteredAnimals.map((animal) => {
+                {filteredAnimals?.map((animal) => {
                     return (
                         <AdminCard animal={animal} availabilities={availabilities} key={animal?.animalid}/>
                     );

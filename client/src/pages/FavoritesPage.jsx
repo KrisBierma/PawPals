@@ -26,10 +26,10 @@ export default function FavoritesPage() {
   }, [context.userID, enqueueSnackbar]);
 
   return (
-    <div>
-      <center>
-        { favs.length > 0 ? 'My favorite animals:' : 'No favorites yet' }
-      </center>      
+    <div style={{marginTop: '15px'}}>
+      { favs.length === 0 && (<center>
+        { 'No favorites yet' }
+      </center>) }     
       {favs && <GridLayout cardData={favs} />}
     </div>
   )
