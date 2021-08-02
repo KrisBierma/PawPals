@@ -28,21 +28,15 @@ const cleanAnimalData = (data) => {
 }
 
 export default function AdminCard({
-    animal = {}
+    animal = {},
+    availabilities = {},
 }) {
     const [currentStatus, setCurrentStatus] = useState();
-    const [availabilities, setAvailabilities] = useState();
     const { enqueueSnackbar } = useSnackbar();
 
     // update component when "animal" data changes from parent
     useEffect(() => {
         setCurrentStatus(animal?.availability); //sets the currently selected radio button for pet
-
-        // get possible availabilities from database
-        axios.get(`/api/getAvailabilities`)
-        .then(response => {
-            setAvailabilities(response.data);
-        })
     }, [animal]);
 
     const classNames = {

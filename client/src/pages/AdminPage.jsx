@@ -8,6 +8,7 @@ import axios from 'axios';
 export default function AdminPage() {
     const [animals, setAnimals] = useState([]);
     const [breeds, setBreeds] = useState([]);
+    const [availabilities, setAvailabilities] = useState([]);
     const [filterOption, setFilterOption] = useState({
         atype: "",
         breed: "",
@@ -39,6 +40,14 @@ export default function AdminPage() {
         if (filterOption.atype) getBreeds(filterOption.atype);
     }, [filterOption.atype]);
 
+    useEffect(() => {
+        // get possible availabilities from database
+        axios.get(`/api/getAvailabilities`)
+        .then(response => {
+            setAvailabilities(response.data);
+        })
+    }, []);
+
     const getBreeds = async (atype) => {
         try {
             const response = await axios.get(`/api/getBreedsWithID/${atype}`);
@@ -62,7 +71,7 @@ export default function AdminPage() {
             <div>            
                 {animals.map((animal) => {
                     return (
-                        <AdminCard animal={animal} key={animal?.animalid}/>
+                        <AdminCard animal={animal} availabilities={availabilities} key={animal?.animalid}/>
                     );
                 })}
             </div>
