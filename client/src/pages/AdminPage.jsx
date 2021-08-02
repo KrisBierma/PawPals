@@ -22,6 +22,7 @@ export default function AdminPage() {
     };
     
     useEffect(() => {
+        setStatus({ isLoading: true })
         axios.get('/api/getAnimalsWiAllFilter', { params: filter })
             .then(res => setStatus({ animals: res.data }))
             .catch(err => setStatus({ err }));
@@ -36,24 +37,30 @@ export default function AdminPage() {
         .then(res => setAvailabilities(res.data))
     }, []);
 
-    const { animals, err } = status;
+    const { isLoading, animals, err } = status;
     const filteredBreeds = filter.atype ? breeds.filter(breed => breed.atypeid === +filter.atype) : [];
     const filteredAnimals = animals && animals.length > 0 && context.userRole !== 2 ? animals.filter(animal => animal.availability === "Available" || animal.availability === 'Pending') : animals;
 
     return (
         <div className='container'>
-        <div className='d-flex flex-1 align-items-center'>
+            <div className='d-flex flex-1 align-items-center'>
             <SearchFilter onChange={onChangeFilter} breeds={filteredBreeds} page='admin' />
             <Link to="/admin/add-edit-pet" className="btn text-nowrap btn-primary">Add New Pet</Link>
             </div>
+
+            {isLoading && <div className='loader'></div>}
+            {err && <p className='userMsg'>{err.response.message}</p>}
+            
             {/* pet cards */}
-            <div>            
+            {filteredAnimals && 
+            (<div>            
                 {filteredAnimals?.map((animal) => {
                     return (
                         <AdminCard animal={animal} availabilities={availabilities} key={animal?.animalid}/>
                     );
                 })}
-            </div>
+            </div>)
+            }           
         </div>
     );
 }
