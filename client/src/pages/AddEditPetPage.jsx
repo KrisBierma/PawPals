@@ -280,7 +280,7 @@ export default function AddEditPetPage(props) {
                                     key={disposition?.id}
                                     label={disposition?.disposition}
                                     defaultChecked={animal?.dispositions && animal?.dispositions.includes(disposition?.disposition)} //set as checked if it is in our disposition array
-                                    onChange={e => updateDispositions(e,)}
+                                    onChange={e => updateDispositions(e)}
                                     type='checkbox'
                                     id={disposition?.disposition}
                                 />)
