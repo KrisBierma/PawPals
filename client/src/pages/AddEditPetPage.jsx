@@ -323,7 +323,7 @@ export default function AddEditPetPage(props) {
                     </Form.Group>
                 </Row>)}
 
-                <Button variant="primary" type="submit">
+                <Button variant="primary" className='ml-auto d-block' type="submit">
                     {isEdit ? "Save Edits" : "Submit"}
                 </Button>
             </Form>

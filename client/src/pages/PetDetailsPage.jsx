@@ -55,26 +55,29 @@ export default function PetDetailsPage() {
     }, [context.userID, id]);
 
     return (
-        <div className='petDetailPageContainer'>
-            {/* large card with pet image and description */}
-            <BasicCard 
-                key={petDetails?.animalid}
-                title={petDetails?.aname} 
-                body={petDetails?.adescription} 
-                icon={  context.isLoggedIn ?    // if no user is logged in, don't show an icon
+        <div className='container my-auto'>
+            <div className='m-3 d-flex flex-md-row flex-column justify-content-center gap-3'>
+                {/* large card with pet image and description */}
+                <BasicCard 
+                    key={petDetails?.animalid}
+                    title={petDetails?.aname} 
+                    body={petDetails?.adescription} 
+                    icon={  context.isLoggedIn ?    // if no user is logged in, don't show an icon
                         isFavorited(heartFull, setHeartFull, petDetails.animalid, context.userID)
                         : null }
-                image={petDetails?.imageurl}
-                className={{card: 'petDetailCardLarge', image: 'petDetailsImage'}}
-            />
+                    image={petDetails?.imageurl}
+                    className={{card: 'petDetailCardLarge', image: 'petDetailsImage'}}
+                />
 
-            {/* pet details small card */}
-            <BasicCardListGroup 
-                header = 'Pet Details'
-                variant = 'flush'
-                className = {{item: 'petDetailItem', card: 'petDetailCard', value: 'petDetailCardValue', header: 'petDetailCardHeader'}}
-                listItems = {prepSmallDetailCard(petDetails)}
-            />
+                {/* pet details small card */}
+                <BasicCardListGroup 
+                    header = 'Pet Details'
+                    variant = 'flush'
+                    body={petDetails?.adescription}
+                    className = {{ item: 'petDetailItem', card: 'petDetailCard', value: 'petDetailCardValue', header: 'petDetailCardHeader' }}
+                    listItems = {prepSmallDetailCard(petDetails)}
+                />
+            </div>
         </div>
     )
 }

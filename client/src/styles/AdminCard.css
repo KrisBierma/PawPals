@@ -1,21 +1,10 @@
 .adminCardContainer {
-    border-top: 1px solid black;
-    border-right: 1px solid black;
-    border-left: 1px solid black;
-    width: 75%;
-    margin-left: 15px;
+    border-top: 1px solid gray;
+    border-right: 1px solid gray;
+    border-left: 1px solid gray;
+
 }
 
 .adminCardContainer:last-child {
-    border-bottom: 1px solid black;
-}
-
-.statusForm {
-    align-self: center;
-}
-
-.editButton {
-    height: 50px;
-    align-self: center;
-    margin-right: 10px;
+    border-bottom: 1px solid gray;
 }

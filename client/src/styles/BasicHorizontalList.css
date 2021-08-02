@@ -1,3 +1,9 @@
+.BasicHorizontalList-pet-image{
+    width: 7rem;
+    object-fit: cover;
+    height: 100%;
+}
+
 .adminCardFields {
     font-weight: bold;
 }

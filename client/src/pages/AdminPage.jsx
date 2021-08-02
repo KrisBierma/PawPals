@@ -62,15 +62,13 @@ export default function AdminPage() {
     };
 
     return (
-        <div>
-            <div style={{display:"flex", marginTop: "10px", alignItems: "flex-end"}}>
-                {/* search functionality */}
-                <div style={{flex:1}}><SearchFilter onChange={onChangeFilter} breeds={breeds} page='admin' /></div>
-                {/* add new pet button */}
-                <div style={{textAlign:"justify", flex:1}}><Link to="/admin/add-edit-pet" className="btn btn-primary">Add New Pet</Link></div>
+        <div className='container'>
+        <div className='d-flex flex-1 align-items-center'>
+            <SearchFilter onChange={onChangeFilter} breeds={breeds} page='admin' />
+            <Link to="/admin/add-edit-pet" className="btn text-nowrap btn-primary">Add New Pet</Link>
             </div>
             {/* pet cards */}
-            <div style={{marginTop: '30px'}}>
+            <div>            
                 {animals.map((animal) => {
                     return (
                         <AdminCard animal={animal} availabilities={availabilities} key={animal?.animalid}/>

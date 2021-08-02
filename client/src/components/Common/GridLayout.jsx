@@ -13,7 +13,7 @@ export default function GridLayout({
             {cardData.map((x) => {
                 return (
                     <Link key={x.animalid} to={`/pet-profile/${x.animalid}`} className={"link"}>
-                        <PetProfileSmallCard key={x.animalid} animal={x} />
+                        <PetProfileSmallCard key={x.animalid} showAvailability={true} animal={x} />
                     </Link>
                 );
             })}

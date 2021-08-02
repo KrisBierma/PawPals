@@ -40,6 +40,7 @@ export default function PetProfileSmallCard({
                     : null } 
             image={animal?.imageurl}
             className={classNames}
+            availability={animal?.availability}
         />
     )
 }

@@ -8,7 +8,8 @@ export default function BasicCardListGroup({
     header = '',
     variant = 'flush',
     className = {},
-    listItems = {}
+    listItems = {},
+    body
 }) {
     return (
         <Card className={className.card}>
@@ -32,6 +33,10 @@ export default function BasicCardListGroup({
                         );
                     })
                 }
+                <ListGroup.Item>
+                    <h5>Description</h5>
+                    {body}
+                </ListGroup.Item>
             </ListGroup>
         </Card>
     );

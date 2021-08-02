@@ -50,7 +50,7 @@ export default function AdminCard({
     }
 
     //edit button links to add-edit-pet page
-    const adminButton = <Link to={{pathname: "/admin/add-edit-pet", animal: animal}} className="btn btn-primary editButton">Edit Pet</Link>;
+    const adminButton = <Link to={{pathname: "/admin/add-edit-pet", animal: animal}} className="btn btn-primary mr-3">Edit Pet</Link>;
 
     //when database updates, update the radio button selected, otherwise error
     const updateStatus = (newStatus) => {
@@ -74,7 +74,7 @@ export default function AdminCard({
         const cleanAvailabilities = availabilities?.map(({ id, availability }) => [id, availability]);
         return (
             <Form className='statusForm'>
-                <div key={`inline-radio`} className="mb-3">
+                <div key={`inline-radio`}>
                     {cleanAvailabilities?.map((availability) => {
                         return (
                             <Form.Check

@@ -12,9 +12,7 @@
 
 
 .petDetailCardLarge {
-    flex-grow: 2;
-    margin-right: 10px;
-    max-width: 650px;
+    flex: 1;
 }
 
 .petProfileImage {
