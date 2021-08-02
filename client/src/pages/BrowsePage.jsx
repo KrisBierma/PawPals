@@ -10,7 +10,7 @@ export default function BrowsePage() {
     const [status, setStatus] = useState({});
     const [breeds, setBreeds] = useState([]);
     const context = useContext(AuthContext);
-    const [filter, setFilter] = useState({});
+    const [filter, setFilter] = useState({userID: context.userID,});
 
     const onChangeFilter = e => {
         const { name, value } = e.target;
@@ -21,7 +21,7 @@ export default function BrowsePage() {
     };
 
     useEffect(() => {
-        setStatus({ isLoading: true })
+        setStatus({ isLoading: true });
         axios.get('/api/getAnimalsWiAllFilter', { params: filter })
             .then(res => setStatus({ animals: res.data }))
             .catch(err => setStatus({ err }));
