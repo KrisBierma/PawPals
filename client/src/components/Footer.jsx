@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 const Footer = () => {
   const pathname = useLocation().pathname;
   useEffect(() => {
-    document.body.style.backgroundColor = pathname.includes('/browse') || pathname === "/" ? "#f0f1f2"
+    document.body.style.backgroundColor = pathname.includes('/browse') || pathname.includes('/news') || pathname === "/" ? "#f0f1f2"
       :  pathname.includes('/admin') ? '#e9edf0' : '#fff'
   }, [pathname])
   return (

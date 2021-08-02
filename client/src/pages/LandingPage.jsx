@@ -48,7 +48,7 @@ export default function LandingPage() {
 						</p>
 						<p>Most dogs go through a four week training course that helps them learn basic commands such as sit, stay and come. 
 							Having volunteers dropping by to assist with training is a great way to help our furry friends
-							increase their chance of finding a home</p>						
+							increase their chance of finding a home.</p>						
 					</ol>
 				</div>
 			</div>
