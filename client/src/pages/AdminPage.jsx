@@ -6,70 +6,44 @@ import SearchFilter from "../components/Common/SearchFilter";
 import axios from 'axios';
 
 export default function AdminPage() {
-    const [animals, setAnimals] = useState([]);
+    const [status, setStatus] = useState({});
     const [breeds, setBreeds] = useState([]);
-    const [availabilities, setAvailabilities] = useState([]);
-    const [filterOption, setFilterOption] = useState({
-        atype: "",
-        breed: "",
-        gender: "",
-        availability: "",
-    });
+    const [filter, setFilter] = useState({});
     const context = useContext(AuthContext);
+
+    const [availabilities, setAvailabilities] = useState([]);
+
+    const onChangeFilter = e => {
+        const { name, value } = e.target;
+        const newFilters = { ...filter };
+        if (value === "") delete newFilters[name];
+        else newFilters[name] = value;
+        setFilter(newFilters);
+    };
     
     useEffect(() => {
-        const getAnimals = async (atype, gender, breed, availability) => {
-            axios.get(`/api/getAnimalsWiAllFilter/`, {
-                    params: {
-                        userID: context.userID === null ? -1 : context.userID,
-                        atype,
-                        gender,
-                        breed,
-                        availability,
-                    },
-                })
-                .then((response) => {
-                    setAnimals(response.data);
-                })
-                .catch((err) => console.log(err));
-        };
-        getAnimals(filterOption.atype, filterOption.gender, filterOption.breed, filterOption.availability);
-    }, [filterOption.atype, filterOption.gender, filterOption.breed, filterOption.availability, context.userID]);
+        axios.get('/api/getAnimalsWiAllFilter', { params: filter })
+            .then(res => setStatus({ animals: res.data }))
+            .catch(err => setStatus({ err }));
+    }, [filter, context]);
 
     useEffect(() => {
-        if (filterOption.atype) getBreeds(filterOption.atype);
-    }, [filterOption.atype]);
-
-    useEffect(() => {
-        // get possible availabilities from database
-        axios.get(`/api/getAvailabilities`)
-        .then(response => {
-            setAvailabilities(response.data);
-        })
+        axios.get('/api/getBreedsWithID/1').then(res => setBreeds(res.data)).catch(err => console.log(err))
     }, []);
 
-    const getBreeds = async (atype) => {
-        try {
-            const response = await axios.get(`/api/getBreedsWithID/${atype}`);
-            setBreeds(response.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const onChangeFilter = (e) => {
-        setFilterOption({ ...filterOption, [e.target.name]: e.target.value });
-    };
+    const { animals, err } = status;
+    const filteredBreeds = filter.atype ? breeds.filter(breed => breed.atypeid === +filter.atype) : [];
+    const filteredAnimals = animals && animals.length > 0 && context.userRole !== 2 ? animals.filter(animal => animal.availability === "Available" || animal.availability === 'Pending') : animals;
 
     return (
         <div className='container'>
         <div className='d-flex flex-1 align-items-center'>
-            <SearchFilter onChange={onChangeFilter} breeds={breeds} page='admin' />
+            <SearchFilter onChange={onChangeFilter} breeds={filteredBreeds} page='admin' />
             <Link to="/admin/add-edit-pet" className="btn text-nowrap btn-primary">Add New Pet</Link>
             </div>
             {/* pet cards */}
             <div>            
-                {animals.map((animal) => {
+                {filteredAnimals.map((animal) => {
                     return (
                         <AdminCard animal={animal} availabilities={availabilities} key={animal?.animalid}/>
                     );

@@ -7,7 +7,6 @@ import { AuthContext } from "../AuthContext";
 
 const SearchFilter = ({ onChange = () => { }, breeds = [], page = '' }) => {
     const [availabilities, setAvailabilities] = useState([]);
-    console.log(availabilities);
     const { userRole } = useContext(AuthContext)
     // update component when "animal" data changes from parent
     useEffect(() => {

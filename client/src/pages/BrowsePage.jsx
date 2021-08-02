@@ -18,19 +18,18 @@ export default function BrowsePage() {
         if (value === "") delete newFilters[name];
         else newFilters[name] = value;
         setFilter(newFilters);
-    }
+    };
 
     useEffect(() => {
         setStatus({ isLoading: true })
         axios.get('/api/getAnimalsWiAllFilter', { params: filter })
             .then(res => setStatus({ animals: res.data }))
             .catch(err => setStatus({ err }));
-    }, [filter, context])
+    }, [filter, context]);
+
     useEffect(() => {
         axios.get('/api/getBreedsWithID/1').then(res => setBreeds(res.data)).catch(err => console.log(err))
-    }, [])
-
-    console.log(context);
+    }, []);
 
     const { isLoading, animals, err } = status;
     const filteredBreeds = filter.atype ? breeds.filter(breed => breed.atypeid === +filter.atype) : [];
