@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { Button, Form, Row, Col } from "react-bootstrap";
-// import { Text } from "react-native";
+import { Redirect } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import * as Enum from '../components/Common/Enum';
 import * as Msgs from '../components/Common/Messages';
@@ -8,15 +8,6 @@ import { AuthContext } from '../components/AuthContext';
 import { findIndex }from '../js-commons/getIntegerValues'
 import axios from 'axios';
 import '../styles/AddEditPetPage.css'
-
-// keep track of the currently checked dispositions
-const updateDispositions = (event, dispositionSelections, setDispositionSelections) => {
-    let newArray = [...dispositionSelections, event.target.id];
-    if (dispositionSelections.includes(event.target.id)) {
-      newArray = newArray.filter(disposition => disposition !== event.target.id);
-    }
-    setDispositionSelections(newArray);
-}
 
 export default function AddEditPetPage(props) {
     const [availabilities, setAvailabilities] = useState([]);
@@ -27,6 +18,7 @@ export default function AddEditPetPage(props) {
     const [dispositionSelections, setDispositionSelections] = useState([]);
     const [newsFeedAdd, setNewsFeedAdd] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
+    const [isFormCompleted, setIsFormCompleted] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
     const animal = props.location.animal;
     const context = useContext(AuthContext);
@@ -46,7 +38,7 @@ export default function AddEditPetPage(props) {
                 setDispositionSelections(dispositionArray);
             }
         }
-    }, [animal, types]);
+    }, []);
 
     // for populating the dropdown menu; use id as key 
     function getDropdownInfo() {
@@ -102,23 +94,34 @@ export default function AddEditPetPage(props) {
         }
     };
 
+    // keep track of the currently checked dispositions
+    const updateDispositions = (event) => {
+        let newArray = [...dispositionSelections];
+        // if we already have event, then remove
+        if (dispositionSelections.includes(event.target.id)) {
+            newArray = newArray.filter(disposition => disposition !== event.target.id);
+        }
+        // otherwise, add to dispositions
+        else {
+            newArray.push(event.target.id);
+        }
+        setDispositionSelections(newArray);
+    }
+
     const submitAPIDispositions = (animalID) => {
+        let dispositionCalls = [];
         if (dispositionSelections){
             // enter in dispositions for that animal here
-            dispositionSelections.forEach((disposition) => {
-                axios.post(`/api/addDisposition/${animalID}/${findIndex(disposition, dispositions, "disposition")}`)
-                .then(res => {
-                    if(res?.status === 401) {
-                        enqueueSnackbar(res.data.message, {variant: Enum.Variant.error});
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                    enqueueSnackbar(Msgs.errorAddingDisposition, {variant: Enum.Variant.error});
-                })
+            dispositionCalls = dispositionSelections.map((disposition) => {
+                return axios.post(`/api/addDisposition/${animalID}/${findIndex(disposition, dispositions, "disposition")}`);
             })
         }
-    };
+        return dispositionCalls;
+    }
+
+    const submitAPINewsFeed = (animalID) => {
+        return axios.post(`/api/addNewsAnimal/1/${animalID}`);
+    }
 
     const addOrEditPet = (e) => {
         e.preventDefault();
@@ -146,27 +149,40 @@ export default function AddEditPetPage(props) {
                         enqueueSnackbar(res.data.message, {variant: Enum.Variant.error});
                     }
                     else if(res?.status === 200) {
-                        enqueueSnackbar(Msgs.successPetEdit, {variant: Enum.Variant.success});
+                        // update disposition fields
+                        axios.post(`/api/deleteDispositions/${animal?.animalid}`)
+                        .then(res => {
+                            if(res?.status === 401) {
+                                enqueueSnackbar(res.data.message, {variant: Enum.Variant.error});
+                            }
+                            else if(res?.status === 200) {
+                                // update with new dispositions
+                                Promise.all(submitAPIDispositions(animal?.animalid))
+                                .then((responses) => {
+                                    let failure = false;
+                                    responses?.forEach((response) => {
+                                        if (response?.status !== 200){
+                                            failure = true;
+                                        }
+                                    })
+                                    if (failure) {
+                                        enqueueSnackbar(Msgs.unsuccessfulPetEdit, {variant: Enum.Variant.error});
+                                    } else {
+                                        enqueueSnackbar(Msgs.successPetEdit, {variant: Enum.Variant.success});
+                                        setIsFormCompleted(true); //redirect to admin page
+                                    }
+                                })
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            enqueueSnackbar(Msgs.unsuccessfulPetEdit, {variant: Enum.Variant.error});
+                        })
                     }
                 })
                 .catch(err => {
                     console.log(err);
                     enqueueSnackbar(Msgs.unsuccessfulPetEdit, {variant: Enum.Variant.error});
-                })
-                // update disposition fields
-                axios.post(`/api/deleteDispositions/${animal?.animalid}`)
-                .then(res => {
-                    if(res?.status === 401) {
-                        enqueueSnackbar(res.data.message, {variant: Enum.Variant.error});
-                    }
-                    else if(res?.status === 200) {
-                        // update with new dispositions
-                        submitAPIDispositions(animal?.animalid);
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                    enqueueSnackbar(Msgs.unsuccessfulNewPetAdd, {variant: Enum.Variant.error});
                 })
             }
             else {
@@ -176,24 +192,24 @@ export default function AddEditPetPage(props) {
                         enqueueSnackbar(res.data.message, {variant: Enum.Variant.error});
                     }
                     else if(res?.status === 200) {
-                        enqueueSnackbar(Msgs.successPetAdd, {variant: Enum.Variant.success});
                         // get animal id from response
                         const animalID = res?.data[0]?.id;
-                        // if we have dispositions we need to submit, submit with newly created animalID
-                        submitAPIDispositions(animalID);
-                        // if they checked to add news feed event, add to database
-                        if (newsFeedAdd){
-                            axios.post(`/api/addNewsAnimal/1/${animalID}`)
-                            .then(res => {
-                                if(res?.status === 401) {
-                                    enqueueSnackbar(res.data.message, {variant: Enum.Variant.error});
+                        // submit dispositions and news feed at same time. if all are successful, then redirect
+                        Promise.all([...submitAPIDispositions(animalID), submitAPINewsFeed(animalID)])
+                        .then((responses) => {
+                            let failure = false;
+                            responses?.forEach((response) => {
+                                if (response?.status !== 200){
+                                    failure = true;
                                 }
                             })
-                            .catch(err => {
-                                console.log(err);
-                                enqueueSnackbar(Msgs.errorAddingNewsEvent, {variant: Enum.Variant.error});
-                            }) 
-                        }
+                            if (failure) {
+                                enqueueSnackbar(Msgs.unsuccessfulNewPetAdd, {variant: Enum.Variant.error});
+                            } else {
+                                enqueueSnackbar(Msgs.successPetAdd, {variant: Enum.Variant.success});
+                                setIsFormCompleted(true); //redirect to admin page
+                            }
+                        })
                     }
                 })
                 .catch(err => {
@@ -206,6 +222,7 @@ export default function AddEditPetPage(props) {
 
     return (
         <div className='formContainer'>
+            {isFormCompleted && (<Redirect to="/admin" />)}
             <Form id='addNewPetForm' onSubmit={(e) => addOrEditPet(e)}>
                 <Row className="mb-1">
                     <Col>
@@ -263,7 +280,7 @@ export default function AddEditPetPage(props) {
                                     key={disposition?.id}
                                     label={disposition?.disposition}
                                     defaultChecked={animal?.dispositions && animal?.dispositions.includes(disposition?.disposition)} //set as checked if it is in our disposition array
-                                    onChange={e => updateDispositions(e, dispositionSelections, setDispositionSelections)}
+                                    onChange={e => updateDispositions(e,)}
                                     type='checkbox'
                                     id={disposition?.disposition}
                                 />)
