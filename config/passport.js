@@ -71,14 +71,12 @@ passport.use('local-signup', new LocalStrategy(
 // the result is attached to the session as req.session.passport.user = {serialised obj}
 // result also attached to req.user
 passport.serializeUser(function(user, cb) {
-  // console.log("in serialize ", user);
   cb(null, user);
 });
 
 // invoked every req by passport.session; enables loading additional user info
 // on every req
 passport.deserializeUser(function(obj, cb) {
-  // console.log("in deserialize, ", obj);
   cb(null, obj);
 });
 

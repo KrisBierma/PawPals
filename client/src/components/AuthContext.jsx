@@ -12,7 +12,6 @@ export default function AuthProvider(props) {
   const [userRole, setUserRole] = useState(null);
   
   function reset() {
-    // console.log("in authContext, resetting...", isLoggedIn);
     if(!isLoggedIn) {
       setUserName(null);
       setUserID(null);
@@ -22,11 +21,8 @@ export default function AuthProvider(props) {
 
   useEffect(() => {
     async function isAuthenticated() {
-      // console.log('in AuthContext')
-      // console.log(userName, userID, userRole);
       axios.get('/auth/isAuthenticated')
         .then(res => {
-          // console.log("is loggedIn: ",res.data)
           setIsLoggedIn(res.data);
           setIsLoaded(true);
           if(!res.data) reset()
@@ -36,17 +32,14 @@ export default function AuthProvider(props) {
         })
         .catch(err => {
           console.log(err);
-          // to-do: test this
           if (typeof err === 'boolean') return err;
         });
     }
 
     // called in case user reloads page while logged in
     async function getSession() {
-      // console.log("in getSession()");
       axios.get('/auth/getSession')
         .then(res => {
-          // console.log("getsession res: ",res)
           setUserName(res.data.username);
           setUserID(res.data.id);
           setUserRole(res.data.userroleid);
@@ -70,8 +63,6 @@ export default function AuthProvider(props) {
               userID, setUserID,
               userRole, setUserRole,
               dataSet, setDataSet,
-              // reset
-              // logIn: () => {}
             }}
       >
         {props.children}

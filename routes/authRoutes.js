@@ -83,11 +83,3 @@ router.get('/logout', function(req, res) {
 });
 
 module.exports = router;
-
-
-
-// other methods attached to req:
-// req.login()
-// req.logout()
-// req.isAuthenticated()
-// req.isUnAuthenticated();
