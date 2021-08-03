@@ -146,9 +146,7 @@ export default function LoginSignUp() {
                     enqueueSnackbar(res.data.message, {variant: Enum.Variant.error});
                 }
                 else if(res?.data.statuscode === 200) {
-                    // console.log('.........\nmessage: ',res.data);
                     enqueueSnackbar(Msgs.successLogin, {variant: Enum.Variant.success});
-                    
                     updateContext(res.data.user);
                 }
             })

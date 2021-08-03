@@ -7,8 +7,5 @@ module.exports = function(req, res, next) {
     return next();
   }
 
-  // to-do: remove this if just using t/f
-  // If the user isn't logged in, redirect them to the login page
-  // return res.redirect('/');
   return res.send(false);
 };
