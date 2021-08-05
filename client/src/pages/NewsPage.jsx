@@ -1,25 +1,88 @@
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import AnimalNewsItem from "../components/AnimalNewsItem";
+import styles from "../styles/NewsPage.module.css";
+import NewestAddition from "../components/NewestAddition";
+import EventNews from "../components/EventNews";
+import AddNews from "../components/AddNews";
+import { Col, Container, Row } from "react-bootstrap";
+import { AuthContext } from "../components/AuthContext";
 
 export default function NewsPage() {
-    const [news, setNews] = useState([]);
+    const [status, setStatus] = useState({ isLoading: true });
+    const context = useContext(AuthContext);
+
+    const getNews = () => {
+        axios
+            .get("/api/getNews")
+            .then((res) => setStatus({ news: res.data }))
+            .catch((err) => console.log(err));
+    };
 
     useEffect(() => {
         getNews();
     }, []);
 
-    function getNews() {
-        axios.get('/api/getNews').then(res => {
-            setNews(res.data);
-            console.log(res.data);
-        }).catch(err => console.log(err));
-    }
+    const { news, isLoading, err } = status;
+
+    const sortedNews = news
+        ? news.sort((a, b) => b.newsitemid - a.newsitemid)
+        : [];
+    const onAddNewNews = (newsItem) => {
+        // Refetch News
+        getNews();
+    };
+
+    const mostRecentAnimalIndex = sortedNews.findIndex(
+        (ns) => ns.newsitemtype === "Animal Joined"
+    );
+
+    console.log(status);
 
     return (
-        <div>
-            {news ? 'yes there\'s data. check the console.' : 'No news yet'}
-        </div>
-    )
+        <>
+            <Container>
+                <Row>
+                    <Col sm={12} className="text-right">
+                        {context.userRole === 2 && (
+                            <AddNews onAddNewNews={onAddNewNews} />
+                        )}
+                    </Col>
+                </Row>
+            </Container>
+            <div className="d-flex f1 flex-column">
+                {isLoading ? (
+                    <div className="loader"></div>
+                ) : err ? (
+                    <p className="text-danger">{err.message}</p>
+                ) : (
+                    <div className="d-flex flex-column flex-lg-row container mt-4 mb-3 gap-3 f1">
+                        {mostRecentAnimalIndex >= 0 && (
+                            <NewestAddition {...sortedNews[mostRecentAnimalIndex]} />
+                        )}
+                        <div
+                            className={`${styles.main} d-flex flex-column f1 gap-3`}
+                        >
+                            <div
+                                className={`${styles.animalsWrapper} overflow-auto f1 d-flex flex-column gap-3`}
+                            >
+                                {sortedNews.map((ns, index) => index !== mostRecentAnimalIndex && (
+                                    ns.newsitemtype === "Animal Joined" ? (
+                                        <AnimalNewsItem
+                                            {...ns}
+                                            key={ns.newsitemid}
+                                        />
+                                    ) : (
+                                        <EventNews {...ns} />
+                                    )
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </>
+    );
 }
 
 // the routes and controller are read for other news crud

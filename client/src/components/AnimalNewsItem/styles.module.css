@@ -1,0 +1,8 @@
+.imageWrapper{
+    padding-top: 100%;
+}
+.img{
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+}

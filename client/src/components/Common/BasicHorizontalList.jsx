@@ -1,5 +1,5 @@
 import React from "react";
-import { ListGroup, Image } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 import "../../styles/BasicHorizontalList.css"
 
 export default function BasicHorizontalList({
