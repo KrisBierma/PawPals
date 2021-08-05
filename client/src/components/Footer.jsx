@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import "../styles/Footer.css";
 import { useLocation } from 'react-router-dom';
+import { Row } from "react-bootstrap";
+import "../styles/Footer.css";
 
 
 const Footer = () => {
@@ -13,10 +14,10 @@ const Footer = () => {
 <>
   <footer className='main-footer'></footer>
   <div className="footer">
-    <row className='d-flex justify-content-between'>
+    <Row className='d-flex justify-content-between'>
       <p>PawPals &#169; 2021</p>
       <p>Pawprint favicon made by Freepik from Flaticon.</p>      
-    </row>
+    </Row>
   </div>
   </>
   )

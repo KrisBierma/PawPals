@@ -16,7 +16,6 @@ export default function FavoritesPage() {
     function getFavs() {
       axios.get(`/api/getFavs/${context.userID}`)
         .then(response => {
-          // console.log(response.data);
           setFavs(response.data);
         })
         .catch(() => enqueueSnackbar(Msgs.error500, {variant: Enum.Variant.error}));

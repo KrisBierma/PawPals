@@ -37,8 +37,6 @@ export default function NewsPage() {
         (ns) => ns.newsitemtype === "Animal Joined"
     );
 
-    console.log(status);
-
     return (
         <>
             <Container>
@@ -73,7 +71,8 @@ export default function NewsPage() {
                                             key={ns.newsitemid}
                                         />
                                     ) : (
-                                        <EventNews {...ns} />
+                                        <EventNews {...ns}
+                                            key={ns.newsitemid} />
                                     )
                                 ))}
                             </div>
@@ -84,8 +83,3 @@ export default function NewsPage() {
         </>
     );
 }
-
-// the routes and controller are read for other news crud
-// when adding news, date needs to be in this format:
-// now= current_timestamp
-// something else= '2021-07-09 08:08:08'

@@ -1,5 +1,3 @@
-// import React, {useState, useEffect} from 'react';
-// import axios from 'axios';
 import "../styles/LandingPage.css";
 import petBannerImage from '../assets/images/paw_pals_banner_mascots.jpg';
 
