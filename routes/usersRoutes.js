@@ -4,8 +4,6 @@ const usersController = require('../controllers/usersController');
 
 router.post('/addFav/:animalid/:userid/', checkAuthentication, (req, results) => {
   var params = [req.params.animalid, req.params.userid];
-  // console.log("in routes, id: ",params);
-  // console.log(req);
   usersController.addFav(params)
     .then(res => results.status(200).send(res))
     .catch(error => results.status(500).json(error));
@@ -13,7 +11,6 @@ router.post('/addFav/:animalid/:userid/', checkAuthentication, (req, results) =>
 
 router.delete('/deleteFav/:animalid/:userid', checkAuthentication, (req, results) => {
   var params = [req.params.animalid, req.params.userid];
-  // console.log("in routes, id: ",params);
   usersController.deleteFav(params)
     .then(res => results.status(200).send(res))
     .catch(error => results.status(500).json(error));
@@ -21,13 +18,11 @@ router.delete('/deleteFav/:animalid/:userid', checkAuthentication, (req, results
 
 router.delete('/deleteUser/:userid', (req, results) => {
   var params = [req.params.userid];
-  // console.log("in routes, id: ",params);
   usersController.deleteUser(params)
     .then(res => results.status(200).send(res))
     .catch(error => results.status(500).json(error));
 });
 
-// to-do: this needs to happen in backend only
 router.get('/getAllUsernames', (req, results) => {
   usersController.getAllUsernames()
     .then(res => results.status(200).send(res))

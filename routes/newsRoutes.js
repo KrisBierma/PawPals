@@ -2,7 +2,6 @@ const router = require('express').Router();
 const checkAuthentication = require('../config/isAuthenticated');
 const newsController = require('../controllers/newsController');
 
-// to-do: test all post and deletes from front end
 router.post('/addNewsAnimal/:itemTypeID/:animalID', checkAuthentication, (req, results) => {
   newsController.addNewsAnimal([req.params.itemTypeID, req.params.animalID])
     .then(res => {
