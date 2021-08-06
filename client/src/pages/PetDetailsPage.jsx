@@ -40,11 +40,9 @@ export default function PetDetailsPage() {
 
     useEffect(() => {
         var userIdToString = context.userID === null ? -1 : context.userID;
-        // console.log(userIdToString, id);
         function getPet() {
             axios.get(`/api/getAnimal/${userIdToString}/${id}`)
             .then(res => {
-                console.log(res.data);
                 setPetDetails(res.data[0]);
                 if(res.data[0].favuserid != null) 
                     setHeartFull(true);

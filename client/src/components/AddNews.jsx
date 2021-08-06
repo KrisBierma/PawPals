@@ -34,9 +34,9 @@ const AddNews = ({ onAddNewNews }) => {
         .catch(err => console.log(err));
     }
     // for checking
-    console.log(newsTypes);
-    console.log(selectedDate);
-    console.log(description);
+    // console.log(newsTypes);
+    // console.log(selectedDate);
+    // console.log(description);
     setShow(false);
   };
 

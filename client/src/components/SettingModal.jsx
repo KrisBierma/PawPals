@@ -45,7 +45,6 @@ const handleSettingClose = (setSettingModalOpen) => {
 }
 
 // handles deleting account (tested and works 7/19)
-// to-do: logout, redirect to home, close message tab
 const deleteAccount = (context, enqueueSnackbar) => {
     axios.delete(`/api/deleteUser/${context.userID}`)
     .then(() => {
@@ -70,7 +69,6 @@ export default function SettingModal() {
     // get new input; see LoginSignUp
     function handleChange(inputName, valueIn) {
         setFields(prev => prev.map(s => {
-            // console.log(prev);
             if(s.name === inputName) {
                 return {...s, value:valueIn}
             }
@@ -97,7 +95,6 @@ export default function SettingModal() {
         setSettingModalOpen(false);
         let pass = fields[0].value;
         let email = fields[1].value;
-        console.log(pass, email)
 
         // email
         if(!Utils.isNullOrEmpty(email)) {

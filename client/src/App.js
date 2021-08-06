@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import './App.css';
 import { LandingPage, BrowsePage, FavoritesPage, NewsPage, PetDetailsPage, AdminPage, AddEditPetPage } from './pages'
 import { Header, AuthProvider, PrivateRoute } from './components'
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import Footer from "./components/Footer";
-// Todo: determine if we are logged in or not, pass as props to Skeleton
-// Todo: fix style so "page" does not render behind Header (for example Landing Page)
-// The last route is for unknown paths
 
+// The last route is for unknown paths
 class App extends Component {
   render() {
     return (

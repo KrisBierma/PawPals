@@ -10,7 +10,7 @@ const AnimalNewsItem = ({ aname, imageurl, newsitemid, newsitemtype, animalid })
     const context = useContext(AuthContext);
     const deleteNews = () => {
         setStatus({ isLoading: true })
-        axios.delete(`/api//deleteNews/${newsitemid}`)
+        axios.delete(`/api/deleteNews/${newsitemid}`)
             .then((response) => setStatus({ isItemRemoved: true }))
             .catch(err => console.log(err));
     }

@@ -42,13 +42,11 @@ const deleteDispositions = (params) => {
 };
 
 const updateAvailability = (params) => {
-  console.log("in updateUserEmail, params: ",params);
   return new Promise((resolve, reject) => {
     db.query(animalsQ.updateAvailability, params, (error, res) => {
       if(error) {
         reject(error.stack);
       }
-      console.log(res);
       if(res != undefined) resolve(res.rows);
       else reject('no data');
     })
@@ -56,11 +54,9 @@ const updateAvailability = (params) => {
 }
 
 const getAnimal = (params) => {
-    // console.log(params);
     return new Promise((resolve, reject) => {
         db.query(animalsQ.getAnimal, params, (error, res) => {
             if (error) reject(error.stack);
-            // resolve(res.rows);
             if (res != undefined) {
                 resolve(res.rows);
             } else {
